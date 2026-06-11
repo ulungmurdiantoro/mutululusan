@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Brand palette — biru #449fe5 (sky) & oranye #f4891f (orange).
+   Warna inti ada di level 500; shade lebih gelap (600–900) untuk teks
+   agar kontras tetap baik, tint terang (50–100) untuk latar. */
+@theme {
+  --color-sky-50: #eef6fd;
+  --color-sky-100: #d8ebfb;
+  --color-sky-200: #b6dbf7;
+  --color-sky-300: #82c2f1;
+  --color-sky-400: #5aabe9;
+  --color-sky-500: #449fe5;
+  --color-sky-600: #2f84cb;
+  --color-sky-700: #286aa6;
+  --color-sky-800: #265888;
+  --color-sky-900: #244a70;
+
+  --color-orange-50: #fef5eb;
+  --color-orange-100: #fde7cd;
+  --color-orange-200: #facf9b;
+  --color-orange-300: #f8b369;
+  --color-orange-400: #f69c41;
+  --color-orange-500: #f4891f;
+  --color-orange-600: #e07414;
+  --color-orange-700: #b95a13;
+  --color-orange-800: #934818;
+  --color-orange-900: #783c16;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-orange-400 px-6 py-3 font-bold text-slate-900 shadow-sm transition hover:bg-orange-500;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-sky-600 px-6 py-3 font-semibold text-sky-700 transition hover:bg-sky-50;
+  }
+
+  .btn-wa {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-green-500 px-6 py-3 font-semibold text-green-600 transition hover:bg-green-50;
+  }
 }
