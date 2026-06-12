@@ -42,6 +42,98 @@ function standardFaqs(name: string, priceText: string): Faq[] {
 
 export const programs: Program[] = [
   {
+    slug: "iso-17025-quality-system-officer",
+    title: "Laboratory Quality System Officer ISO/IEC 17025",
+    subtitle: "Petugas Sistem Mutu Laboratorium ISO/IEC 17025",
+    type: "online",
+    jp: 24,
+    durationDays: 2,
+    basePrice: 1_750_000,
+    priority: true,
+    excerpt:
+      "Kuasai seluruh klausul ISO/IEC 17025:2017 — dari imparsialitas, sumber daya, hingga sistem manajemen — beserta praktik penerapannya untuk kesiapan akreditasi laboratorium.",
+    description: [
+      "ISO/IEC 17025 adalah standar internasional yang menjadi acuan kompetensi laboratorium pengujian dan kalibrasi. Laboratorium yang ingin hasilnya diakui — oleh pelanggan, regulator, maupun badan akreditasi — wajib memahami dan menerapkan persyaratannya secara konsisten.",
+      "Pelatihan Laboratory Quality System Officer ISO/IEC 17025 membekali Anda dengan pemahaman menyeluruh atas klausul ISO/IEC 17025:2017: ketidakberpihakan & kerahasiaan (klausul 4), struktur organisasi laboratorium (klausul 5), pengelolaan sumber daya (klausul 6), persyaratan proses (klausul 7), hingga sistem manajemen laboratorium (klausul 8). Anda akan belajar menerjemahkan persyaratan standar menjadi dokumen mutu yang aplikatif dan mempersiapkan laboratorium menghadapi asesmen.",
+      "Materi disampaikan via Zoom oleh praktisi berpengalaman, dengan studi kasus nyata dari laboratorium pengujian dan kalibrasi di Indonesia.",
+    ],
+    careerNote:
+      "Kompetensi ISO/IEC 17025 adalah salah satu kualifikasi paling dicari di dunia laboratorium — relevan untuk peran quality system officer, document controller, hingga manajer mutu laboratorium.",
+    audience: [
+      "Kepala Laboratorium",
+      "Manajer Laboratorium",
+      "Pranata Laboratorium",
+      "Quality Assurance",
+      "Quality Control",
+      "Teknisi Laboratorium / Analis Lab",
+      "Mahasiswa / Fresh Graduate",
+    ],
+    syllabus: [
+      {
+        title: "Klausul 4–5 — Imparsialitas & Struktur Organisasi",
+        points: [
+          "Ketidakberpihakan: analisis risiko ketidakberpihakan",
+          "Kebijakan dan prosedur kerahasiaan",
+          "Status legal & struktur organisasi laboratorium",
+          "Wewenang, tanggung jawab & peran personel",
+        ],
+      },
+      {
+        title: "Klausul 6 — Pengelolaan Sumber Daya",
+        points: [
+          "Kompetensi personel & kondisi lingkungan",
+          "Ketertelusuran metrologi",
+          "Pengelolaan produk & jasa eksternal",
+        ],
+      },
+      {
+        title: "Klausul 7 — Persyaratan Proses",
+        points: [
+          "Kaji ulang permintaan, tender & kontrak",
+          "Seleksi, verifikasi & validasi metode",
+          "Pengambilan sampel & penanganan barang uji",
+          "Keabsahan hasil & pelaporan",
+          "Analisis keluhan & ketidaksesuaian",
+        ],
+      },
+      {
+        title: "Klausul 8 — Sistem Manajemen Laboratorium",
+        points: [
+          "Opsi sistem manajemen (A & B)",
+          "Pengendalian dokumen & rekaman",
+          "Tindakan risiko & peluang",
+          "Audit internal & kaji ulang manajemen",
+        ],
+      },
+    ],
+    benefits: ONLINE_BENEFITS,
+    faqs: [
+      {
+        question: "Apakah pelatihan ini cocok untuk pemula yang belum mengenal ISO 17025?",
+        answer:
+          "Cocok. Materi disusun dari konsep dasar tiap klausul hingga penerapan, sehingga dapat diikuti pemula maupun praktisi yang ingin menyegarkan pemahaman terhadap versi 2017.",
+      },
+      {
+        question: "Apakah materi mengikuti ISO/IEC 17025:2017 terbaru?",
+        answer:
+          "Ya. Seluruh pembahasan mengacu pada ISO/IEC 17025:2017, termasuk pendekatan berbasis risiko dan opsi sistem manajemen A & B.",
+      },
+      ...standardFaqs("ISO/IEC 17025", "Rp 1.750.000"),
+    ],
+    keywords: [
+      "pelatihan ISO 17025",
+      "training ISO/IEC 17025",
+      "petugas sistem mutu laboratorium",
+    ],
+    seoTitle: "Pelatihan ISO 17025 2026 — e-Sertifikat 24 JP",
+    seoDescription:
+      "Daftar pelatihan ISO/IEC 17025 (Laboratory Quality System Officer) online, 22–23 Juni 2026. Rp 1.750.000, sertifikat 24 JP, rekaman & materi. Bayar via QRIS/VA!",
+    related: ["jaminan-mutu", "ketidakpastian-pengukuran", "iso-9001-officer"],
+    batches: [
+      { id: "lqso-2026-06", startDate: "2026-06-22", endDate: "2026-06-23", mode: "Online" },
+    ],
+  },
+  {
     slug: "laboratory-hse-officer-k3l",
     title: "Laboratory HSE Officer",
     subtitle: "Petugas K3L Laboratorium",

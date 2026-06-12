@@ -55,7 +55,7 @@ const homeFaqs = [
 const trustItems = [
   { label: "e-Sertifikat 24 JP", detail: "diakui untuk pengembangan profesi" },
   { label: "Rekaman & Materi", detail: "akses ulang kapan saja" },
-  { label: "15 Program 2026", detail: "online & offline" },
+  { label: "16 Program 2026", detail: "online & offline" },
   { label: "QRIS · VA · e-Wallet · Kartu", detail: "pembayaran aman & instan" },
 ];
 
@@ -182,7 +182,7 @@ export default function HomePage() {
             Katalog Pelatihan 2026
           </h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            15 program pelatihan kompetensi bidang laboratorium —
+            {programs.length} program pelatihan kompetensi bidang laboratorium —
             dari sistem mutu hingga keamanan pangan.
           </p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -266,7 +266,7 @@ export default function HomePage() {
               Siap Naik Kelas di Karier Laboratorium Anda?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-              Lihat kalender lengkap 15 program pelatihan 2026 dan amankan kursi
+              Lihat kalender lengkap {programs.length} program pelatihan 2026 dan amankan kursi
               Anda hari ini.
             </p>
             <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
