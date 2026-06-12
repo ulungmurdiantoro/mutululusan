@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { JsonLd } from "@/components/json-ld";
 import { Analytics } from "@/components/analytics";
+import { Providers } from "@/components/providers";
 import { site } from "@/lib/site";
 
 const geistSans = Geist({
@@ -21,13 +22,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Pelatihan & Sertifikasi Kompetensi Laboratorium | mutululusan.id",
+    default: "Pelatihan Kompetensi Laboratorium — e-Sertifikat 24 JP | mutululusan.id",
     template: "%s | mutululusan.id",
   },
   description: site.description,
   keywords: [
     "pelatihan laboratorium",
-    "pelatihan dan sertifikasi laboratorium",
+    "pelatihan kompetensi laboratorium",
     "training laboratorium 2026",
   ],
   openGraph: {
@@ -71,11 +72,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <JsonLd data={organizationJsonLd} />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <Providers>
+          <JsonLd data={organizationJsonLd} />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </Providers>
         <Analytics />
       </body>
     </html>

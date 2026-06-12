@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+.data
+.vercel
+npm-debug.log*
+Dockerfile
+.dockerignore
+blueprint-*.md
+README.md

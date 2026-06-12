@@ -12,7 +12,6 @@ interface CatalogItem {
 const filters: { value: ProgramType | "all"; label: string }[] = [
   { value: "all", label: "Semua" },
   { value: "online", label: "Online" },
-  { value: "hybrid", label: "Hybrid" },
   { value: "offline", label: "Offline" },
 ];
 

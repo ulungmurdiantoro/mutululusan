@@ -20,7 +20,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Pelatihan Laboratorium 2026 — Sertifikat 24 JP | mutululusan.id",
   description:
-    "Pelatihan dan sertifikasi laboratorium online & offline 2026: ISO 17025, K3 lab, GLP, QC/QA. e-Sertifikat 24 JP, bayar langsung via QRIS/VA.",
+    "Pelatihan kompetensi laboratorium online & offline 2026: K3 lab, GLP, QC/QA, ISO 9001. e-Sertifikat 24 JP, bayar langsung via QRIS/VA.",
   alternates: { canonical: "/" },
 };
 
@@ -48,14 +48,14 @@ const homeFaqs = [
   {
     question: "Apa itu sertifikasi kompetensi dan bagaimana jalurnya?",
     answer:
-      "Sertifikasi kompetensi adalah pengakuan formal atas kompetensi kerja Anda melalui asesmen. Sertifikat pelatihan 24 JP dari program kami menjadi syarat untuk melanjutkan ke jalur sertifikasi kompetensi.",
+      "Sertifikasi kompetensi adalah pengakuan formal atas kompetensi kerja Anda melalui asesmen. Kami berfokus pada pelatihan; uji dan sertifikasi kompetensinya diselenggarakan oleh mitra resmi kami, LSP Edukia. Sertifikat pelatihan 24 JP dari program kami dapat menjadi bekal untuk mengikuti jalur tersebut.",
   },
 ];
 
 const trustItems = [
   { label: "e-Sertifikat 24 JP", detail: "diakui untuk pengembangan profesi" },
   { label: "Rekaman & Materi", detail: "akses ulang kapan saja" },
-  { label: "18 Program 2026", detail: "online, hybrid & offline" },
+  { label: "15 Program 2026", detail: "online & offline" },
   { label: "QRIS · VA · e-Wallet · Kartu", detail: "pembayaran aman & instan" },
 ];
 
@@ -85,10 +85,10 @@ export default function HomePage() {
               Jadwal pelatihan 2026 telah dibuka
             </p>
             <h1 className="mt-5 text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
-              Pelatihan Laboratorium & Sertifikasi Kompetensi 2026
+              Pelatihan Kompetensi Laboratorium 2026
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-slate-600">
-              {site.tagline} ISO/IEC 17025, K3 laboratorium, GLP, QC/QA, hingga
+              {site.tagline} K3 laboratorium, GLP, QC/QA, jaminan mutu, hingga
               uji sensori pangan — dibimbing praktisi berpengalaman.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -182,7 +182,7 @@ export default function HomePage() {
             Katalog Pelatihan 2026
           </h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            18 program pelatihan dan sertifikasi kompetensi bidang laboratorium —
+            15 program pelatihan kompetensi bidang laboratorium —
             dari sistem mutu hingga keamanan pangan.
           </p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -211,7 +211,7 @@ export default function HomePage() {
               },
               {
                 title: "Jalur sertifikasi kompetensi",
-                desc: "Sertifikat pelatihan 24 JP menjadi syarat lanjut ke sertifikasi kompetensi — karier naik kelas.",
+                desc: "Bekal sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia — karier naik kelas.",
               },
               {
                 title: "Dibimbing praktisi",
@@ -266,7 +266,7 @@ export default function HomePage() {
               Siap Naik Kelas di Karier Laboratorium Anda?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-              Lihat kalender lengkap 18 program pelatihan 2026 dan amankan kursi
+              Lihat kalender lengkap 15 program pelatihan 2026 dan amankan kursi
               Anda hari ini.
             </p>
             <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -5,7 +5,7 @@ import { site, waLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Tentang Kami",
   description:
-    "mutululusan.id adalah platform pelatihan & sertifikasi kompetensi bidang laboratorium — daftar online, bayar langsung, langsung dapat akses.",
+    "mutululusan.id adalah platform pelatihan kompetensi bidang laboratorium — daftar online, bayar langsung, langsung dapat akses. Sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia.",
   alternates: { canonical: "/tentang-kami" },
 };
 
@@ -28,27 +28,28 @@ export default function TentangPage() {
         <div className="mx-auto max-w-3xl space-y-6 px-4 py-12 leading-relaxed text-slate-600">
           <p>
             <strong className="text-slate-900">mutululusan.id</strong> adalah
-            platform penjualan pelatihan dan sertifikasi kompetensi bidang
+            platform penjualan pelatihan kompetensi bidang
             laboratorium. Kami percaya bahwa peningkatan kompetensi tidak boleh
             dipersulit oleh proses pendaftaran yang berbelit — karena itu seluruh
             program kami dapat didaftar dan dibayar langsung secara online dalam
             hitungan menit.
           </p>
           <p>
-            Program kami mencakup bidang-bidang inti dunia laboratorium: sistem
-            manajemen mutu ISO/IEC 17025, keselamatan dan kesehatan kerja
-            laboratorium, Good Laboratory Practice, quality control dan quality
-            assurance, hingga pengujian sensori pangan. Seluruh kelas online
+            Program kami mencakup bidang-bidang inti dunia laboratorium:
+            keselamatan dan kesehatan kerja laboratorium, Good Laboratory
+            Practice, quality control dan quality assurance, jaminan mutu,
+            hingga pengujian sensori pangan. Seluruh kelas online
             dilengkapi e-sertifikat 24 JP, rekaman, dan materi yang dapat diakses
             ulang.
           </p>
           <p>
             Bagi peserta yang ingin melangkah lebih jauh, sertifikat pelatihan
-            kami menjadi pintu masuk ke jalur{" "}
+            kami menjadi bekal untuk mengikuti{" "}
             <Link href="/sertifikasi-kompetensi" className="font-semibold text-sky-700 hover:underline">
               sertifikasi kompetensi
             </Link>{" "}
-            — pengakuan formal atas keahlian melalui asesmen.
+            yang diselenggarakan mitra resmi kami, LSP Edukia — pengakuan formal
+            atas keahlian melalui asesmen.
           </p>
           <p>
             Kami juga melayani kebutuhan instansi melalui{" "}

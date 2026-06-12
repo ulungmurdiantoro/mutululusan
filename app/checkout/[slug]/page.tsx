@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
-import { getAllPrograms, getProgram, upcomingBatches } from "@/lib/programs";
+import { getProgram, upcomingBatches } from "@/lib/programs";
 import { waLink } from "@/lib/site";
+import { auth } from "@/auth";
 import { CheckoutForm } from "./checkout-form";
+
+// Checkout bersifat per-pengguna (wajib login) → render dinamis, bukan statis.
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return getAllPrograms().map((program) => ({ slug: program.slug }));
+  searchParams: Promise<{ batch?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -23,10 +24,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function CheckoutPage({ params }: PageProps) {
+export default async function CheckoutPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const { batch: batchParam } = await searchParams;
   const program = getProgram(slug);
   if (!program) notFound();
+
+  // Wajib login sebelum pembayaran online (jalur WhatsApp tetap terbuka di
+  // halaman program). Kembalikan ke checkout ini setelah login.
+  const session = await auth();
+  if (!session?.user) {
+    const callback = `/checkout/${slug}${batchParam ? `?batch=${batchParam}` : ""}`;
+    redirect(`/masuk?callbackUrl=${encodeURIComponent(callback)}`);
+  }
 
   const batches = upcomingBatches(program);
   const registerViaAdmin =

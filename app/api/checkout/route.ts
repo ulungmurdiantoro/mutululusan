@@ -7,6 +7,7 @@ import {
 import { getProgram } from "@/lib/programs";
 import { applyCoupon, validateCoupon } from "@/lib/coupons";
 import { createOrder } from "@/lib/orders";
+import { auth } from "@/auth";
 
 interface CheckoutBody {
   slug?: string;
@@ -128,9 +129,13 @@ export async function POST(request: Request) {
       expiry: { unit: "hours", duration: 24 },
     });
 
+    // Tautkan ke akun yang sedang login (bila ada).
+    const session = await auth();
+
     // Simpan order (best-effort). Kegagalan store tidak menggagalkan checkout.
     await createOrder({
       orderId,
+      userId: session?.user?.id ?? null,
       programSlug: program.slug,
       programTitle: program.title,
       batchId: batch.id,

@@ -5,11 +5,11 @@ const ONLINE_BENEFITS = [
   "Soft copy materi pelatihan lengkap",
   "Rekaman pelatihan — bisa diputar ulang kapan saja",
   "Pelaksanaan via Zoom, pukul 09.00–16.00 WIB",
-  "Sertifikat pelatihan menjadi syarat lanjut ke Sertifikasi Kompetensi",
+  "Sertifikat pelatihan dapat menjadi bekal mengikuti sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia",
 ];
 
 const OFFLINE_BENEFITS = [
-  "Sertifikat pelatihan + bonus sertifikasi kompetensi",
+  "Sertifikat pelatihan + bonus sertifikasi kompetensi dari mitra kami LSP Edukia",
   "Training kit & souvenir",
   "Coffee break & makan siang",
   "Praktik langsung dengan sampel nyata",
@@ -35,180 +35,12 @@ function standardFaqs(name: string, priceText: string): Faq[] {
     {
       question: "Apakah saya mendapatkan sertifikat?",
       answer:
-        "Ya. Peserta mendapatkan e-sertifikat pelatihan 24 JP (jam pelajaran) yang dikirim setelah pelatihan selesai. Sertifikat ini juga menjadi syarat untuk melanjutkan ke jalur sertifikasi kompetensi.",
+        "Ya. Peserta mendapatkan e-sertifikat pelatihan 24 JP (jam pelajaran) yang dikirim setelah pelatihan selesai. Sertifikat ini dapat menjadi bekal untuk mengikuti sertifikasi kompetensi yang diselenggarakan mitra resmi kami, LSP Edukia.",
     },
   ];
 }
 
 export const programs: Program[] = [
-  {
-    slug: "iso-17025-quality-system-officer",
-    title: "Laboratory Quality System Officer ISO/IEC 17025",
-    subtitle: "Petugas Sistem Mutu Laboratorium",
-    type: "online",
-    jp: 24,
-    durationDays: 2,
-    basePrice: 1_750_000,
-    priority: true,
-    excerpt:
-      "Kuasai persyaratan ISO/IEC 17025:2017 dan praktik penerapan sistem manajemen mutu laboratorium dari dokumentasi hingga kesiapan akreditasi.",
-    description: [
-      "ISO/IEC 17025 adalah standar internasional yang menjadi acuan kompetensi laboratorium pengujian dan kalibrasi di seluruh dunia. Laboratorium yang ingin diakui kompetensinya — baik oleh regulator, pelanggan, maupun badan akreditasi — wajib memahami dan menerapkan persyaratan standar ini secara konsisten.",
-      "Pelatihan Laboratory Quality System Officer ISO/IEC 17025 membekali Anda dengan pemahaman menyeluruh atas klausul-klausul ISO/IEC 17025:2017: persyaratan umum, persyaratan struktural, sumber daya, proses, hingga sistem manajemen. Anda akan belajar menerjemahkan persyaratan standar menjadi dokumen mutu yang aplikatif — panduan mutu, prosedur, instruksi kerja, dan formulir — serta memahami bagaimana mempersiapkan laboratorium menghadapi asesmen.",
-      "Materi disampaikan oleh praktisi berpengalaman dengan studi kasus nyata dari laboratorium pengujian dan kalibrasi di Indonesia, sehingga Anda tidak hanya paham teori tetapi juga siap menerapkannya di tempat kerja.",
-    ],
-    careerNote:
-      "Kompetensi ISO/IEC 17025 adalah salah satu kualifikasi paling dicari di dunia laboratorium. Posisi quality system officer, document controller, hingga manajer mutu laboratorium mensyaratkan pemahaman standar ini — dan sertifikat pelatihan 24 JP menjadi bukti pengembangan profesional yang diakui dalam berkas kepegawaian maupun lamaran kerja.",
-    audience: [
-      "Kepala / Manajer Laboratorium",
-      "Manajer & Staf Mutu",
-      "Pranata Laboratorium",
-      "Analis & Teknisi Laboratorium",
-      "QA/QC Officer",
-      "Mahasiswa & Fresh Graduate MIPA",
-    ],
-    syllabus: [
-      {
-        title: "Hari 1 — Memahami Standar ISO/IEC 17025:2017",
-        points: [
-          "Pengenalan akreditasi laboratorium & peran ISO/IEC 17025",
-          "Persyaratan umum: imparsialitas & kerahasiaan",
-          "Persyaratan struktural organisasi laboratorium",
-          "Persyaratan sumber daya: personel, fasilitas, peralatan, ketertelusuran metrologi",
-          "Diskusi & studi kasus penerapan",
-        ],
-      },
-      {
-        title: "Hari 2 — Penerapan Sistem Manajemen Mutu",
-        points: [
-          "Persyaratan proses: kaji ulang permintaan, metode, penanganan barang uji, jaminan mutu hasil",
-          "Pelaporan hasil & pengendalian data",
-          "Opsi A vs Opsi B sistem manajemen",
-          "Dokumentasi mutu: panduan, prosedur, instruksi kerja, formulir",
-          "Persiapan menghadapi asesmen & simulasi temuan",
-        ],
-      },
-    ],
-    benefits: ONLINE_BENEFITS,
-    faqs: [
-      {
-        question: "Apakah pelatihan ini cocok untuk pemula yang belum pernah mengenal ISO 17025?",
-        answer:
-          "Cocok. Materi disusun dari konsep dasar hingga penerapan, sehingga dapat diikuti pemula maupun praktisi yang ingin menyegarkan pemahaman terhadap versi 2017.",
-      },
-      {
-        question: "Apa bedanya pelatihan ini dengan Lead Implementer ISO 17025?",
-        answer:
-          "Pelatihan ini fokus pada pemahaman persyaratan dan operasional sistem mutu sehari-hari (level officer). Lead Implementer membahas perancangan dan kepemimpinan implementasi sistem secara menyeluruh hingga sertifikasi kompetensi, dengan durasi 3 hari.",
-      },
-      ...standardFaqs("ISO/IEC 17025", "Rp 1.750.000"),
-    ],
-    keywords: [
-      "pelatihan ISO 17025",
-      "training ISO/IEC 17025",
-      "petugas sistem mutu laboratorium",
-    ],
-    seoTitle: "Pelatihan ISO 17025 2026 — e-Sertifikat 24 JP",
-    seoDescription:
-      "Daftar pelatihan ISO/IEC 17025 online. Rp 1.750.000, sertifikat 24 JP, rekaman & materi. Bayar langsung via QRIS/VA. Kuota terbatas!",
-    related: ["lead-implementer-iso-17025", "auditor-internal-iso-17025", "jaminan-mutu"],
-    batches: [
-      { id: "lqso-2026-06", startDate: "2026-06-22", endDate: "2026-06-23", mode: "Online" },
-    ],
-  },
-  {
-    slug: "lead-implementer-iso-17025",
-    title: "Lead Implementer Standar Laboratorium ISO 17025",
-    subtitle: "Pelatihan & Sertifikasi Kompetensi",
-    type: "hybrid",
-    jp: null,
-    durationDays: 3,
-    basePrice: null,
-    excerpt:
-      "Jalur lengkap pelatihan plus sertifikasi kompetensi untuk memimpin implementasi ISO/IEC 17025 di laboratorium Anda — dari perancangan sistem hingga kesiapan akreditasi.",
-    description: [
-      "Lead Implementer adalah orang yang bertanggung jawab merancang, membangun, dan memimpin penerapan sistem manajemen ISO/IEC 17025 di laboratorium. Peran ini menuntut kemampuan menerjemahkan persyaratan standar ke dalam struktur organisasi, proses, dan dokumentasi yang berjalan secara nyata — bukan sekadar memahami klausul.",
-      "Program 3 hari ini menggabungkan pelatihan intensif dengan asesmen sertifikasi kompetensi. Anda akan mempelajari perencanaan implementasi, gap analysis, penyusunan dokumentasi terintegrasi, manajemen risiko dan peluang, hingga strategi menghadapi asesmen akreditasi. Program diselenggarakan secara hybrid sehingga dapat diikuti dari mana saja maupun tatap muka.",
-    ],
-    careerNote:
-      "Sertifikasi kompetensi lead implementer memperkuat posisi Anda sebagai penanggung jawab sistem mutu — kualifikasi yang relevan untuk manajer mutu, konsultan laboratorium, dan profesional yang menargetkan jenjang karier manajerial.",
-    audience: [
-      "Manajer Mutu & Manajer Teknis",
-      "Kepala Laboratorium",
-      "Konsultan Sistem Manajemen",
-      "Personel yang ditugaskan membangun sistem ISO 17025",
-    ],
-    syllabus: [
-      {
-        title: "Hari 1 — Fondasi & Perencanaan Implementasi",
-        points: [
-          "Interpretasi mendalam klausul ISO/IEC 17025:2017",
-          "Gap analysis kondisi laboratorium",
-          "Perencanaan proyek implementasi & peran lead implementer",
-        ],
-      },
-      {
-        title: "Hari 2 — Membangun Sistem",
-        points: [
-          "Penyusunan dokumentasi sistem manajemen terintegrasi",
-          "Manajemen risiko & peluang laboratorium",
-          "Validasi/verifikasi metode, ketertelusuran & jaminan mutu hasil",
-        ],
-      },
-      {
-        title: "Hari 3 — Evaluasi & Asesmen Sertifikasi Kompetensi",
-        points: [
-          "Audit internal & kaji ulang manajemen sebagai alat perbaikan",
-          "Strategi menghadapi asesmen akreditasi",
-          "Asesmen sertifikasi kompetensi peserta",
-        ],
-      },
-    ],
-    benefits: [
-      "Pelatihan 3 hari + asesmen sertifikasi kompetensi",
-      "Soft copy materi & template dokumen implementasi",
-      "Pelaksanaan hybrid — pilih online atau tatap muka",
-      "Konsultasi penerapan pasca pelatihan",
-    ],
-    faqs: [
-      {
-        question: "Apa perbedaan program ini dengan pelatihan ISO 17025 biasa?",
-        answer:
-          "Program ini lebih dalam dan lebih lama (3 hari), berfokus pada kemampuan memimpin implementasi sistem secara menyeluruh, dan diakhiri asesmen sertifikasi kompetensi — bukan hanya sertifikat pelatihan.",
-      },
-      {
-        question: "Apakah ada prasyarat untuk mengikuti sertifikasi ini?",
-        answer:
-          "Disarankan telah memahami dasar ISO/IEC 17025 atau pernah mengikuti pelatihan pemahaman standar. Hubungi admin untuk konsultasi kesesuaian latar belakang Anda.",
-      },
-      {
-        question: "Berapa biaya program Lead Implementer?",
-        answer:
-          "Biaya program dan skema sertifikasi diinformasikan melalui admin karena mencakup komponen asesmen. Silakan hubungi admin via WhatsApp untuk penawaran resmi.",
-      },
-      {
-        question: "Bagaimana format hybrid dijalankan?",
-        answer:
-          "Peserta dapat memilih mengikuti secara online via Zoom atau hadir tatap muka di lokasi penyelenggaraan. Materi, fasilitator, dan asesmen sama untuk kedua jalur.",
-      },
-    ],
-    keywords: [
-      "sertifikasi lead implementer ISO 17025",
-      "pelatihan lead implementer laboratorium",
-    ],
-    seoTitle: "Sertifikasi Lead Implementer ISO 17025 2026",
-    seoDescription:
-      "Pelatihan & sertifikasi kompetensi Lead Implementer ISO/IEC 17025, 3 hari hybrid. 6 batch sepanjang 2026. Daftar online sekarang!",
-    related: ["iso-17025-quality-system-officer", "auditor-internal-iso-17025", "ketidakpastian-pengukuran"],
-    batches: [
-      { id: "li-2026-06", startDate: "2026-06-24", endDate: "2026-06-26", mode: "Hybrid" },
-      { id: "li-2026-07", startDate: "2026-07-15", endDate: "2026-07-17", mode: "Hybrid" },
-      { id: "li-2026-08", startDate: "2026-08-26", endDate: "2026-08-28", mode: "Hybrid" },
-      { id: "li-2026-09", startDate: "2026-09-23", endDate: "2026-09-25", mode: "Hybrid" },
-      { id: "li-2026-11", startDate: "2026-11-23", endDate: "2026-11-25", mode: "Hybrid" },
-      { id: "li-2026-12", startDate: "2026-12-09", endDate: "2026-12-11", mode: "Hybrid" },
-    ],
-  },
   {
     slug: "laboratory-hse-officer-k3l",
     title: "Laboratory HSE Officer",
@@ -338,9 +170,9 @@ export const programs: Program[] = [
     benefits: ONLINE_BENEFITS,
     faqs: [
       {
-        question: "Apa bedanya GLP dengan ISO/IEC 17025?",
+        question: "Apakah GLP wajib diterapkan di semua laboratorium?",
         answer:
-          "GLP adalah praktik kerja baik yang menjadi fondasi operasional harian laboratorium, sedangkan ISO/IEC 17025 adalah standar sistem manajemen untuk akreditasi kompetensi laboratorium. Keduanya saling melengkapi — GLP yang kuat memudahkan pemenuhan ISO 17025.",
+          "GLP adalah praktik kerja baik yang menjadi fondasi operasional harian laboratorium agar data yang dihasilkan konsisten dan tertelusur. Penerapannya sangat dianjurkan untuk semua jenis laboratorium — pengujian, riset, maupun pendidikan — karena menjaga integritas hasil.",
       },
       {
         question: "Apakah pelatihan ini relevan untuk laboratorium pendidikan?",
@@ -370,7 +202,7 @@ export const programs: Program[] = [
     excerpt:
       "Pahami teknik pemastian keabsahan hasil pengujian: kontrol mutu internal, uji profisiensi, control chart, dan evaluasi tren data laboratorium.",
     description: [
-      "Hasil pengujian laboratorium hanya bernilai jika keabsahannya dapat dijamin. Klausul jaminan mutu hasil dalam ISO/IEC 17025 menuntut laboratorium memantau validitas hasil secara terencana — bukan sekadar mengandalkan kompetensi analis.",
+      "Hasil pengujian laboratorium hanya bernilai jika keabsahannya dapat dijamin. Standar mutu laboratorium menuntut laboratorium memantau validitas hasil secara terencana — bukan sekadar mengandalkan kompetensi analis.",
       "Pelatihan ini membahas perangkat jaminan mutu hasil pengujian secara praktis: pemilihan dan penggunaan bahan acuan, kontrol mutu internal (duplikat, spike, blanko), pembuatan dan interpretasi control chart, partisipasi uji profisiensi dan uji banding antar laboratorium, hingga evaluasi tren dan tindakan saat hasil keluar dari kriteria.",
     ],
     careerNote:
@@ -384,7 +216,7 @@ export const programs: Program[] = [
       {
         title: "Hari 1 — Konsep & Perangkat Jaminan Mutu",
         points: [
-          "Persyaratan pemastian keabsahan hasil dalam ISO/IEC 17025",
+          "Persyaratan pemastian keabsahan hasil pengujian",
           "Bahan acuan & bahan kontrol: pemilihan dan penggunaan",
           "Kontrol mutu internal: blanko, duplikat, spike, CRM",
         ],
@@ -418,14 +250,14 @@ export const programs: Program[] = [
       {
         question: "Apakah saya mendapatkan sertifikat?",
         answer:
-          "Ya, peserta mendapatkan e-sertifikat pelatihan 24 JP yang juga menjadi syarat lanjut ke sertifikasi kompetensi.",
+          "Ya, peserta mendapatkan e-sertifikat pelatihan 24 JP yang juga dapat menjadi bekal mengikuti sertifikasi kompetensi bersama mitra kami, LSP Edukia.",
       },
     ],
     keywords: ["pelatihan jaminan mutu laboratorium", "quality assurance hasil pengujian"],
     seoTitle: "Pelatihan Jaminan Mutu Laboratorium 2026",
     seoDescription:
       "Pelatihan jaminan mutu hasil pengujian: control chart, uji profisiensi, QC internal. Online 2 hari, sertifikat 24 JP. Daftar sekarang!",
-    related: ["iso-17025-quality-system-officer", "qc-laboratory-analyst", "ketidakpastian-pengukuran"],
+    related: ["glp-laboratory-technician", "qc-laboratory-analyst", "ketidakpastian-pengukuran"],
     batches: [
       { id: "jm-2026-07", startDate: "2026-07-30", endDate: "2026-07-31", mode: "Online" },
     ],
@@ -552,7 +384,7 @@ export const programs: Program[] = [
     seoTitle: "Pelatihan Pranata Laboratorium 2026 — 24 JP",
     seoDescription:
       "Daftar pelatihan pranata laboratorium online. Rp 1.750.000, sertifikat 24 JP, rekaman & materi. Bayar langsung via QRIS/VA!",
-    related: ["glp-laboratory-technician", "laboratory-hse-officer-k3l", "iso-17025-quality-system-officer"],
+    related: ["glp-laboratory-technician", "laboratory-hse-officer-k3l", "qc-laboratory-analyst"],
     batches: [
       { id: "plp-2026-08", startDate: "2026-08-12", endDate: "2026-08-13", mode: "Online" },
     ],
@@ -732,7 +564,7 @@ export const programs: Program[] = [
     seoTitle: "Pelatihan ISO 9001 2026 — e-Sertifikat 24 JP",
     seoDescription:
       "Daftar pelatihan ISO 9001:2015 online. Rp 1.750.000, sertifikat 24 JP, rekaman & materi. Bayar langsung via QRIS/VA!",
-    related: ["quality-assurance-officer", "iso-14001-officer", "iso-17025-quality-system-officer"],
+    related: ["quality-assurance-officer", "iso-14001-officer", "jaminan-mutu"],
     batches: [
       { id: "qms-2026-09", startDate: "2026-09-09", endDate: "2026-09-10", mode: "Online" },
     ],
@@ -855,90 +687,6 @@ export const programs: Program[] = [
     related: ["laboratory-hse-officer-k3l", "sustainability-officer", "iso-9001-officer"],
     batches: [
       { id: "ems-2026-10", startDate: "2026-10-14", endDate: "2026-10-15", mode: "Online" },
-    ],
-  },
-  {
-    slug: "auditor-internal-iso-17025",
-    title: "Auditor Internal Standar Laboratorium ISO 17025",
-    subtitle: "Pelatihan & Sertifikasi Kompetensi",
-    type: "hybrid",
-    jp: null,
-    durationDays: 3,
-    basePrice: null,
-    excerpt:
-      "Jadilah auditor internal laboratorium yang kompeten: teknik audit, penyusunan checklist, pelaporan temuan, plus asesmen sertifikasi kompetensi.",
-    description: [
-      "Audit internal adalah persyaratan wajib ISO/IEC 17025 sekaligus alat perbaikan paling efektif yang dimiliki laboratorium. Namun audit yang baik menuntut lebih dari sekadar memahami standar — dibutuhkan teknik bertanya, kemampuan menggali bukti objektif, dan keterampilan menuliskan temuan yang mendorong perbaikan.",
-      "Program 3 hari ini memadukan pelatihan teknik audit dengan asesmen sertifikasi kompetensi. Anda akan berlatih menyusun program dan checklist audit, melakukan simulasi audit (role-play auditor–auditee), mengklasifikasikan temuan, menulis laporan ketidaksesuaian, dan memverifikasi tindakan perbaikan — diakhiri asesmen kompetensi auditor internal.",
-    ],
-    careerNote:
-      "Laboratorium terakreditasi wajib memiliki auditor internal yang kompeten. Sertifikasi kompetensi auditor internal menjadikan Anda aset bernilai bagi laboratorium dan membuka peluang peran lintas fungsi mutu.",
-    audience: [
-      "Calon & Auditor Internal Laboratorium",
-      "Manajer Mutu & Personel Inti Laboratorium",
-      "Personel yang ditugaskan dalam program audit internal",
-    ],
-    syllabus: [
-      {
-        title: "Hari 1 — Fondasi Audit & Standar",
-        points: [
-          "Tinjauan persyaratan ISO/IEC 17025:2017 dari kacamata auditor",
-          "Prinsip audit berdasarkan ISO 19011",
-          "Perencanaan program & jadwal audit internal",
-        ],
-      },
-      {
-        title: "Hari 2 — Teknik & Simulasi Audit",
-        points: [
-          "Penyusunan checklist audit berbasis risiko",
-          "Teknik wawancara, observasi & pengumpulan bukti objektif",
-          "Simulasi audit: role-play auditor dan auditee",
-        ],
-      },
-      {
-        title: "Hari 3 — Pelaporan & Asesmen Kompetensi",
-        points: [
-          "Klasifikasi temuan & penulisan laporan ketidaksesuaian",
-          "Verifikasi tindakan perbaikan & tindak lanjut audit",
-          "Asesmen sertifikasi kompetensi auditor internal",
-        ],
-      },
-    ],
-    benefits: [
-      "Pelatihan 3 hari + asesmen sertifikasi kompetensi",
-      "Template program, checklist & laporan audit",
-      "Pelaksanaan hybrid — pilih online atau tatap muka",
-      "Simulasi audit dengan umpan balik fasilitator",
-    ],
-    faqs: [
-      {
-        question: "Apakah saya harus sudah paham ISO 17025 sebelum ikut?",
-        answer:
-          "Sangat disarankan. Hari pertama memuat tinjauan standar, tetapi pemahaman dasar sebelumnya akan membuat latihan audit jauh lebih efektif. Jika belum, ikuti dulu pelatihan ISO 17025 Quality System Officer.",
-      },
-      {
-        question: "Berapa biaya program Auditor Internal?",
-        answer:
-          "Biaya program dan skema sertifikasi diinformasikan melalui admin karena mencakup komponen asesmen. Hubungi admin via WhatsApp untuk penawaran resmi.",
-      },
-      {
-        question: "Apa hasil akhir dari program ini?",
-        answer:
-          "Peserta yang menyelesaikan pelatihan dan lulus asesmen mendapatkan sertifikat kompetensi auditor internal, di samping sertifikat pelatihan.",
-      },
-      {
-        question: "Bagaimana format hybrid dijalankan?",
-        answer:
-          "Peserta dapat memilih mengikuti via Zoom atau hadir di lokasi. Simulasi audit dirancang agar tetap interaktif untuk kedua jalur.",
-      },
-    ],
-    keywords: ["pelatihan auditor internal ISO 17025", "audit internal laboratorium"],
-    seoTitle: "Pelatihan Auditor Internal ISO 17025 2026",
-    seoDescription:
-      "Pelatihan & sertifikasi kompetensi Auditor Internal ISO/IEC 17025, 3 hari hybrid, 21–23 Okt 2026. Daftar online sekarang!",
-    related: ["iso-17025-quality-system-officer", "lead-implementer-iso-17025", "jaminan-mutu"],
-    batches: [
-      { id: "ai-2026-10", startDate: "2026-10-21", endDate: "2026-10-23", mode: "Hybrid" },
     ],
   },
   {
@@ -1115,7 +863,7 @@ export const programs: Program[] = [
       {
         question: "Apakah pelatihan ini setara dengan sertifikasi HACCP?",
         answer:
-          "Pelatihan ini memberikan pemahaman menyeluruh termasuk HACCP dengan e-sertifikat pelatihan 24 JP. Untuk sertifikasi kompetensi, sertifikat pelatihan ini menjadi syarat jalur lanjutannya.",
+          "Pelatihan ini memberikan pemahaman menyeluruh termasuk HACCP dengan e-sertifikat pelatihan 24 JP. Untuk sertifikasi kompetensi, sertifikat pelatihan ini menjadi bekal mengikuti jalur sertifikasi bersama mitra resmi kami, LSP Edukia.",
       },
       ...standardFaqs("Food Safety", "Rp 1.750.000"),
     ],
@@ -1137,9 +885,9 @@ export const programs: Program[] = [
     durationDays: 3,
     basePrice: null,
     excerpt:
-      "Kuasai estimasi ketidakpastian pengukuran langkah demi langkah: identifikasi sumber, budget ketidakpastian, hingga pelaporan sesuai ISO/IEC 17025.",
+      "Kuasai estimasi ketidakpastian pengukuran langkah demi langkah: identifikasi sumber, budget ketidakpastian, hingga pelaporan sesuai standar laboratorium.",
     description: [
-      "Setiap hasil pengukuran memiliki keraguan — dan ISO/IEC 17025 mewajibkan laboratorium mengevaluasi serta melaporkannya secara ilmiah. Estimasi ketidakpastian pengukuran sering menjadi momok karena melibatkan statistik, padahal dengan kerangka yang benar ia dapat dikerjakan secara sistematis oleh setiap analis.",
+      "Setiap hasil pengukuran memiliki keraguan — dan standar mutu laboratorium mewajibkan laboratorium mengevaluasi serta melaporkannya secara ilmiah. Estimasi ketidakpastian pengukuran sering menjadi momok karena melibatkan statistik, padahal dengan kerangka yang benar ia dapat dikerjakan secara sistematis oleh setiap analis.",
       "Pelatihan intensif 3 hari ini membimbing Anda langkah demi langkah: konsep dasar dan terminologi, identifikasi sumber ketidakpastian dengan diagram tulang ikan, evaluasi tipe A dan tipe B, penyusunan budget ketidakpastian, ketidakpastian gabungan dan bentangan, hingga pelaporan pada sertifikat hasil uji. Dilengkapi latihan perhitungan kasus nyata dari laboratorium pengujian dan kalibrasi.",
     ],
     careerNote:
@@ -1154,7 +902,7 @@ export const programs: Program[] = [
         title: "Hari 1 — Konsep Dasar",
         points: [
           "Terminologi: kesalahan, presisi, akurasi, ketidakpastian",
-          "Persyaratan ketidakpastian dalam ISO/IEC 17025",
+          "Persyaratan pelaporan ketidakpastian pengukuran",
           "Identifikasi sumber ketidakpastian (diagram tulang ikan)",
         ],
       },
@@ -1207,7 +955,7 @@ export const programs: Program[] = [
     seoTitle: "Pelatihan Ketidakpastian Pengukuran 2026",
     seoDescription:
       "Pelatihan estimasi ketidakpastian pengukuran 3 hari online, 26–28 Nov 2026. Template budget ketidakpastian & rekaman. Daftar sekarang!",
-    related: ["iso-17025-quality-system-officer", "jaminan-mutu", "qc-laboratory-analyst"],
+    related: ["glp-laboratory-technician", "jaminan-mutu", "qc-laboratory-analyst"],
     batches: [
       { id: "mu-2026-11", startDate: "2026-11-26", endDate: "2026-11-28", mode: "Online" },
     ],
@@ -1226,11 +974,11 @@ export const programs: Program[] = [
     ],
     priority: true,
     excerpt:
-      "Workshop tatap muka di Semarang: jadilah panelis terlatih pengujian sensori pangan dengan praktik uji diskriminatif, deskriptif, dan afektif — bonus sertifikasi kompetensi.",
+      "Workshop tatap muka di Semarang: jadilah panelis terlatih pengujian sensori pangan dengan praktik uji diskriminatif, deskriptif, dan afektif — bonus sertifikasi kompetensi dari mitra kami LSP Edukia.",
     description: [
       "Pengujian sensori adalah metode evaluasi mutu pangan menggunakan indra manusia — dan keandalannya bergantung sepenuhnya pada kualitas panelisnya. Panelis terlatih dibutuhkan industri pangan untuk pengembangan produk, kontrol mutu, dan riset preferensi konsumen.",
       "Workshop offline ini dirancang dengan porsi praktik besar: Anda akan langsung melakukan uji ambang rangsangan, uji diskriminatif (segitiga, duo-trio), uji deskriptif, dan uji afektif menggunakan sampel nyata di laboratorium sensori. Fasilitator membimbing teknik penyajian sampel, pengendalian bias, hingga analisis data hasil uji.",
-      "Sebagai paket lengkap, peserta mendapatkan bonus sertifikasi kompetensi, training kit, konsumsi, dan konsultasi pasca pelatihan — menjadikannya investasi paling efisien untuk membangun kompetensi sensori.",
+      "Sebagai paket lengkap, peserta mendapatkan bonus sertifikasi kompetensi dari mitra kami LSP Edukia, training kit, konsumsi, dan konsultasi pasca pelatihan — menjadikannya investasi paling efisien untuk membangun kompetensi sensori.",
     ],
     careerNote:
       "Panelis terlatih bersertifikat dibutuhkan industri pangan, lembaga riset, dan laboratorium pengujian sensori — kompetensi praktis yang langsung dapat dipakai di tempat kerja maupun penelitian.",
@@ -1256,7 +1004,7 @@ export const programs: Program[] = [
           "Praktik uji deskriptif & pembentukan atribut",
           "Praktik uji afektif (hedonik)",
           "Analisis data hasil uji sensori",
-          "Asesmen & sertifikasi kompetensi panelis",
+          "Asesmen & sertifikasi kompetensi panelis oleh LSP Edukia",
         ],
       },
     ],
@@ -1280,7 +1028,7 @@ export const programs: Program[] = [
       {
         question: "Apakah saya mendapatkan sertifikat?",
         answer:
-          "Ya. Peserta mendapatkan sertifikat pelatihan dan bonus sertifikasi kompetensi panelis setelah menyelesaikan seluruh rangkaian workshop dan asesmen.",
+          "Ya. Peserta mendapatkan sertifikat pelatihan dan bonus sertifikasi kompetensi panelis dari mitra kami LSP Edukia setelah menyelesaikan seluruh rangkaian workshop dan asesmen.",
       },
       {
         question: "Bagaimana cara membayar biaya workshop?",

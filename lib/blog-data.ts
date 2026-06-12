@@ -19,16 +19,16 @@ export const posts: BlogPost[] = [
       "cara sertifikasi kompetensi",
       "kompetensi personel laboratorium",
     ],
-    relatedProgram: "iso-17025-quality-system-officer",
+    relatedProgram: "qc-laboratory-analyst",
     relatedPosts: [
-      "apa-itu-iso-17025",
       "apa-itu-jp-jam-pelajaran",
+      "hiradc-identifikasi-bahaya-laboratorium",
     ],
     body: [
       {
         type: "p",
         lead: true,
-        text: "Di dunia laboratorium, kompetensi personel bukan sekadar nilai tambah — ia adalah persyaratan. Standar internasional seperti ISO/IEC 17025 secara eksplisit menuntut laboratorium memastikan setiap personel kompeten menjalankan tugasnya. Di sinilah sertifikasi kompetensi berperan: memberi bukti formal bahwa seseorang benar-benar mampu, bukan hanya pernah mengikuti pelatihan.",
+        text: "Di dunia laboratorium, kompetensi personel bukan sekadar nilai tambah — ia adalah persyaratan. Standar mutu laboratorium menuntut setiap personel terbukti kompeten menjalankan tugasnya. Di sinilah sertifikasi kompetensi berperan: memberi bukti formal bahwa seseorang benar-benar mampu, bukan hanya pernah mengikuti pelatihan.",
       },
       { type: "h2", text: "Apa Itu Sertifikasi Kompetensi?" },
       {
@@ -43,7 +43,7 @@ export const posts: BlogPost[] = [
       {
         type: "ul",
         items: [
-          "Pemenuhan persyaratan standar: ISO/IEC 17025 mensyaratkan personel yang kompeten dan terbukti.",
+          "Pemenuhan persyaratan standar: standar mutu laboratorium mensyaratkan personel yang kompeten dan terbukti.",
           "Daya saing karier: kandidat tersertifikasi lebih diprioritaskan saat rekrutmen dan promosi.",
           "Kepercayaan pelanggan: hasil laboratorium lebih dipercaya bila dikerjakan personel kompeten.",
           "Pengakuan formal: kompetensi Anda diakui secara objektif, lintas institusi.",
@@ -58,7 +58,7 @@ export const posts: BlogPost[] = [
       {
         type: "ol",
         items: [
-          "Ikuti pelatihan bersertifikat di bidang yang dituju (mis. ISO 17025, GLP, audit internal).",
+          "Ikuti pelatihan bersertifikat di bidang yang dituju (mis. GLP, K3 laboratorium, QC/QA).",
           "Pilih skema sertifikasi yang sesuai dengan jenjang dan pengalaman Anda.",
           "Lengkapi portofolio: sertifikat pelatihan, bukti pengalaman kerja, dokumen pendukung.",
           "Ikuti asesmen: uji tulis, wawancara, dan/atau observasi oleh asesor.",
@@ -72,72 +72,14 @@ export const posts: BlogPost[] = [
       { type: "h2", text: "Bagaimana Memulainya?" },
       {
         type: "p",
-        text: "Langkah pertama paling praktis adalah mengikuti pelatihan bersertifikat 24 JP di bidang yang Anda minati. Selain membekali pengetahuan, sertifikatnya menjadi tiket masuk ke jalur sertifikasi kompetensi. Setelah itu, konsultasikan skema yang sesuai dengan latar belakang Anda.",
+        text: "Langkah pertama paling praktis adalah mengikuti pelatihan bersertifikat 24 JP di bidang yang Anda minati. Selain membekali pengetahuan, sertifikatnya menjadi bekal untuk mengikuti jalur sertifikasi kompetensi bersama lembaga sertifikasi profesi seperti LSP Edukia. Setelah itu, konsultasikan skema yang sesuai dengan latar belakang Anda.",
       },
       {
         type: "cta",
         title: "Mulai dari pelatihan bersertifikat 24 JP",
-        text: "Pilih program pelatihan laboratorium sesuai bidang Anda — sertifikatnya menjadi pintu masuk jalur sertifikasi kompetensi.",
+        text: "Pilih program pelatihan laboratorium sesuai bidang Anda — sertifikatnya menjadi bekal mengikuti sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia.",
         href: "/sertifikasi-kompetensi",
         label: "Pelajari jalur sertifikasi",
-      },
-    ],
-  },
-  {
-    slug: "apa-itu-iso-17025",
-    title: "Apa Itu ISO/IEC 17025 dan Mengapa Laboratorium Wajib Memahaminya",
-    excerpt:
-      "Penjelasan ringkas ISO/IEC 17025:2017 — standar kompetensi laboratorium pengujian & kalibrasi: struktur, persyaratan utama, dan manfaat akreditasi.",
-    category: "ISO 17025",
-    publishedAt: "2026-06-03",
-    readingMinutes: 7,
-    author: "Tim mutululusan.id",
-    seoTitle: "Apa Itu ISO/IEC 17025? Penjelasan Lengkap 2026",
-    seoDescription:
-      "Pahami ISO/IEC 17025:2017 — standar kompetensi laboratorium pengujian dan kalibrasi. Struktur klausul, persyaratan utama, dan manfaat akreditasi.",
-    keywords: ["ISO 17025", "ISO/IEC 17025 adalah", "akreditasi laboratorium"],
-    relatedProgram: "iso-17025-quality-system-officer",
-    relatedPosts: [
-      "panduan-sertifikasi-kompetensi-laboratorium",
-      "hiradc-identifikasi-bahaya-laboratorium",
-    ],
-    body: [
-      {
-        type: "p",
-        lead: true,
-        text: "ISO/IEC 17025 adalah standar internasional yang menetapkan persyaratan umum untuk kompetensi, imparsialitas, dan konsistensi operasi laboratorium pengujian dan kalibrasi. Jika laboratorium Anda ingin hasilnya diakui — oleh pelanggan, regulator, maupun badan akreditasi — standar inilah acuannya.",
-      },
-      { type: "h2", text: "Sekilas Sejarah dan Versi Terbaru" },
-      {
-        type: "p",
-        text: "Versi yang berlaku saat ini adalah ISO/IEC 17025:2017. Revisi ini menyelaraskan struktur dengan standar sistem manajemen modern, memperkenalkan pendekatan berbasis risiko, dan memberi fleksibilitas lebih dalam pengelolaan sistem manajemen (Opsi A dan Opsi B).",
-      },
-      { type: "h2", text: "Struktur Persyaratan ISO/IEC 17025:2017" },
-      {
-        type: "ul",
-        items: [
-          "Persyaratan umum: imparsialitas dan kerahasiaan.",
-          "Persyaratan struktural: identitas hukum dan struktur organisasi laboratorium.",
-          "Persyaratan sumber daya: personel, fasilitas, peralatan, ketertelusuran metrologi.",
-          "Persyaratan proses: dari kaji ulang permintaan hingga pelaporan hasil dan jaminan mutu.",
-          "Persyaratan sistem manajemen: dokumentasi, audit internal, tinjauan manajemen, dan perbaikan.",
-        ],
-      },
-      { type: "h2", text: "Mengapa Wajib Dipahami?" },
-      {
-        type: "p",
-        text: "Memahami ISO/IEC 17025 bukan hanya tugas manajer mutu. Setiap analis dan teknisi yang menghasilkan data dipengaruhi oleh persyaratannya — mulai dari cara mencatat data, mengelola peralatan, hingga memastikan keabsahan hasil. Pemahaman bersama inilah yang membuat sistem mutu benar-benar berjalan, bukan sekadar dokumen di rak.",
-      },
-      {
-        type: "p",
-        text: "Bagi laboratorium yang menargetkan akreditasi KAN atau pengakuan setara, penguasaan standar ini adalah fondasi. Bagi individu, kompetensi ISO 17025 adalah salah satu kualifikasi paling dicari di pasar kerja laboratorium.",
-      },
-      {
-        type: "cta",
-        title: "Kuasai ISO/IEC 17025 secara terstruktur",
-        text: "Pelatihan Laboratory Quality System Officer ISO/IEC 17025 — 2 hari, e-sertifikat 24 JP, dibimbing praktisi.",
-        href: "/pelatihan/iso-17025-quality-system-officer",
-        label: "Lihat pelatihan ISO 17025",
       },
     ],
   },
@@ -156,8 +98,8 @@ export const posts: BlogPost[] = [
     keywords: ["HIRADC", "identifikasi bahaya laboratorium", "penilaian risiko K3"],
     relatedProgram: "laboratory-hse-officer-k3l",
     relatedPosts: [
-      "apa-itu-iso-17025",
       "panduan-sertifikasi-kompetensi-laboratorium",
+      "apa-itu-jp-jam-pelajaran",
     ],
     body: [
       {
@@ -224,7 +166,7 @@ export const posts: BlogPost[] = [
     relatedProgram: "qc-laboratory-analyst",
     relatedPosts: [
       "panduan-sertifikasi-kompetensi-laboratorium",
-      "apa-itu-iso-17025",
+      "hiradc-identifikasi-bahaya-laboratorium",
     ],
     body: [
       {

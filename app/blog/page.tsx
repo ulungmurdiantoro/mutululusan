@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Blog — Wawasan Laboratorium, Mutu & Sertifikasi",
   description:
-    "Artikel seputar ISO 17025, K3 laboratorium, GLP, mutu, dan sertifikasi kompetensi. Panduan praktis untuk profesional laboratorium Indonesia.",
+    "Artikel seputar K3 laboratorium, GLP, mutu, dan sertifikasi kompetensi. Panduan praktis untuk profesional laboratorium Indonesia.",
   alternates: { canonical: "/blog" },
 };
 

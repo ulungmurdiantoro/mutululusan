@@ -1,0 +1,39 @@
+# Deployment mutululusan.id di VPS (Debian 13): PostgreSQL + aplikasi Next.js.
+# App di-bind ke 127.0.0.1:3000 dan diakses publik lewat Nginx (host) + HTTPS.
+# Lihat DEPLOY.md untuk langkah lengkap.
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mutululusan
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD di .env}
+      POSTGRES_DB: mutululusan
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Opsional: buka ke localhost host untuk akses psql/backup.
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mutululusan -d mutululusan"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      # DATABASE_URL di sini menimpa nilai di .env → menunjuk ke service "db".
+      DATABASE_URL: postgresql://mutululusan:${POSTGRES_PASSWORD}@db:5432/mutululusan?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:3000"
+
+volumes:
+  pgdata:

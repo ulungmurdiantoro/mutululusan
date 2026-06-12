@@ -30,11 +30,11 @@ const advantages = [
 ];
 
 const topics = [
-  "ISO/IEC 17025 (pemahaman, dokumentasi, audit internal)",
   "K3 Laboratorium & pengelolaan limbah B3",
   "Good Laboratory Practice (GLP)",
   "Jaminan mutu & ketidakpastian pengukuran",
-  "QC/QA dan sistem manajemen mutu",
+  "QC/QA dan sistem manajemen mutu (ISO 9001)",
+  "Pranata laboratorium & manajemen operasional",
   "Keamanan pangan & uji sensori",
 ];
 

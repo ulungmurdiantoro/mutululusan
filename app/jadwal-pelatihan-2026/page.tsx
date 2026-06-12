@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Jadwal Pelatihan Laboratorium 2026 — Kalender Lengkap",
   description:
-    "Kalender lengkap jadwal pelatihan laboratorium 2026: ISO 17025, K3 lab, GLP, QC/QA, sensori pangan. Pilih tanggal, daftar & bayar online!",
+    "Kalender lengkap jadwal pelatihan laboratorium 2026: K3 lab, GLP, QC/QA, ISO 9001, sensori pangan. Pilih tanggal, daftar & bayar online!",
   alternates: { canonical: "/jadwal-pelatihan-2026" },
 };
 

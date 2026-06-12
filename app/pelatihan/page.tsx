@@ -9,9 +9,9 @@ import { CatalogFilter } from "./catalog-filter";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Katalog Pelatihan Laboratorium 2026 — 18 Program",
+  title: "Katalog Pelatihan Laboratorium 2026 — 15 Program",
   description:
-    "Pilih dari 18 program pelatihan laboratorium 2026: ISO 17025, K3 lab, GLP, QC/QA, sensori pangan. Sertifikat 24 JP, daftar & bayar online!",
+    "Pilih dari 15 program pelatihan laboratorium 2026: K3 lab, GLP, QC/QA, ISO 9001, sensori pangan. Sertifikat 24 JP, daftar & bayar online!",
   alternates: { canonical: "/pelatihan" },
 };
 
@@ -42,7 +42,7 @@ export default function CatalogPage() {
             Katalog Pelatihan Laboratorium 2026
           </h1>
           <p className="mt-3 max-w-2xl text-slate-600">
-            18 program pelatihan & sertifikasi kompetensi bidang laboratorium.
+            15 program pelatihan kompetensi bidang laboratorium.
             Semua kelas online dilengkapi e-sertifikat 24 JP, rekaman, dan
             materi — daftar dan bayar langsung di website.
           </p>

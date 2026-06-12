@@ -55,7 +55,6 @@ export function Footer() {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link href="/pelatihan" className="hover:text-sky-700">Semua Pelatihan</Link></li>
             <li><Link href="/jadwal-pelatihan-2026" className="hover:text-sky-700">Jadwal 2026</Link></li>
-            <li><Link href="/sertifikasi-kompetensi" className="hover:text-sky-700">Sertifikasi Kompetensi</Link></li>
             <li><Link href="/in-house-training" className="hover:text-sky-700">In-House Training</Link></li>
             <li><Link href="/blog" className="hover:text-sky-700">Blog</Link></li>
             <li><Link href="/tentang-kami" className="hover:text-sky-700">Tentang Kami</Link></li>

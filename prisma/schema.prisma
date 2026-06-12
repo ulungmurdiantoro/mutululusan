@@ -1,0 +1,125 @@
+// Skema database mutululusan.id (Fase 5).
+// Jalankan migrasi: `npx prisma migrate dev --name init` (lokal) atau
+// `npx prisma migrate deploy` (produksi) setelah DATABASE_URL diset.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// ── Auth.js (PrismaAdapter) ─────────────────────────────────────
+model User {
+  id            String        @id @default(cuid())
+  name          String?
+  email         String        @unique
+  emailVerified DateTime?
+  image         String?
+  whatsapp      String?
+  role          Role          @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  orders        Order[]
+  certificates  Certificate[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ── Transaksi ───────────────────────────────────────────────────
+model Order {
+  orderId        String        @id
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+  programSlug    String
+  programTitle   String
+  batchId        String
+  batchStartDate String
+  batchEndDate   String
+  buyerName      String
+  email          String
+  whatsapp       String
+  institution    String        @default("")
+  qty            Int           @default(1)
+  tier           String        @default("")
+  subtotal       Int
+  discount       Int           @default(0)
+  couponCode     String?
+  total          Int
+  status         String        @default("pending")
+  paymentChannel String?
+  gatewayToken   String?
+  notified       Json          @default("{}")
+  certificates   Certificate[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([email])
+}
+
+// Aset per batch (rekaman Zoom, materi, dokumentasi via Google Drive).
+model BatchAsset {
+  batchId          String   @id
+  programSlug      String
+  recordingUrl     String?
+  materialsUrl     String?
+  documentationUrl String?
+  zoomInfo         String?
+  updatedAt        DateTime @updatedAt
+}
+
+// Sertifikat per peserta (diterbitkan mitra LSP Edukia, disimpan di Drive).
+model Certificate {
+  id              String   @id @default(cuid())
+  number          String   @unique
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
+  participantName String
+  programTitle    String
+  fileUrl         String
+  issuedAt        DateTime @default(now())
+}

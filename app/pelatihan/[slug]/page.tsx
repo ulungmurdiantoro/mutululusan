@@ -407,9 +407,10 @@ export default async function ProgramPage({ params }: PageProps) {
                 Lanjutkan ke Sertifikasi Kompetensi
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Sertifikat pelatihan dari program ini menjadi syarat untuk
-                melanjutkan ke jalur sertifikasi kompetensi — pengakuan formal
-                atas keahlian Anda.
+                Sertifikat pelatihan dari program ini dapat menjadi bekal untuk
+                mengikuti sertifikasi kompetensi yang diselenggarakan mitra resmi
+                kami, <strong>LSP Edukia</strong> — pengakuan formal atas keahlian
+                Anda.
               </p>
               <Link
                 href="/sertifikasi-kompetensi"

@@ -81,6 +81,7 @@ export async function POST(request: Request) {
 
   await createOrder({
     orderId: number,
+    userId: null,
     programSlug: program.slug,
     programTitle: program.title,
     batchId: batch.id,

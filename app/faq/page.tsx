@@ -63,7 +63,7 @@ const faqGroups = [
       {
         question: "Sertifikat apa yang saya dapatkan?",
         answer:
-          "Peserta pelatihan online mendapatkan e-sertifikat pelatihan 24 JP (jam pelajaran). Untuk program hybrid dan workshop tertentu, tersedia juga sertifikasi kompetensi melalui asesmen.",
+          "Peserta pelatihan online mendapatkan e-sertifikat pelatihan 24 JP (jam pelajaran). Untuk program hybrid dan workshop tertentu, tersedia juga sertifikasi kompetensi melalui asesmen yang diselenggarakan mitra resmi kami, LSP Edukia.",
       },
       {
         question: "Apa itu JP pada sertifikat?",
@@ -73,7 +73,7 @@ const faqGroups = [
       {
         question: "Bagaimana cara melanjutkan ke sertifikasi kompetensi?",
         answer:
-          "Setelah memiliki sertifikat pelatihan, hubungi admin untuk memilih skema sertifikasi yang sesuai. Selengkapnya di halaman Sertifikasi Kompetensi.",
+          "Setelah memiliki sertifikat pelatihan, hubungi admin untuk dihubungkan dengan mitra resmi kami, LSP Edukia, dan memilih skema sertifikasi yang sesuai. Selengkapnya di halaman Sertifikasi Kompetensi.",
       },
     ],
   },
