@@ -53,6 +53,10 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
   const [whatsapp, setWhatsapp] = useState("");
   const [institution, setInstitution] = useState("");
   const [qty, setQty] = useState(1);
+  const [couponCode, setCouponCode] = useState("");
+  const [coupon, setCoupon] = useState<{ code: string; discount: number; description: string } | null>(null);
+  const [couponMsg, setCouponMsg] = useState<string | null>(null);
+  const [checkingCoupon, setCheckingCoupon] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gatewayDown, setGatewayDown] = useState(false);
@@ -83,8 +87,43 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
     program.tieredPrices?.find((t) => t.label === tier)?.price ??
     program.basePrice ??
     0;
-  const total = unitPrice * qty;
+  const subtotal = unitPrice * qty;
+  const discount = coupon?.discount ?? 0;
+  const total = subtotal - discount;
   const selectedBatch = program.batches.find((b) => b.id === batchId)!;
+
+  // Kupon bergantung pada program, qty, dan tier; reset bila salah satu berubah.
+  function resetCoupon() {
+    if (coupon) {
+      setCoupon(null);
+      setCouponMsg(null);
+    }
+  }
+
+  async function handleApplyCoupon() {
+    if (!couponCode.trim()) return;
+    setCheckingCoupon(true);
+    setCouponMsg(null);
+    try {
+      const res = await fetch("/api/coupon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponCode, slug: program.slug, qty, tier: tier || undefined }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setCoupon({ code: data.code, discount: data.discount, description: data.description });
+        setCouponMsg(`Kupon ${data.code} diterapkan — hemat ${formatRupiah(data.discount)}.`);
+      } else {
+        setCoupon(null);
+        setCouponMsg(data.reason ?? "Kupon tidak valid.");
+      }
+    } catch {
+      setCouponMsg("Gagal memeriksa kupon. Coba lagi.");
+    } finally {
+      setCheckingCoupon(false);
+    }
+  }
 
   const waFallbackMessage = `Halo admin, saya ingin mendaftar:\n\nProgram: ${program.title}\nBatch: ${formatDateRange(selectedBatch.startDate, selectedBatch.endDate)}\nNama: ${name}\nEmail: ${email}\nInstansi: ${institution || "-"}\nJumlah peserta: ${qty}\n\nMohon dibantu proses pembayarannya.`;
 
@@ -106,6 +145,7 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
           whatsapp,
           institution,
           qty,
+          couponCode: coupon?.code,
         }),
       });
       const data = await response.json();
@@ -233,7 +273,10 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
                     name="tier"
                     value={t.label}
                     checked={tier === t.label}
-                    onChange={() => setTier(t.label)}
+                    onChange={() => {
+                      setTier(t.label);
+                      resetCoupon();
+                    }}
                     className="accent-sky-700"
                   />
                   <span className="text-sm">
@@ -301,7 +344,10 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
               min={1}
               max={50}
               value={qty}
-              onChange={(e) => setQty(Math.max(1, Number(e.target.value) || 1))}
+              onChange={(e) => {
+                setQty(Math.max(1, Number(e.target.value) || 1));
+                resetCoupon();
+              }}
               className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:border-sky-600 focus:outline-none"
             />
           </label>
@@ -310,6 +356,35 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
           Mendaftarkan banyak peserta atas nama instansi? Data peserta lain dapat
           dilengkapi setelah pembayaran melalui admin.
         </p>
+
+        <div className="mt-5 border-t border-slate-100 pt-5">
+          <span className="text-sm font-semibold text-slate-700">Kode promo (opsional)</span>
+          <div className="mt-2 flex gap-2">
+            <input
+              type="text"
+              value={couponCode}
+              onChange={(e) => {
+                setCouponCode(e.target.value.toUpperCase());
+                resetCoupon();
+              }}
+              className="w-full rounded-lg border border-slate-300 px-4 py-2.5 uppercase focus:border-sky-600 focus:outline-none"
+              placeholder="Mis. EARLYBIRD2026"
+            />
+            <button
+              type="button"
+              onClick={handleApplyCoupon}
+              disabled={checkingCoupon || !couponCode.trim()}
+              className="btn-outline shrink-0 px-5 py-2.5 text-sm disabled:opacity-60"
+            >
+              {checkingCoupon ? "…" : "Pakai"}
+            </button>
+          </div>
+          {couponMsg && (
+            <p className={`mt-2 text-sm ${coupon ? "text-green-600" : "text-red-600"}`}>
+              {couponMsg}
+            </p>
+          )}
+        </div>
       </fieldset>
 
       {/* Step 3 — Ringkasan & bayar */}
@@ -330,8 +405,14 @@ export function CheckoutForm({ program }: { program: CheckoutProgram }) {
             <dt className="text-slate-500">
               Biaya × {qty} peserta{tier ? ` (${tier.toLowerCase()})` : ""}
             </dt>
-            <dd className="font-semibold text-slate-900">{formatRupiah(unitPrice)}</dd>
+            <dd className="font-semibold text-slate-900">{formatRupiah(subtotal)}</dd>
           </div>
+          {discount > 0 && (
+            <div className="flex justify-between gap-4">
+              <dt className="text-slate-500">Diskon{coupon ? ` (${coupon.code})` : ""}</dt>
+              <dd className="font-semibold text-green-600">−{formatRupiah(discount)}</dd>
+            </div>
+          )}
           <div className="flex justify-between gap-4 border-t border-slate-200 pt-3 text-base">
             <dt className="font-bold text-slate-900">Total</dt>
             <dd className="font-bold text-sky-700">{formatRupiah(total)}</dd>

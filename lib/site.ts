@@ -5,8 +5,8 @@ export const site = {
     "Pelatihan & sertifikasi kompetensi laboratorium bersertifikat 24 JP — daftar online, bayar langsung, langsung dapat akses.",
   description:
     "Platform pelatihan dan sertifikasi kompetensi bidang laboratorium: ISO/IEC 17025, K3 laboratorium, GLP, QC/QA, dan lainnya. e-Sertifikat 24 JP, rekaman & materi, bayar langsung via QRIS/VA.",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "halo@mutululusan.id",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "6281234567890",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "mutululusan.id@gmail.com",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "6282172221567",
 } as const;
 
 export function waLink(message: string): string {

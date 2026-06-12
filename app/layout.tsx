@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { JsonLd } from "@/components/json-ld";
+import { Analytics } from "@/components/analytics";
 import { site } from "@/lib/site";
 
 const geistSans = Geist({
@@ -75,6 +76,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppFloat />
+        <Analytics />
       </body>
     </html>
   );

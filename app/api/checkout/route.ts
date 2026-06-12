@@ -5,6 +5,8 @@ import {
   isMidtransConfigured,
 } from "@/lib/midtrans";
 import { getProgram } from "@/lib/programs";
+import { applyCoupon, validateCoupon } from "@/lib/coupons";
+import { createOrder } from "@/lib/orders";
 
 interface CheckoutBody {
   slug?: string;
@@ -15,6 +17,7 @@ interface CheckoutBody {
   whatsapp?: string;
   institution?: string;
   qty?: number;
+  couponCode?: string;
 }
 
 export async function POST(request: Request) {
@@ -25,7 +28,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Body tidak valid" }, { status: 400 });
   }
 
-  const { slug, batchId, tier, name, email, whatsapp } = body;
+  const { slug, batchId, tier, name, email, whatsapp, institution, couponCode } = body;
   const qty = Number(body.qty) || 1;
 
   if (!slug || !batchId || !name || !email || !whatsapp) {
@@ -54,11 +57,13 @@ export async function POST(request: Request) {
   // Harga selalu dihitung di server dari data program — jangan pernah dari client.
   let unitPrice: number | null = program.basePrice;
   let tierLabel = "";
+  let tierName = "";
   if (program.tieredPrices?.length) {
     const selected =
       program.tieredPrices.find((t) => t.label === tier) ?? program.tieredPrices[0];
     unitPrice = selected.price;
     tierLabel = ` (${selected.label})`;
+    tierName = selected.label;
   }
   if (unitPrice === null) {
     return NextResponse.json(
@@ -66,6 +71,20 @@ export async function POST(request: Request) {
       { status: 422 },
     );
   }
+
+  const subtotal = unitPrice * qty;
+
+  // Validasi & terapkan kupon di server — jangan percaya nominal dari client.
+  let discount = 0;
+  let appliedCoupon: string | null = null;
+  if (couponCode) {
+    const result = validateCoupon({ code: couponCode, programSlug: slug, qty });
+    if (result.valid) {
+      discount = applyCoupon(subtotal, result.coupon);
+      appliedCoupon = result.coupon.code;
+    }
+  }
+  const grossAmount = subtotal - discount;
 
   if (!isMidtransConfigured()) {
     return NextResponse.json(
@@ -79,7 +98,6 @@ export async function POST(request: Request) {
   }
 
   const orderId = generateOrderId();
-  const grossAmount = unitPrice * qty;
 
   try {
     const snap = await createSnapTransaction({
@@ -91,6 +109,16 @@ export async function POST(request: Request) {
           quantity: qty,
           name: `${program.title}${tierLabel}`.slice(0, 50),
         },
+        ...(discount > 0
+          ? [
+              {
+                id: `discount:${appliedCoupon}`,
+                price: -discount,
+                quantity: 1,
+                name: `Diskon ${appliedCoupon}`.slice(0, 50),
+              },
+            ]
+          : []),
       ],
       customer_details: {
         first_name: name.slice(0, 50),
@@ -100,11 +128,34 @@ export async function POST(request: Request) {
       expiry: { unit: "hours", duration: 24 },
     });
 
+    // Simpan order (best-effort). Kegagalan store tidak menggagalkan checkout.
+    await createOrder({
+      orderId,
+      programSlug: program.slug,
+      programTitle: program.title,
+      batchId: batch.id,
+      batchStartDate: batch.startDate,
+      batchEndDate: batch.endDate,
+      buyerName: name,
+      email,
+      whatsapp,
+      institution: institution ?? "",
+      qty,
+      tier: tierName,
+      subtotal,
+      discount,
+      couponCode: appliedCoupon,
+      total: grossAmount,
+      paymentChannel: null,
+      gatewayToken: snap.token,
+    });
+
     return NextResponse.json({
       orderId,
       token: snap.token,
       redirectUrl: snap.redirect_url,
       grossAmount,
+      discount,
     });
   } catch (error) {
     console.error("[checkout] gagal membuat transaksi Snap:", error);

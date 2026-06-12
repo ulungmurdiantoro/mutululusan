@@ -17,6 +17,8 @@ import {
   upcomingBatches,
 } from "@/lib/programs";
 import { paymentMicrocopy, site, waLink } from "@/lib/site";
+import { Testimonials } from "@/components/testimonials";
+import { getAggregateRating, getTestimonials } from "@/lib/testimonials";
 
 export const revalidate = 86400;
 
@@ -66,12 +68,23 @@ export default async function ProgramPage({ params }: PageProps) {
   const primaryHref = canCheckout ? checkoutHref! : waLink(waMessage);
   const primaryLabel = canCheckout ? "Daftar & Bayar Sekarang" : "Tanya Admin & Daftar";
 
+  const programTestimonials = getTestimonials(program.slug);
+  const aggregateRating = getAggregateRating(program.slug);
+
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
     name: `Pelatihan ${program.title} (${program.subtitle})`,
     description: program.seoDescription,
     provider: { "@type": "Organization", name: site.name, url: site.url },
+    // AggregateRating hanya jika ada ulasan asli (lihat blueprint §11).
+    ...(aggregateRating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: String(aggregateRating.ratingValue),
+        reviewCount: String(aggregateRating.reviewCount),
+      },
+    }),
     ...(price !== null && {
       offers: {
         "@type": "Offer",
@@ -438,6 +451,9 @@ export default async function ProgramPage({ params }: PageProps) {
           <div className="hidden lg:block" aria-hidden />
         </div>
       </div>
+
+      {/* Testimoni program (tampil hanya bila ada data asli) */}
+      <Testimonials items={programTestimonials} heading="Apa Kata Alumni Program Ini" />
 
       {/* Program terkait */}
       {related.length > 0 && (

@@ -22,16 +22,18 @@ function computeLeft(targetISO: string): TimeLeft | null {
 
 export function Countdown({ targetDate }: { targetDate: string }) {
   const [left, setLeft] = useState<TimeLeft | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setLeft(computeLeft(targetDate));
-    const interval = setInterval(() => setLeft(computeLeft(targetDate)), 60_000);
+    // Sinkronkan dengan jam (sumber eksternal). Hitungan pertama dijadwalkan
+    // di microtask agar tidak memicu setState sinkron di dalam efek, sekaligus
+    // menjaga render awal server/klien tetap kosong (hindari hydration mismatch).
+    const tick = () => setLeft(computeLeft(targetDate));
+    queueMicrotask(tick);
+    const interval = setInterval(tick, 60_000);
     return () => clearInterval(interval);
   }, [targetDate]);
 
-  if (!mounted || !left) return null;
+  if (!left) return null;
 
   const units = [
     { value: left.days, label: "hari" },

@@ -57,6 +57,7 @@ export function Footer() {
             <li><Link href="/jadwal-pelatihan-2026" className="hover:text-sky-700">Jadwal 2026</Link></li>
             <li><Link href="/sertifikasi-kompetensi" className="hover:text-sky-700">Sertifikasi Kompetensi</Link></li>
             <li><Link href="/in-house-training" className="hover:text-sky-700">In-House Training</Link></li>
+            <li><Link href="/blog" className="hover:text-sky-700">Blog</Link></li>
             <li><Link href="/tentang-kami" className="hover:text-sky-700">Tentang Kami</Link></li>
             <li><Link href="/faq" className="hover:text-sky-700">FAQ</Link></li>
           </ul>
@@ -66,6 +67,7 @@ export function Footer() {
           <p className="font-semibold text-slate-900">Bantuan & Legal</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link href="/kontak" className="hover:text-sky-700">Kontak</Link></li>
+            <li><Link href="/invoice-instansi" className="hover:text-sky-700">Invoice Instansi</Link></li>
             <li><Link href="/konfirmasi-pembayaran" className="hover:text-sky-700">Konfirmasi Pembayaran</Link></li>
             <li><Link href="/syarat-ketentuan" className="hover:text-sky-700">Syarat & Ketentuan</Link></li>
             <li><Link href="/kebijakan-privasi" className="hover:text-sky-700">Kebijakan Privasi</Link></li>

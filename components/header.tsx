@@ -8,7 +8,7 @@ const navLinks = [
   { href: "/jadwal-pelatihan-2026", label: "Jadwal 2026" },
   { href: "/sertifikasi-kompetensi", label: "Sertifikasi" },
   { href: "/in-house-training", label: "In-House" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
   { href: "/kontak", label: "Kontak" },
 ];
 

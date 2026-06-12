@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/midtrans";
-
-type OrderStatus = "paid" | "pending" | "expired" | "cancelled" | "refunded" | "unknown";
+import { getOrder, updateOrder, type OrderStatus } from "@/lib/orders";
+import {
+  receiptEmailHtml,
+  receiptWhatsAppMessage,
+  sendEmail,
+  sendWhatsApp,
+} from "@/lib/notifications";
 
 function mapTransactionStatus(
   transactionStatus: string,
@@ -23,7 +28,7 @@ function mapTransactionStatus(
     case "partial_refund":
       return "refunded";
     default:
-      return "unknown";
+      return "pending";
   }
 }
 
@@ -54,11 +59,32 @@ export async function POST(request: Request) {
     notification.transaction_status,
     notification.fraud_status,
   );
+  const paymentChannel = notification.payment_type ?? null;
 
-  // Fase 3 blueprint: simpan order ke database, kirim e-receipt email,
-  // dan notifikasi WhatsApp otomatis dari sini.
+  const order = await getOrder(order_id);
+  if (order) {
+    const justPaid = status === "paid" && order.status !== "paid";
+    await updateOrder(order_id, { status, paymentChannel });
+
+    // Kirim e-receipt (email + WA) tepat sekali saat pertama menjadi PAID.
+    if (justPaid && !order.notified.receipt) {
+      await Promise.all([
+        sendEmail({
+          to: order.email,
+          subject: `Pembayaran Berhasil — ${order.programTitle}`,
+          html: receiptEmailHtml({ ...order, status, paymentChannel }),
+        }),
+        sendWhatsApp({
+          to: order.whatsapp,
+          message: receiptWhatsAppMessage({ ...order, status, paymentChannel }),
+        }),
+      ]);
+      await updateOrder(order_id, { notified: { ...order.notified, receipt: true } });
+    }
+  }
+
   console.log(
-    `[midtrans-webhook] order=${order_id} status=${status} channel=${notification.payment_type ?? "-"} amount=${gross_amount}`,
+    `[midtrans-webhook] order=${order_id} status=${status} channel=${paymentChannel ?? "-"} amount=${gross_amount}`,
   );
 
   return NextResponse.json({ ok: true });

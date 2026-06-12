@@ -12,6 +12,8 @@ import {
   upcomingAcrossPrograms,
 } from "@/lib/programs";
 import { paymentMicrocopy, site, waLink } from "@/lib/site";
+import { Testimonials } from "@/components/testimonials";
+import { getTestimonials } from "@/lib/testimonials";
 
 export const revalidate = 86400;
 
@@ -224,6 +226,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Testimoni (tampil hanya bila ada data asli) */}
+      <Testimonials items={getTestimonials()} />
 
       {/* FAQ singkat */}
       <section className="bg-white">

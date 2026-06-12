@@ -20,6 +20,9 @@
 # production
 /build
 
+# local file-based order store (Fase 3 — ganti dengan DB di produksi)
+/.data
+
 # misc
 .DS_Store
 *.pem
