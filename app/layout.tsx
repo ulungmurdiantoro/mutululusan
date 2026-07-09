@@ -40,6 +40,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+  },
   icons: {
     icon: "/logo/MUTULULUSAN-LOGO-5.gif",
     shortcut: "/logo/MUTULULUSAN-LOGO-5.gif",

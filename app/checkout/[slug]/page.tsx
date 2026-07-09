@@ -17,7 +17,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   return {
     title: program ? `Checkout — ${program.title}` : "Checkout",
     robots: { index: false, follow: false },
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CheckoutPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const { batch: batchParam } = await searchParams;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program) notFound();
 
   // Wajib login sebelum pembayaran online (jalur WhatsApp tetap terbuka di

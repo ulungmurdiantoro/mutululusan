@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { getAllPrograms } from "@/lib/programs";
+import { site } from "@/lib/site";
 import { InvoiceForm } from "./invoice-form";
 
 export const metadata: Metadata = {
@@ -10,8 +12,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/invoice-instansi" },
 };
 
-export default function InvoiceInstansiPage() {
-  const programs = getAllPrograms()
+export default async function InvoiceInstansiPage() {
+  const allPrograms = await getAllPrograms();
+  const programs = allPrograms
     .filter((p) => p.basePrice !== null || (p.tieredPrices?.length ?? 0) > 0)
     .map((p) => ({
       slug: p.slug,
@@ -27,8 +30,23 @@ export default function InvoiceInstansiPage() {
       })),
     }));
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Invoice Instansi",
+        item: `${site.url}/invoice-instansi`,
+      },
+    ],
+  };
+
   return (
     <div className="bg-slate-50">
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="mx-auto max-w-2xl px-4 py-12">
         <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-sky-700">Beranda</Link>

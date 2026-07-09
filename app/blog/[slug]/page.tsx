@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   const related = getRelatedPosts(post);
-  const relatedProgram = post.relatedProgram ? getProgram(post.relatedProgram) : undefined;
+  const relatedProgram = post.relatedProgram ? await getProgram(post.relatedProgram) : undefined;
 
   const articleJsonLd = {
     "@context": "https://schema.org",

@@ -1,17 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { site, waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Kontak Kami",
+  title: "Kontak Kami — WhatsApp, Email & Pendaftaran Instansi",
   description:
     "Hubungi tim mutululusan.id: WhatsApp admin, email, pendaftaran instansi, dan bantuan pembayaran. Respons cepat di jam kerja.",
   alternates: { canonical: "/kontak" },
 };
 
 export default function KontakPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Kontak", item: `${site.url}/kontak` },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
+
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
           <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Hubungi Kami</h1>

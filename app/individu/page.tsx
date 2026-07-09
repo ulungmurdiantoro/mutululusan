@@ -11,14 +11,14 @@ import {
   typeLabel,
   upcomingAcrossPrograms,
 } from "@/lib/programs";
-import { paymentMicrocopy, waLink } from "@/lib/site";
+import { paymentMicrocopy, site, waLink } from "@/lib/site";
 import { Testimonials } from "@/components/testimonials";
 import { getTestimonials } from "@/lib/testimonials";
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Pelatihan Laboratorium 2026 — Sertifikat 24 JP | mutululusan.id",
+  title: "Pelatihan Laboratorium 2026 — Sertifikat 24 JP",
   description:
     "Pelatihan kompetensi laboratorium online & offline 2026: K3 lab, GLP, QC/QA, ISO 9001. e-Sertifikat 24 JP, bayar langsung via QRIS/VA.",
   alternates: { canonical: "/individu" },
@@ -59,9 +59,9 @@ const trustItems = [
   { label: "QRIS · VA · e-Wallet · Kartu", detail: "pembayaran aman & instan" },
 ];
 
-export default function IndividuPage() {
-  const programs = getAllPrograms();
-  const nextBatches = upcomingAcrossPrograms(3);
+export default async function IndividuPage() {
+  const programs = await getAllPrograms();
+  const nextBatches = await upcomingAcrossPrograms(3);
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -73,9 +73,19 @@ export default function IndividuPage() {
     })),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Untuk Individu", item: `${site.url}/individu` },
+    ],
+  };
+
   return (
     <>
       <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
       {/* Hero */}
       <section className="border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">

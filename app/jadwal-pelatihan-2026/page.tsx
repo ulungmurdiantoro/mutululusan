@@ -19,11 +19,15 @@ const MONTH_NAMES = [
   "Juli", "Agustus", "September", "Oktober", "November", "Desember",
 ];
 
-export default function JadwalPage() {
-  const allEntries = getAllPrograms()
+export default async function JadwalPage() {
+  const [allPrograms, nextBatches] = await Promise.all([
+    getAllPrograms(),
+    upcomingAcrossPrograms(),
+  ]);
+  const allEntries = allPrograms
     .flatMap((program) => program.batches.map((batch) => ({ program, batch })))
     .sort((a, b) => a.batch.startDate.localeCompare(b.batch.startDate));
-  const upcoming = new Set(upcomingAcrossPrograms().map((e) => e.batch.id));
+  const upcoming = new Set(nextBatches.map((e) => e.batch.id));
 
   const byMonth = new Map<string, typeof allEntries>();
   for (const entry of allEntries) {

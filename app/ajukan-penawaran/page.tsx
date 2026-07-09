@@ -1,18 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { waLink } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { site, waLink } from "@/lib/site";
 import { PenawaranForm } from "./penawaran-form";
 
 export const metadata: Metadata = {
-  title: "Ajukan Penawaran untuk Institusi",
+  title: "Ajukan Penawaran Pelatihan untuk Institusi",
   description:
-    "Ajukan permintaan penawaran pelatihan & sertifikasi kompetensi untuk perguruan tinggi atau industri/laboratorium Anda.",
-  robots: { index: false, follow: false },
+    "Ajukan permintaan penawaran pelatihan & sertifikasi kompetensi untuk perguruan tinggi atau industri/laboratorium Anda. Tim kami kirimkan proposal tertulis.",
+  alternates: { canonical: "/ajukan-penawaran" },
 };
 
 export default function AjukanPenawaranPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Ajukan Penawaran",
+        item: `${site.url}/ajukan-penawaran`,
+      },
+    ],
+  };
+
   return (
     <div className="bg-slate-50">
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="mx-auto max-w-2xl px-4 py-12">
         <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-sky-700">

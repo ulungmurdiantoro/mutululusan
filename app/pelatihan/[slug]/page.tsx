@@ -26,13 +26,14 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllPrograms().map((program) => ({ slug: program.slug }));
+export async function generateStaticParams() {
+  const programs = await getAllPrograms();
+  return programs.map((program) => ({ slug: program.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program) return {};
   return {
     title: program.seoTitle,
@@ -50,13 +51,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProgramPage({ params }: PageProps) {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program) notFound();
 
   const batches = upcomingBatches(program);
   const batch = nearestBatch(program);
   const price = lowestPrice(program);
-  const related = getRelatedPrograms(program);
+  const related = await getRelatedPrograms(program);
   const hasConfirmationNote = batches.some((b) => b.needsConfirmation);
 
   const waMessage = `Halo admin, saya ingin mendaftar pelatihan ${program.title}${

@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program) {
     return NextResponse.json({ error: "Program tidak ditemukan" }, { status: 404 });
   }

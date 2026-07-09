@@ -12,9 +12,9 @@ import { careerCategories, type CareerCategoryIcon } from "@/lib/career-categori
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Pelatihan Laboratorium 2026 — Sertifikat 24 JP | mutululusan.id",
+  title: "Pelatihan & Sertifikasi Kompetensi Laboratorium untuk Institusi | mutululusan.id",
   description:
-    "Pelatihan kompetensi laboratorium online & offline 2026: K3 lab, GLP, QC/QA, ISO 9001. e-Sertifikat 24 JP, bayar langsung via QRIS/VA.",
+    "Solusi pelatihan & sertifikasi kompetensi laboratorium untuk perguruan tinggi dan industri: dukung IKU 2/3/9, SKPI, dan kepatuhan ISO/IEC 17025. Ajukan penawaran kemitraan.",
   alternates: { canonical: "/" },
 };
 
@@ -360,8 +360,8 @@ function waHrefFromPhone(phone: string): string {
   return waLink("Halo, saya ingin bertanya tentang program mutululusan.id.").replace(site.whatsapp, digits);
 }
 
-export default function HomePage() {
-  const programs = getAllPrograms();
+export default async function HomePage() {
+  const programs = await getAllPrograms();
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -373,9 +373,18 @@ export default function HomePage() {
     })),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+    ],
+  };
+
   return (
     <>
       <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
       {/* Hero */}
       <section className="border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">

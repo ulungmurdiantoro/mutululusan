@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pelatihan" },
 };
 
-export default function CatalogPage() {
-  const programs = getAllPrograms();
+export default async function CatalogPage() {
+  const programs = await getAllPrograms();
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

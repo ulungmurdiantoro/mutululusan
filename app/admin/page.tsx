@@ -126,6 +126,12 @@ export default async function AdminPage() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/admin/program" className="text-sm font-semibold text-sky-700 hover:underline">
+            Kelola Program →
+          </Link>
+          <Link href="/admin/jadwal" className="text-sm font-semibold text-sky-700 hover:underline">
+            Kelola Jadwal →
+          </Link>
           <Link href="/admin/aset" className="text-sm font-semibold text-sky-700 hover:underline">
             Kelola Aset Batch →
           </Link>

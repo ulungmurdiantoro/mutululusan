@@ -1,17 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { site, waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Tentang Kami",
+  title: "Tentang Kami — Platform Pelatihan Kompetensi Laboratorium",
   description:
     "mutululusan.id adalah platform pelatihan kompetensi bidang laboratorium — daftar online, bayar langsung, langsung dapat akses. Sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia.",
   alternates: { canonical: "/tentang-kami" },
 };
 
 export default function TentangPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Tentang Kami", item: `${site.url}/tentang-kami` },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
           <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">

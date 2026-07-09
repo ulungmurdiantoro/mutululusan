@@ -2,10 +2,9 @@ import Link from "next/link";
 import { site, waLink } from "@/lib/site";
 import { getAllPrograms } from "@/lib/programs";
 
-export function Footer() {
-  const popular = getAllPrograms()
-    .filter((p) => p.priority)
-    .slice(0, 5);
+export async function Footer() {
+  const allPrograms = await getAllPrograms();
+  const popular = allPrograms.filter((p) => p.priority).slice(0, 5);
 
   return (
     <footer className="border-t border-slate-200 bg-slate-50 text-slate-600">

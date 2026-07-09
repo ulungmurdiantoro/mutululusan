@@ -1,69 +1,42 @@
 import { programs } from "./programs-data";
+import { listBatchesForSlug } from "./batches";
+import { listDbPrograms, getDbProgram } from "./db-programs";
+import type { Batch, Program, ProgramType } from "./programs-types";
 
-export type ProgramType = "online" | "hybrid" | "offline";
+export type {
+  ProgramType,
+  Batch,
+  Faq,
+  SyllabusSection,
+  TieredPrice,
+  Program,
+} from "./programs-types";
 
-export interface Batch {
-  id: string;
-  startDate: string;
-  endDate: string;
-  mode: "Online" | "Hybrid" | "Offline";
-  location?: string;
-  /** Tanggal berbeda antar-poster sumber; tampilkan disclaimer sampai dikonfirmasi penyelenggara. */
-  needsConfirmation?: boolean;
+async function attachBatches(program: Program): Promise<Program> {
+  const dbBatches = await listBatchesForSlug(program.slug);
+  if (dbBatches.length === 0) return program;
+  return { ...program, batches: [...program.batches, ...dbBatches] };
 }
 
-export interface Faq {
-  question: string;
-  answer: string;
+export async function getAllPrograms(): Promise<Program[]> {
+  const dbPrograms = await listDbPrograms();
+  const merged = [
+    ...programs,
+    ...dbPrograms.filter((dp) => !programs.some((sp) => sp.slug === dp.slug)),
+  ];
+  return Promise.all(merged.map(attachBatches));
 }
 
-export interface SyllabusSection {
-  title: string;
-  points: string[];
+export async function getProgram(slug: string): Promise<Program | undefined> {
+  const staticProgram = programs.find((p) => p.slug === slug);
+  const program = staticProgram ?? (await getDbProgram(slug)) ?? undefined;
+  if (!program) return undefined;
+  return attachBatches(program);
 }
 
-export interface TieredPrice {
-  label: string;
-  price: number;
-}
-
-export interface Program {
-  slug: string;
-  title: string;
-  subtitle: string;
-  type: ProgramType;
-  jp: number | null;
-  durationDays: number;
-  /** null = harga belum dipublikasikan; arahkan ke WhatsApp admin. */
-  basePrice: number | null;
-  tieredPrices?: TieredPrice[];
-  priority?: boolean;
-  excerpt: string;
-  description: string[];
-  careerNote: string;
-  audience: string[];
-  syllabus: SyllabusSection[];
-  benefits: string[];
-  faqs: Faq[];
-  keywords: string[];
-  seoTitle: string;
-  seoDescription: string;
-  related: string[];
-  batches: Batch[];
-}
-
-export function getAllPrograms(): Program[] {
-  return programs;
-}
-
-export function getProgram(slug: string): Program | undefined {
-  return programs.find((p) => p.slug === slug);
-}
-
-export function getRelatedPrograms(program: Program): Program[] {
-  return program.related
-    .map((slug) => getProgram(slug))
-    .filter((p): p is Program => Boolean(p));
+export async function getRelatedPrograms(program: Program): Promise<Program[]> {
+  const related = await Promise.all(program.related.map((slug) => getProgram(slug)));
+  return related.filter((p): p is Program => Boolean(p));
 }
 
 export function upcomingBatches(program: Program, from = new Date()): Batch[] {
@@ -80,8 +53,12 @@ export interface UpcomingEntry {
   batch: Batch;
 }
 
-export function upcomingAcrossPrograms(limit?: number, from = new Date()): UpcomingEntry[] {
-  const entries = programs
+export async function upcomingAcrossPrograms(
+  limit?: number,
+  from = new Date(),
+): Promise<UpcomingEntry[]> {
+  const all = await getAllPrograms();
+  const entries = all
     .flatMap((program) =>
       upcomingBatches(program, from).map((batch) => ({ program, batch })),
     )

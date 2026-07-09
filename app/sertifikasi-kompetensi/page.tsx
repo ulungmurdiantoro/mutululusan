@@ -35,9 +35,10 @@ const steps = [
   },
 ];
 
-export default function SertifikasiPage() {
+export default async function SertifikasiPage() {
   // Program yang sudah memaketkan asesmen sertifikasi kompetensi (workshop offline).
-  const packagedPrograms = getAllPrograms().filter((p) => p.type === "offline");
+  const allPrograms = await getAllPrograms();
+  const packagedPrograms = allPrograms.filter((p) => p.type === "offline");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
