@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/db";
 
 const adminEmails = (process.env.ADMIN_EMAILS ?? "")
   .split(",")
@@ -7,16 +10,23 @@ const adminEmails = (process.env.ADMIN_EMAILS ?? "")
   .filter(Boolean);
 
 /**
- * Auth.js v5 — login Google.
- * Untuk sekarang memakai sesi JWT (belum butuh database), sehingga login bisa
- * langsung diuji. Saat Postgres siap, tambahkan Prisma adapter + email magic
- * link sesuai blueprint Fase 5 (lib/orders.ts juga dimigrasikan ke DB).
+ * Auth.js v5 — login Google + email (magic link).
+ * PrismaAdapter dipasang agar user/akun/verification-token persisten di DB
+ * (dibutuhkan oleh provider email) dan User.id konsisten dipakai di Order.userId,
+ * meski sesi tetap JWT (adapter tak memaksa strategi "database").
  */
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  providers: [Google],
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    Google,
+    Resend({
+      apiKey: process.env.RESEND_API_KEY,
+      from: process.env.RESEND_FROM,
+    }),
+  ],
   session: { strategy: "jwt" },
-  pages: { signIn: "/masuk" },
+  pages: { signIn: "/masuk", verifyRequest: "/masuk/cek-email" },
   callbacks: {
     session({ session, token }) {
       if (session.user) {

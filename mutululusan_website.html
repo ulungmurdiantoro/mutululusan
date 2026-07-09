@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mutululusan.id — Career Competency Ecosystem</title>
+<style>
+:root{
+  --navy:#1B3A6B;
+  --navy-deep:#0F2345;
+  --navy-light:#163565;
+  --gold:#C8971A;
+  --teal:#0F6E56;
+  --teal-light:#E1F5EE;
+  --blue:#185FA5;
+  --blue-light:#EAF4F8;
+  --gold-light:#FFF8E7;
+  --green:#3B6D11;
+  --green-light:#EAF3DE;
+  --coral:#993C1D;
+  --coral-light:#FAECE7;
+  --text:#2C2C2A;
+  --text-muted:#666;
+  --border:#E5E5E5;
+  --bg-soft:#F8FAFC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,Helvetica,sans-serif;color:var(--text);background:#fff;line-height:1.5}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+img{max-width:100%;display:block}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:0.5px solid #EEE;position:sticky;top:0;background:#fff;z-index:50}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;border-radius:9px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px}
+.logo-text strong{font-size:16px;color:var(--navy);display:block;line-height:1.2}
+.logo-text span{font-size:10px;color:#888;display:block}
+.navlinks{display:flex;gap:22px;font-size:13px;color:#444}
+.navlinks a{padding-bottom:18px;border-bottom:2px solid transparent;transition:color .15s}
+.navlinks a:hover{color:var(--navy)}
+.navlinks a.active{color:var(--navy);font-weight:600;border-bottom-color:var(--gold)}
+.navcta{display:flex;gap:10px;align-items:center}
+.btn{font-size:13px;padding:9px 18px;border-radius:7px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn-ghost{background:transparent;border:1px solid #D5D5D5;color:var(--navy)}
+.btn-solid{background:var(--gold);color:#fff}
+.btn-outline-white{background:#fff;color:var(--navy)}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+
+.hero{background:var(--navy);padding:56px 28px}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.95fr;gap:40px;align-items:center;width:100%}
+.hero h1{font-size:36px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:16px}
+.hero h1 .accent{color:var(--gold)}
+.hero p{font-size:15px;color:#B8CCE6;line-height:1.7;margin-bottom:24px;max-width:460px}
+.hero-ctas{display:flex;gap:12px;margin-bottom:26px;flex-wrap:wrap}
+.hero-ctas .btn{padding:12px 22px;font-size:14px}
+.trust-row{display:flex;gap:22px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:#9FC8E8}
+.trust-item svg{flex-shrink:0}
+
+.hero-visual{background:var(--navy-light);border-radius:14px;padding:24px;border:0.5px solid #2A4F8A}
+.hero-visual h4{font-size:13px;color:var(--gold);font-weight:700;text-align:center;margin-bottom:18px;letter-spacing:.3px}
+.path-row{display:flex;align-items:flex-start;justify-content:space-between}
+.path-step{text-align:center;flex:1}
+.path-circle{width:42px;height:42px;border-radius:50%;background:var(--navy);border:1.5px solid #378ADD;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.path-step span{font-size:10.5px;color:#C5DCF0;font-weight:500}
+.path-arrow{color:var(--gold);font-size:16px;margin-top:13px}
+
+.section{padding:56px 28px}
+.section.soft{background:var(--bg-soft)}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-hdr{text-align:center;margin-bottom:36px}
+.section-hdr .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.section-hdr h2{font-size:26px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.section-hdr p{font-size:14px;color:var(--text-muted);max-width:640px;margin:0 auto}
+
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.eco-card{border-radius:14px;padding:24px;border:0.5px solid #E0E8F0}
+.eco-card.gov{background:var(--blue-light)}
+.eco-card.lab{background:var(--teal-light)}
+.eco-card.talent{background:var(--gold-light);border:1.5px solid var(--gold)}
+.eco-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.eco-card h3{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.eco-card p{font-size:13px;color:#555;line-height:1.5;margin-bottom:14px}
+.eco-tag{font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;display:inline-block}
+.eco-link{font-size:12px;color:var(--navy);font-weight:600;margin-top:10px;display:inline-flex;align-items:center;gap:4px}
+.eco-link:hover{text-decoration:underline}
+
+.demand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.demand-card{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:22px;border-top:3px solid var(--navy)}
+.demand-card.c2{border-top-color:var(--teal)}
+.demand-card.c3{border-top-color:var(--gold)}
+.demand-icon{width:38px;height:38px;border-radius:9px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.demand-card.c2 .demand-icon{background:var(--teal-light)}
+.demand-card.c3 .demand-icon{background:var(--gold-light)}
+.demand-tag{font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 9px;border-radius:5px;display:inline-block;margin-bottom:10px;letter-spacing:.3px}
+.demand-card.c2 .demand-tag{color:var(--teal);background:var(--teal-light)}
+.demand-card.c3 .demand-tag{color:#854F0B;background:var(--gold-light)}
+.demand-card h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.35}
+.demand-card p{font-size:12.5px;color:#555;line-height:1.6}
+.demand-note{background:var(--bg-soft);border-radius:0 10px 10px 0;border-left:3px solid var(--gold);padding:16px 20px;margin-top:24px;max-width:900px;margin-left:auto;margin-right:auto}
+.demand-note p{font-size:12px;color:#666;line-height:1.7}
+
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.tier-card{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:26px;display:flex;flex-direction:column}
+.tier-card.featured{border:2px solid var(--gold);position:relative}
+.tier-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:10.5px;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.tier-icon{width:42px;height:42px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.tier-card.featured .tier-icon{background:var(--gold-light)}
+.tier-card h3{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.tier-sub{font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.5}
+.tier-list{flex:1;margin-bottom:18px}
+.tier-list li{font-size:12.5px;color:#444;padding:5px 0 5px 16px;position:relative;line-height:1.4}
+.tier-list li:before{content:"›";position:absolute;left:0;color:var(--gold);font-weight:700}
+.tier-for{font-size:11px;color:var(--text-muted);background:var(--bg-soft);padding:8px 12px;border-radius:8px;margin-bottom:14px}
+.tier-for strong{color:var(--navy)}
+
+.give-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.give-card{background:#fff;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s,border-color .15s}
+.give-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(200,151,26,.12)}
+.give-img{padding:20px 18px 16px;position:relative}
+.give-icon-box{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.give-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.4px;text-transform:uppercase}
+.give-body{padding:4px 18px 18px}
+.give-body h4{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.35}
+.give-body p{font-size:11.5px;color:#555;line-height:1.55;margin-bottom:12px}
+.give-cta{font-size:11.5px;font-weight:700;color:var(--gold)}
+
+.cat-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+.cat-tab{font-size:12.5px;font-weight:600;padding:8px 16px;border-radius:8px;border:0.5px solid var(--border);color:var(--text-muted)}
+.cat-tab.is-mgmt{border-color:var(--blue);color:var(--blue)}
+.cat-tab.is-sus{border-color:var(--green);color:var(--green)}
+.cat-tab.is-lab{border-color:var(--teal);color:var(--teal)}
+.cat-tab.is-eng{border-color:#854F0B;color:#854F0B}
+
+.cat-block{margin-bottom:36px}
+.cat-block:last-child{margin-bottom:0}
+.cat-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1.5px solid var(--border)}
+.cat-hdr-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-hdr h3{font-size:17px;font-weight:700;color:var(--navy)}
+.cat-hdr span{font-size:12px;color:var(--text-muted)}
+
+.scheme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.scheme-card{border:0.5px solid var(--border);border-radius:12px;padding:16px 18px;transition:box-shadow .15s,border-color .15s;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.scheme-card:hover{border-color:var(--navy);box-shadow:0 2px 10px rgba(27,58,107,.08)}
+.scheme-card h4{font-size:13px;font-weight:700;color:var(--navy);line-height:1.4}
+.scheme-card .alias{font-size:10.5px;color:var(--text-muted);margin-top:3px;font-style:italic}
+.scheme-link{font-size:12px;color:var(--gold);flex-shrink:0}
+
+.career-cta{text-align:center;margin-top:32px}
+
+.disclaimer-box{background:var(--bg-soft);border:0.5px solid var(--border);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 22px;margin:0 auto 36px;max-width:900px}
+.disclaimer-box h5{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.disclaimer-box p{font-size:12px;color:#555;line-height:1.7;margin-bottom:8px}
+.disclaimer-box p:last-child{margin-bottom:0}
+
+.program-flow{display:flex;align-items:stretch;gap:0;background:#fff;border-radius:14px;padding:24px;overflow-x:auto;border:0.5px solid var(--border)}
+.pf-step{flex:1;text-align:center;padding:0 10px;min-width:120px}
+.pf-icon{width:42px;height:42px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.pf-step h5{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.pf-step p{font-size:11.5px;color:#666;line-height:1.4}
+.pf-arrow{display:flex;align-items:center;color:var(--gold);font-size:18px;padding:0 4px}
+.pf-end{background:var(--navy);border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:130px}
+.pf-end h5{font-size:13px;color:#fff;font-weight:700;margin-bottom:3px}
+.pf-end p{font-size:10.5px;color:#9FC8E8}
+
+.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.aud-card{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s}
+.aud-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.aud-hdr{padding:14px 16px;background:var(--navy)}
+.aud-hdr h5{font-size:14px;color:#fff;font-weight:700}
+.aud-body{padding:14px 16px}
+.aud-body li{font-size:12px;color:#555;padding:2.5px 0 2.5px 12px;position:relative;line-height:1.4}
+.aud-body li:before{content:"·";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:15px}
+.aud-link{font-size:12px;color:var(--gold);font-weight:600;margin-top:10px;display:inline-block}
+
+.contact-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.contact-card{background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.contact-avatar{width:38px;height:38px;border-radius:50%;background:var(--blue-light);color:var(--navy);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.contact-card h6{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.contact-card span{font-size:11px;color:var(--text-muted)}
+
+.footer-mu{background:var(--navy-deep);padding:48px 28px 24px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+.footer-mu h6{font-size:13px;color:#fff;font-weight:700;margin-bottom:14px}
+.footer-mu p{font-size:12.5px;color:#9FC8E8;line-height:1.7}
+.footer-mu li{font-size:12.5px;color:#9FC8E8;padding:4px 0}
+.footer-mu li a:hover{color:#fff}
+.footer-eco{margin-top:14px;padding-top:14px;border-top:0.5px solid #1E4278}
+.footer-eco p{font-size:11px;color:#7295C0}
+.footer-eco a{color:var(--gold);font-weight:600}
+.footer-eco a:hover{text-decoration:underline}
+.footer-legal{margin-top:14px;padding-top:14px;border-top:0.5px solid #1E4278}
+.footer-legal p{font-size:10.5px;color:#5E80AC;line-height:1.6}
+.footer-bottom{max-width:1200px;margin:24px auto 0;padding-top:18px;border-top:0.5px solid #1E4278;font-size:11px;color:#7295C0;text-align:center}
+
+@media (max-width:900px){
+  .navlinks{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .eco-grid,.demand-grid,.tier-grid{grid-template-columns:1fr 1fr}
+  .give-grid{grid-template-columns:1fr 1fr}
+  .scheme-grid{grid-template-columns:1fr 1fr}
+  .audience-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-inner{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .eco-grid,.demand-grid,.tier-grid,.give-grid,.scheme-grid,.audience-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:26px}
+  .path-row{flex-wrap:wrap;gap:14px}
+  .cat-tabs{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">
+    <div class="logo-mark">M</div>
+    <div class="logo-text"><strong>mutululusan.id</strong><span>Career competency ecosystem</span></div>
+  </div>
+  <div class="navlinks">
+    <a href="#beranda" class="active">Beranda</a>
+    <a href="#untuk-institusi">Untuk institusi</a>
+    <a href="#give-value">Coba gratis</a>
+    <a href="#career-path">Career path</a>
+    <a href="#tentang">Tentang kami</a>
+  </div>
+  <div class="navcta">
+    <button class="btn btn-ghost">Masuk</button>
+    <button class="btn btn-solid">Daftar</button>
+  </div>
+</nav>
+
+<section class="hero" id="beranda">
+  <div class="hero-inner">
+    <div>
+      <h1>Bangun ekosistem kompetensi kampus Anda.<br><span class="accent">Bukan sekadar pelatihan individu.</span></h1>
+      <p>mutululusan.id membantu perguruan tinggi mempersiapkan mahasiswa, dosen, dan tendik menuju karier profesional — selaras dengan capaian IKU, kebutuhan SKPI, dan target daya saing lulusan institusi Anda.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-outline-white">Jadwalkan diskusi kemitraan</button>
+        <button class="btn btn-gold">Coba program gratis</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          Materi disusun bersama praktisi industri
+        </div>
+        <div class="trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg>
+          Selaras dengan kerangka IKU terbaru
+        </div>
+        <div class="trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          Persiapan karier menuju profesional
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <h4>MULAI PERJALANAN KARIERMU SEKARANG</h4>
+      <div class="path-row">
+        <div class="path-step"><div class="path-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><span>Belajar</span></div>
+        <div class="path-arrow">›</div>
+        <div class="path-step"><div class="path-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><span>Workshop</span></div>
+        <div class="path-arrow">›</div>
+        <div class="path-step"><div class="path-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><span>Project</span></div>
+        <div class="path-arrow">›</div>
+        <div class="path-step"><div class="path-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><span>Mentoring</span></div>
+        <div class="path-arrow">›</div>
+        <div class="path-step"><div class="path-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FC8E8" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></div><span>Job ready</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <h2>Bagian dari ekosistem kompetensi perguruan tinggi</h2>
+      <p>Satu ekosistem PT Padma Global Nusatama untuk membangun kualitas institusi, laboratorium, hingga lulusan siap kerja</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-card gov">
+        <div class="eco-icon" style="background:var(--navy)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg>
+        </div>
+        <h3>Tata kelola perguruan tinggi</h3>
+        <p>Penjaminan mutu, akreditasi, dan tata kelola institusi pendidikan tinggi.</p>
+        <span class="eco-tag" style="background:var(--navy);color:#fff">mutuperguruantinggi.id</span><br>
+        <a class="eco-link" href="https://mutuperguruantinggi.id" target="_blank" rel="noopener">Lihat skema selengkapnya →</a>
+      </div>
+      <div class="eco-card lab">
+        <div class="eco-icon" style="background:var(--teal)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 3h6M10 3v6.5L4.5 19a1.5 1.5 0 001.3 2.2h12.4a1.5 1.5 0 001.3-2.2L14 9.5V3"/></svg>
+        </div>
+        <h3>Tata kelola laboratorium</h3>
+        <p>Standardisasi dan kompetensi laboratorium berbasis ISO/IEC 17025.</p>
+        <span class="eco-tag" style="background:var(--teal);color:#fff">labnesia.id</span><br>
+        <a class="eco-link" href="https://labnesia.id" target="_blank" rel="noopener">Lihat skema selengkapnya →</a>
+      </div>
+      <div class="eco-card talent">
+        <div class="eco-icon" style="background:var(--gold)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Mahasiswa dan lulusan</h3>
+        <p>Persiapan karier menuju profesional bagi mahasiswa, dosen, dan tendik.</p>
+        <span class="eco-tag" style="background:var(--gold);color:#fff">mutululusan.id — Anda di sini</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="untuk-institusi">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <p class="eyebrow">Untuk pimpinan perguruan tinggi</p>
+      <h2>Mengapa ini strategis bagi institusi Anda</h2>
+      <p>Bukan sekadar pelatihan tambahan — program ini dirancang agar selaras dengan kerangka kebijakan dan kebutuhan administratif perguruan tinggi</p>
+    </div>
+    <div class="demand-grid">
+      <div class="demand-card">
+        <div class="demand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+        </div>
+        <div class="demand-tag">IKU 2 & IKU 3</div>
+        <h3>Mendukung capaian Indikator Kinerja Utama</h3>
+        <p>Persiapan karier yang terstruktur dapat mendukung capaian lulusan bekerja lebih cepat dan layak (IKU 2). Program magang, mentoring, dan mini project juga berpotensi diajukan sebagai pengalaman luar program studi yang diakui satuan kredit semester (IKU 3), sesuai kebijakan masing-masing perguruan tinggi.</p>
+      </div>
+      <div class="demand-card c2">
+        <div class="demand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
+        </div>
+        <div class="demand-tag">SKPI</div>
+        <h3>Bukti pendukung Surat Keterangan Pendamping Ijazah</h3>
+        <p>Sertifikat pelatihan, workshop, dan kegiatan kompetensi yang diikuti mahasiswa dapat dicatat sebagai bagian dari rekam jejak Surat Keterangan Pendamping Ijazah (SKPI) — dokumen resmi pendamping ijazah yang wajib diterbitkan perguruan tinggi sesuai ketentuan yang berlaku.</p>
+      </div>
+      <div class="demand-card c3">
+        <div class="demand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#854F0B" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="demand-tag">IKU 9</div>
+        <h3>Peluang pendapatan non-akademik institusi</h3>
+        <p>Indikator Kinerja Utama mengakui jasa konsultasi dan pelatihan/sertifikasi profesi sebagai sumber pendapatan non-akademik (IKU 9). Skema kemitraan membuka peluang kampus turut menyelenggarakan dan memperoleh manfaat dari program kompetensi ini.</p>
+      </div>
+    </div>
+    <div class="demand-note">
+      <p>Catatan: pengakuan satuan kredit semester (SKS), pemenuhan IKU, dan pencatatan dalam SKPI sepenuhnya merupakan kewenangan dan kebijakan masing-masing perguruan tinggi sesuai ketentuan internal yang berlaku. mutululusan.id menyediakan program dan dokumentasi pendukung yang dapat digunakan institusi dalam proses tersebut.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <p class="eyebrow">Pilihan skema layanan</p>
+      <h2>Tiga cara bekerja sama dengan kami</h2>
+      <p>Dari kebutuhan individu hingga kemitraan jangka panjang antar institusi</p>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0116 0v1"/></svg>
+        </div>
+        <h3>Individual / Satuan</h3>
+        <div class="tier-sub">Untuk mahasiswa, fresh graduate, atau profesional yang ingin mendaftar mandiri</div>
+        <ul class="tier-list">
+          <li>Pendaftaran terbuka per peserta</li>
+          <li>Pilih satu atau beberapa skema kompetensi</li>
+          <li>Jadwal mengikuti batch terjadwal</li>
+          <li>E-sertifikat dan materi pelatihan</li>
+        </ul>
+        <div class="tier-for">Cocok untuk: <strong>perorangan</strong> yang ingin mulai dari satu program</div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>
+        </div>
+        <h3>In-House / Private</h3>
+        <div class="tier-sub">Untuk satu fakultas, prodi, atau kelompok kerja dengan kebutuhan spesifik</div>
+        <ul class="tier-list">
+          <li>Jadwal dan lokasi menyesuaikan kebutuhan</li>
+          <li>Materi dapat disesuaikan dengan konteks institusi</li>
+          <li>Kuota peserta tertutup, satu grup</li>
+          <li>Laporan hasil pelatihan untuk internal</li>
+        </ul>
+        <div class="tier-for">Cocok untuk: <strong>satu unit/fakultas</strong> dengan kebutuhan tertentu</div>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-badge">Direkomendasikan untuk institusi</div>
+        <div class="tier-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#854F0B" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Kemitraan / Partnership</h3>
+        <div class="tier-sub">Kerja sama jangka panjang antar institusi yang mencakup seluruh ekosistem</div>
+        <ul class="tier-list">
+          <li>Skema tahunan, mencakup banyak program kompetensi</li>
+          <li>Dapat digabung dengan skema mutuperguruantinggi.id dan labnesia.id</li>
+          <li>Co-branding dan pelaporan berkala ke pimpinan institusi</li>
+          <li>Pendampingan berkelanjutan dan jejaring praktisi</li>
+        </ul>
+        <div class="tier-for">Cocok untuk: <strong>perguruan tinggi</strong> yang ingin membangun ekosistem kompetensi menyeluruh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="give-value">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <p class="eyebrow">Coba dulu, gratis</p>
+      <h2>Rasakan manfaatnya sebelum memutuskan kemitraan</h2>
+      <p>Kami percaya institusi yang sudah merasakan nilai nyata akan tahu sendiri langkah selanjutnya — beberapa hal berikut tersedia tanpa biaya</p>
+    </div>
+    <div class="give-grid">
+      <div class="give-card">
+        <div class="give-img" style="background:var(--navy)">
+          <div class="give-icon-box" style="background:rgba(255,255,255,.12)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8971A" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+          </div>
+          <span class="give-tag" style="background:rgba(26,158,117,.25);color:#9FE1CB">Gratis</span>
+        </div>
+        <div class="give-body">
+          <h4>Bootcamp pengenalan 1 hari</h4>
+          <p>Sesi singkat berisi silabus, awareness, dan manfaat program kompetensi — cocok untuk perkenalan awal sebelum institusi memutuskan kemitraan.</p>
+          <span class="give-cta">Lihat jadwal →</span>
+        </div>
+      </div>
+
+      <div class="give-card">
+        <div class="give-img" style="background:var(--navy-light)">
+          <div class="give-icon-box" style="background:rgba(255,255,255,.12)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8971A" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <span class="give-tag" style="background:rgba(245,166,35,.2);color:#FAC775">Gratis untuk institusi</span>
+        </div>
+        <div class="give-body">
+          <h4>Asesmen kebutuhan kompetensi</h4>
+          <p>Sesi pemetaan singkat untuk memahami kebutuhan kompetensi mahasiswa, dosen, atau tendik di institusi Anda — hasilnya berupa rekomendasi awal program yang relevan.</p>
+          <span class="give-cta">Jadwalkan asesmen →</span>
+        </div>
+      </div>
+
+      <div class="give-card">
+        <div class="give-img" style="background:#0B2D1A">
+          <div class="give-icon-box" style="background:rgba(255,255,255,.12)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8971A" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+          </div>
+          <span class="give-tag" style="background:rgba(26,158,117,.25);color:#9FE1CB">Gratis untuk kampus mitra</span>
+        </div>
+        <div class="give-body">
+          <h4>Kuliah praktisi</h4>
+          <p>Kami hadir ke kampus Anda — sesi tatap muka untuk mahasiswa tingkat akhir dan fresh graduate tentang persiapan karier menuju profesional.</p>
+          <span class="give-cta">Undang ke kampus →</span>
+        </div>
+      </div>
+
+      <div class="give-card">
+        <div class="give-img" style="background:var(--navy)">
+          <div class="give-icon-box" style="background:rgba(255,255,255,.12)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8971A" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <span class="give-tag" style="background:rgba(255,255,255,.15);color:#C5DCF0">Unduh gratis</span>
+        </div>
+        <div class="give-body">
+          <h4>Silabus & panduan program</h4>
+          <p>Unduh outline silabus lengkap, daftar skema kompetensi, dan panduan kemitraan tanpa perlu mendaftar terlebih dahulu.</p>
+          <span class="give-cta">Unduh PDF →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft" id="career-path">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <h2>Pilih bidang kariermu</h2>
+      <p>Jalur kompetensi yang relevan dengan kebutuhan industri terkini, dikelompokkan dalam empat bidang utama</p>
+    </div>
+
+    <div class="cat-tabs">
+      <span class="cat-tab is-mgmt">Management &amp; Governance</span>
+      <span class="cat-tab is-sus">Sustainability &amp; ESG</span>
+      <span class="cat-tab is-lab">Laboratory &amp; Testing</span>
+      <span class="cat-tab is-eng">Industrial Engineering &amp; Lifting</span>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-hdr">
+        <div class="cat-hdr-icon" style="background:var(--blue-light)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h3>Management &amp; Governance</h3>
+          <span>Sistem manajemen, tata kelola, dan kepatuhan organisasi</span>
+        </div>
+      </div>
+      <div class="scheme-grid">
+        <div class="scheme-card"><h4>Quality Management System (ISO 9001) Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Food Safety Management Officer<div class="alias">Petugas Sistem Keamanan Pangan</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Regulatory Affairs Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Quality Assurance Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Corporate Legal Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+      </div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-hdr">
+        <div class="cat-hdr-icon" style="background:var(--green-light)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="2"><path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 11 13 12 11"/></svg>
+        </div>
+        <div>
+          <h3>Sustainability &amp; ESG</h3>
+          <span>Keberlanjutan lingkungan, sosial, dan tata kelola organisasi</span>
+        </div>
+      </div>
+      <div class="scheme-grid">
+        <div class="scheme-card"><h4>Environmental Management System (ISO 14001) Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>ESG Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Sustainability Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+      </div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-hdr">
+        <div class="cat-hdr-icon" style="background:var(--teal-light)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M9 3h6M10 3v6.5L4.5 19a1.5 1.5 0 001.3 2.2h12.4a1.5 1.5 0 001.3-2.2L14 9.5V3"/></svg>
+        </div>
+        <div>
+          <h3>Laboratory &amp; Testing</h3>
+          <span>Sistem mutu, operasional, dan pengujian laboratorium</span>
+        </div>
+      </div>
+      <div class="scheme-grid">
+        <div class="scheme-card"><h4>Laboratory Quality System Officer<div class="alias">Petugas Sistem Mutu Laboratorium ISO/IEC 17025</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Panelis Terlatih Pengujian Sensori Pangan</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>GLP Laboratory Technician<div class="alias">Teknisi Laboratorium Berbasis GLP</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Laboratory HSE Officer<div class="alias">Petugas K3L Laboratorium</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Laboratory Operations Officer<div class="alias">Pranata Laboratorium</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>QC Laboratory Analyst<div class="alias">Analis QC Laboratorium</div></h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Research and Development Officer</h4><a class="scheme-link" href="#">Detail →</a></div>
+      </div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-hdr">
+        <div class="cat-hdr-icon" style="background:#FAEEDA">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#854F0B" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <div>
+          <h3>Industrial Engineering &amp; Lifting</h3>
+          <span>Rekayasa teknik dan operasional lifting industri</span>
+        </div>
+      </div>
+      <div class="scheme-grid">
+        <div class="scheme-card"><h4>Lifting Engineer for Medium Lifting</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>Lifting Engineer for Heavy &amp; Critical Lifting</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>2D Lifting Designer</h4><a class="scheme-link" href="#">Detail →</a></div>
+        <div class="scheme-card"><h4>3D Lifting Designer</h4><a class="scheme-link" href="#">Detail →</a></div>
+      </div>
+    </div>
+
+    <div class="career-cta">
+      <button class="btn btn-ghost" style="border-color:var(--navy)">Lihat semua career path</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="program">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <h2>Program unggulan — career accelerator</h2>
+      <p>Program komprehensif untuk mempercepat kompetensi dan persiapan karier menuju profesional</p>
+    </div>
+
+    <div class="disclaimer-box">
+      <h5>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8971A" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Informasi penting
+      </h5>
+      <p>Program pelatihan ini dapat digunakan sebagai salah satu bentuk pemenuhan persyaratan administrasi untuk mengikuti uji kompetensi pada skema terkait di Lembaga Sertifikasi Profesi/Person (LSP) yang relevan, sesuai dengan persyaratan dan ketentuan yang berlaku. Keikutsertaan dalam pelatihan ini tidak menjamin kemudahan proses uji atau menjamin kelulusan sertifikasi kompetensi.</p>
+      <p>Pendaftaran uji kompetensi dilakukan secara mandiri oleh peserta langsung kepada LSP terkait, dan jadwal resmi uji kompetensi dipublikasikan melalui media LSP secara terpisah. mutululusan.id dan LSP mitra merupakan dua entitas yang independen dengan peran berbeda: mutululusan.id menyelenggarakan pelatihan untuk meningkatkan kompetensi peserta, sedangkan keputusan sertifikasi sepenuhnya menjadi kewenangan LSP berdasarkan hasil asesmen yang objektif dan independen.</p>
+    </div>
+
+    <div class="program-flow">
+      <div class="pf-step">
+        <div class="pf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <h5>Training</h5><p>Pembelajaran terstruktur dasar hingga mahir</p>
+      </div>
+      <div class="pf-arrow">›</div>
+      <div class="pf-step">
+        <div class="pf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h5>Workshop</h5><p>Praktik langsung bersama praktisi</p>
+      </div>
+      <div class="pf-arrow">›</div>
+      <div class="pf-step">
+        <div class="pf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <h5>Mini project</h5><p>Studi kasus nyata berbasis industri</p>
+      </div>
+      <div class="pf-arrow">›</div>
+      <div class="pf-step">
+        <div class="pf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <h5>Mentoring</h5><p>Bimbingan 1-on-1 dari mentor ahli</p>
+      </div>
+      <div class="pf-arrow">›</div>
+      <div class="pf-step">
+        <div class="pf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <h5>Persiapan uji kompetensi</h5><p>Pemenuhan persyaratan administrasi skema LSP</p>
+      </div>
+      <div class="pf-arrow">›</div>
+      <div class="pf-end">
+        <h5>Job ready</h5><p>Siap kerja dan berdaya saing</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft" id="untuk-anda">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <h2>Untuk siapa platform ini?</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="aud-card">
+        <div class="aud-hdr"><h5>Mahasiswa</h5></div>
+        <div class="aud-body">
+          <ul><li>Persiapan sebelum lulus</li><li>Bootcamp dan workshop</li><li>Pelatihan kompetensi</li><li>Career coaching</li><li>Portfolio dan project</li></ul>
+          <a class="aud-link" href="#">Pelajari lebih lanjut →</a>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-hdr" style="background:var(--blue)"><h5>Fresh graduate</h5></div>
+        <div class="aud-body">
+          <ul><li>Upgrade CV</li><li>Mock interview</li><li>Kompetensi industri</li><li>Career roadmap</li><li>Persiapan uji kompetensi</li></ul>
+          <a class="aud-link" href="#">Pelajari lebih lanjut →</a>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-hdr" style="background:var(--gold)"><h5>Dosen dan tendik</h5></div>
+        <div class="aud-body">
+          <ul><li>Persiapan karier menuju profesional</li><li>Pelatihan pendukung Tridarma</li><li>Pengembangan kompetensi</li><li>Karier lebih cepat</li><li>Jejaring profesional</li></ul>
+          <a class="aud-link" href="#">Pelajari lebih lanjut →</a>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-hdr" style="background:var(--teal)"><h5>Industri dan perusahaan</h5></div>
+        <div class="aud-body">
+          <ul><li>Recruit SDM kompeten</li><li>Corporate training</li><li>Pengembangan kompetensi tim</li><li>Talent pool</li><li>Employer branding</li></ul>
+          <a class="aud-link" href="#">Pelajari lebih lanjut →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="kontak">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <p class="eyebrow">Hubungi kami</p>
+      <h2>Diskusikan kebutuhan institusi Anda</h2>
+      <p>Tim kami siap membantu menjadwalkan diskusi, asesmen kebutuhan, atau audiensi kemitraan</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="contact-avatar">R</div><h6>Rossi</h6><span>+62 812-8656-3234</span></div>
+      <div class="contact-card"><div class="contact-avatar">A</div><h6>Althaaf</h6><span>+62 889-5213-007</span></div>
+      <div class="contact-card"><div class="contact-avatar">E</div><h6>Endang</h6><span>+62 821-7222-1567</span></div>
+      <div class="contact-card"><div class="contact-avatar">B</div><h6>Berryl</h6><span>+62 851-8500-0367</span></div>
+      <div class="contact-card"><div class="contact-avatar">K</div><h6>Kintan</h6><span>+62 811-399-523</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-mu" id="tentang">
+  <div class="footer-inner">
+    <div>
+      <h6>mutululusan.id</h6>
+      <p>Platform pengembangan kompetensi untuk mahasiswa, dosen, tendik, dan profesional menuju karier yang lebih baik.</p>
+      <div class="footer-eco">
+        <p>Bagian dari ekosistem PT Padma Global Nusatama bersama <a href="https://mutuperguruantinggi.id" target="_blank" rel="noopener">mutuperguruantinggi.id</a> dan <a href="https://labnesia.id" target="_blank" rel="noopener">labnesia.id</a></p>
+      </div>
+      <div class="footer-legal">
+        <p>mutululusan.id menyelenggarakan pelatihan dan pengembangan kompetensi secara independen dari proses sertifikasi. Keputusan kelulusan uji kompetensi sepenuhnya menjadi kewenangan Lembaga Sertifikasi Profesi/Person (LSP) mitra berdasarkan asesmen yang objektif sesuai SNI ISO/IEC 17024.</p>
+      </div>
+    </div>
+    <div>
+      <h6>Tautan cepat</h6>
+      <ul>
+        <li><a href="#untuk-institusi">Untuk institusi</a></li>
+        <li><a href="#give-value">Coba gratis</a></li>
+        <li><a href="#career-path">Career path</a></li>
+        <li><a href="#">Artikel dan tips</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6>Kontak kami</h6>
+      <p>Rossi&nbsp; +62 812-8656-3234<br>Althaaf +62 889-5213-007<br>Endang +62 821-7222-1567<br>Berryl +62 851-8500-0367<br>Kintan +62 811-399-523<br>info@mutululusan.id</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 PT Padma Global Nusatama. All rights reserved. — Kebijakan Privasi · Syarat dan Ketentuan</div>
+</footer>
+
+</body>
+</html>

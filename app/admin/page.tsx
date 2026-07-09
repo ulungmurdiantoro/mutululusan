@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { cookies } from "next/headers";
 import { listOrders, type Order, type OrderStatus } from "@/lib/orders";
 import { formatDateFull, formatRupiah } from "@/lib/format";
@@ -124,6 +125,15 @@ export default async function AdminPage() {
           <LogoutButton />
         </div>
 
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/admin/aset" className="text-sm font-semibold text-sky-700 hover:underline">
+            Kelola Aset Batch →
+          </Link>
+          <Link href="/admin/sertifikat" className="text-sm font-semibold text-sky-700 hover:underline">
+            Kelola Sertifikat →
+          </Link>
+        </div>
+
         <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
           <StatCard label="Total order" value={String(orders.length)} />
           <StatCard label="Lunas / terkonfirmasi" value={String(paid.length)} />
@@ -134,9 +144,9 @@ export default async function AdminPage() {
         <OrdersTable orders={orders} />
 
         <p className="mt-6 text-xs text-slate-400">
-          Catatan: data order disimpan pada penyimpanan file lokal. Untuk
-          produksi serverless, hubungkan ke database (PostgreSQL + Prisma) pada
-          <code> lib/orders.ts</code>.
+          {process.env.DATABASE_URL
+            ? "Data order disimpan di PostgreSQL (Prisma)."
+            : "DATABASE_URL belum diset — data order disimpan sementara di file lokal (.data/orders.json)."}
         </p>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { paymentMicrocopy } from "@/lib/site";
 import { LoginButtons } from "./login-buttons";
+import { EmailForm } from "./email-form";
 
 export const metadata: Metadata = {
   title: "Masuk",
@@ -42,8 +43,15 @@ export default async function MasukPage({ searchParams }: PageProps) {
             <LoginButtons callbackUrl={target} />
           </div>
 
-          <p className="mt-4 text-center text-xs text-slate-500">
-            Login email tanpa password akan segera tersedia.
+          <div className="mt-6 flex items-center gap-3 text-xs text-slate-400">
+            <span className="h-px flex-1 bg-slate-200" />
+            atau
+            <span className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          <EmailForm callbackUrl={target} />
+          <p className="mt-2 text-center text-xs text-slate-500">
+            Kami kirim link masuk sekali-klik ke email Anda — tanpa password.
           </p>
 
           <p className="mt-6 border-t border-slate-100 pt-4 text-center text-xs text-slate-500">

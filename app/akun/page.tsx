@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
+import { listOrdersForUser } from "@/lib/orders";
 
 export const metadata: Metadata = {
   title: "Akun Saya",
@@ -15,6 +16,10 @@ export default async function AkunPage() {
   if (!session?.user) redirect("/masuk?callbackUrl=/akun");
 
   const user = session.user;
+  const orders = await listOrdersForUser(user.id, user.email ?? "");
+  const trainingCount = orders.filter((o) =>
+    ["paid", "confirmed", "completed"].includes(o.status),
+  ).length;
 
   return (
     <div className="bg-slate-50">
@@ -47,16 +52,15 @@ export default async function AkunPage() {
           )}
         </div>
 
-        <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-6">
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="font-bold text-slate-900">Pelatihan Saya</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            Dashboard riwayat pelatihan — beserta rekaman Zoom, e-sertifikat,
-            materi, dan dokumentasi — sedang kami siapkan. Untuk sementara,
-            riwayat pendaftaran &amp; pembayaran Anda dikirim ke email dan
-            WhatsApp setelah checkout.
+            {trainingCount > 0
+              ? `Anda punya ${trainingCount} pelatihan lunas/terkonfirmasi — rekaman Zoom, materi, dokumentasi, dan e-sertifikat tersedia di dashboard.`
+              : "Belum ada pelatihan yang lunas/terkonfirmasi pada akun ini."}
           </p>
-          <Link href="/pelatihan" className="btn-primary mt-4">
-            Jelajahi Pelatihan
+          <Link href="/akun/pelatihan" className="btn-primary mt-4">
+            Buka Dashboard Pelatihan →
           </Link>
         </div>
       </div>

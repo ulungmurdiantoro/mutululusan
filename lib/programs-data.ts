@@ -1155,3 +1155,86 @@ export const programs: Program[] = [
     ],
   },
 ];
+
+/** Program yang kontennya belum lengkap — halaman sudah tersedia, materi menyusul. */
+function stubProgram(input: {
+  slug: string;
+  title: string;
+  subtitle: string;
+  excerpt: string;
+}): Program {
+  return {
+    slug: input.slug,
+    title: input.title,
+    subtitle: input.subtitle,
+    type: "online",
+    jp: null,
+    durationDays: 2,
+    basePrice: null,
+    excerpt: input.excerpt,
+    description: [
+      "Halaman program ini sedang kami siapkan. Silabus, jadwal batch, dan detail lengkap akan segera ditambahkan.",
+      "Sementara itu, hubungi admin via WhatsApp untuk informasi ketersediaan dan penawaran awal.",
+    ],
+    careerNote:
+      "Kompetensi ini merupakan bagian dari jalur karier yang sedang kami kembangkan bersama praktisi industri.",
+    audience: [],
+    syllabus: [
+      {
+        title: "Kurikulum sedang disusun",
+        points: ["Detail silabus akan diumumkan menyusul."],
+      },
+    ],
+    benefits: ONLINE_BENEFITS,
+    faqs: [
+      {
+        question: `Kapan konten lengkap ${input.title} tersedia?`,
+        answer:
+          "Sedang disiapkan. Hubungi admin via WhatsApp untuk informasi terbaru dan estimasi jadwal batch pertama.",
+      },
+    ],
+    keywords: [input.title.toLowerCase()],
+    seoTitle: `${input.title} — Segera Hadir | mutululusan.id`,
+    seoDescription: input.excerpt,
+    related: [],
+    batches: [],
+  };
+}
+
+programs.push(
+  stubProgram({
+    slug: "corporate-legal-officer",
+    title: "Corporate Legal Officer",
+    subtitle: "Kepatuhan Hukum & Tata Kelola Korporasi",
+    excerpt:
+      "Kompetensi kepatuhan hukum dan tata kelola korporasi untuk mendukung fungsi legal perusahaan.",
+  }),
+  stubProgram({
+    slug: "lifting-engineer-medium",
+    title: "Lifting Engineer for Medium Lifting",
+    subtitle: "Rekayasa Teknik Lifting Kapasitas Menengah",
+    excerpt:
+      "Kompetensi rekayasa teknik untuk operasi lifting kapasitas menengah pada proyek industri.",
+  }),
+  stubProgram({
+    slug: "lifting-engineer-heavy-critical",
+    title: "Lifting Engineer for Heavy & Critical Lifting",
+    subtitle: "Rekayasa Teknik Lifting Berat & Kritis",
+    excerpt:
+      "Kompetensi rekayasa teknik untuk operasi lifting berat dan kritis pada proyek industri berisiko tinggi.",
+  }),
+  stubProgram({
+    slug: "lifting-designer-2d",
+    title: "2D Lifting Designer",
+    subtitle: "Perancangan Rigging & Lifting Plan 2D",
+    excerpt:
+      "Kompetensi perancangan rigging dan lifting plan berbasis gambar teknik 2D.",
+  }),
+  stubProgram({
+    slug: "lifting-designer-3d",
+    title: "3D Lifting Designer",
+    subtitle: "Perancangan Rigging & Lifting Plan 3D",
+    excerpt:
+      "Kompetensi perancangan rigging dan lifting plan berbasis model teknik 3D.",
+  }),
+);
