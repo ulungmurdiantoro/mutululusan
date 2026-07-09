@@ -1,19 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Countdown } from "@/components/countdown";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
-import { ProgramCard } from "@/components/program-card";
-import { formatDateRange } from "@/lib/format";
-import {
-  getAllPrograms,
-  priceLabel,
-  typeLabel,
-  upcomingAcrossPrograms,
-} from "@/lib/programs";
+import { getAllPrograms } from "@/lib/programs";
 import { paymentMicrocopy, site, waLink } from "@/lib/site";
 import { Testimonials } from "@/components/testimonials";
 import { getTestimonials } from "@/lib/testimonials";
+import { TrustBar } from "@/components/trust-bar";
+import { careerCategories, type CareerCategoryIcon } from "@/lib/career-categories";
 
 export const revalidate = 86400;
 
@@ -23,34 +17,6 @@ export const metadata: Metadata = {
     "Pelatihan kompetensi laboratorium online & offline 2026: K3 lab, GLP, QC/QA, ISO 9001. e-Sertifikat 24 JP, bayar langsung via QRIS/VA.",
   alternates: { canonical: "/" },
 };
-
-const homeFaqs = [
-  {
-    question: "Bagaimana cara mendaftar pelatihan di mutululusan.id?",
-    answer:
-      "Pilih program di halaman pelatihan, klik Daftar & Bayar Sekarang, pilih batch, isi data peserta, lalu bayar langsung via QRIS, virtual account, e-wallet, atau kartu. Seluruh proses kurang dari 2 menit.",
-  },
-  {
-    question: "Apakah saya mendapatkan sertifikat setelah pelatihan?",
-    answer:
-      "Ya. Peserta pelatihan online mendapatkan e-sertifikat 24 JP (jam pelajaran) yang dikirim setelah pelatihan selesai, beserta soft copy materi dan rekaman.",
-  },
-  {
-    question: "Bagaimana jika saya berhalangan hadir saat pelatihan?",
-    answer:
-      "Seluruh sesi direkam. Anda tetap mendapatkan rekaman lengkap, materi, dan e-sertifikat selama terdaftar sebagai peserta.",
-  },
-  {
-    question: "Apakah bisa didaftarkan dan dibayari oleh kantor/instansi?",
-    answer:
-      "Bisa. Kami melayani pendaftaran instansi dengan invoice resmi dan pembayaran transfer korporat. Hubungi admin via WhatsApp atau gunakan halaman In-House Training untuk penawaran.",
-  },
-  {
-    question: "Apa itu sertifikasi kompetensi dan bagaimana jalurnya?",
-    answer:
-      "Sertifikasi kompetensi adalah pengakuan formal atas kompetensi kerja Anda melalui asesmen. Kami berfokus pada pelatihan; uji dan sertifikasi kompetensinya diselenggarakan oleh mitra resmi kami, LSP Edukia. Sertifikat pelatihan 24 JP dari program kami dapat menjadi bekal untuk mengikuti jalur tersebut.",
-  },
-];
 
 const trustItems = [
   { label: "e-Sertifikat 24 JP", detail: "diakui untuk pengembangan profesi" },
@@ -78,6 +44,7 @@ const icon = {
   gear: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
   mentor:
     "M12 12a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z",
+  chat: "M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z",
 };
 
 function IconGlyph({ d, className = "text-sky-700" }: { d: string; className?: string }) {
@@ -87,6 +54,112 @@ function IconGlyph({ d, className = "text-sky-700" }: { d: string; className?: s
     </svg>
   );
 }
+
+/** Ikon "Job ready" — persis mutululusan_website.html (rect tas + tali). */
+function JobReadyIcon({ className = "text-sky-700" }: { className?: string }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" />
+    </svg>
+  );
+}
+
+/* ── "Mulai Perjalanan Kariermu Sekarang" — persis mutululusan_website.html ── */
+const heroJourney = [
+  { label: "Belajar", iconD: icon.book },
+  { label: "Workshop", iconD: icon.mentor },
+  { label: "Project", iconD: icon.check },
+  { label: "Mentoring", iconD: icon.chat },
+  { label: "Job ready", jobReady: true },
+] as const;
+
+/* ── Trust bar (fakta terverifikasi, bukan logo/angka fiktif) ─────── */
+const trustBadges = [
+  { label: "PT Padma Global Nusatama", detail: "badan hukum resmi penyelenggara" },
+  { label: "Mitra resmi LSP Edukia", detail: "jalur sertifikasi kompetensi" },
+  { label: "21 Program Kompetensi", detail: "management, sustainability, lab, engineering" },
+  { label: "Online & Offline", detail: "in-house training menyesuaikan kebutuhan institusi" },
+];
+
+/* ── Solusi berdasarkan kebutuhan (dua jalur) ──────────────────── */
+const solutionPaths = [
+  {
+    title: "Untuk Perguruan Tinggi",
+    desc: "Bangun kompetensi mahasiswa, dosen, dan tendik yang selaras dengan target institusi.",
+    points: [
+      "Pemenuhan IKU 2, IKU 3, dan IKU 9",
+      "Bukti pendukung SKPI mahasiswa",
+      "Sertifikasi kompetensi dosen & tendik",
+      "Dukungan dokumentasi untuk akreditasi program studi",
+    ],
+    cta: "Lihat Program untuk Kampus",
+    href: "/pelatihan",
+    iconD: icon.book,
+  },
+  {
+    title: "Untuk Industri & Laboratorium",
+    desc: "Pastikan tim Anda kompeten dan laboratorium siap menghadapi audit eksternal.",
+    points: [
+      "Kepatuhan ISO/IEC 17025",
+      "Sertifikasi personel laboratorium",
+      "Kesiapan audit & asesmen eksternal",
+      "Upskilling tim QA/QC secara terjadwal",
+    ],
+    cta: "Lihat Program untuk Perusahaan",
+    href: "/in-house-training",
+    iconD: icon.flask,
+  },
+];
+
+/* ── Kenapa bermitra dengan kami (B2B) ─────────────────────────── */
+const partnerReasons = [
+  {
+    title: "Mitra resmi LSP Edukia",
+    desc: "Jalur uji & sertifikasi kompetensi diselenggarakan mitra resmi kami sesuai skema ISO/IEC 17024.",
+  },
+  {
+    title: "Selaras dengan IKU & ISO 17025",
+    desc: "Program dirancang mengacu pada indikator kinerja institusi dan standar mutu laboratorium.",
+  },
+  {
+    title: "Fleksibel: online, offline, in-house",
+    desc: "Jadwal dan mode pelatihan menyesuaikan kebutuhan institusi atau perusahaan Anda.",
+  },
+  {
+    title: "Pendampingan end-to-end",
+    desc: "Dari pengajuan kebutuhan, pelaksanaan, hingga penerbitan sertifikat — tim kami mendampingi.",
+  },
+];
+
+/* ── FAQ untuk institusi (B2B) ─────────────────────────────────── */
+const b2bFaqs = [
+  {
+    question: "Apakah bisa dibuatkan penawaran resmi/proposal untuk pengadaan?",
+    answer:
+      "Bisa. Isi form \"Ajukan Penawaran untuk Institusi\", sebutkan kebutuhan Anda, dan tim kami akan mengirimkan penawaran/proposal tertulis.",
+  },
+  {
+    question: "Apakah tersedia skema harga rombongan/institusi?",
+    answer:
+      "Skema harga institusi disesuaikan dengan jumlah peserta dan kebutuhan spesifik — ajukan kebutuhan Anda lewat form \"Ajukan Penawaran\" dan tim kami akan memberikan penawaran yang sesuai.",
+  },
+  {
+    question: "Apakah bisa kerja sama MOU/PKS jangka panjang?",
+    answer:
+      "Bisa, tersedia skema Kemitraan/Partnership dengan MOU/PKS untuk kerja sama tahunan — termasuk untuk instansi pemerintah dan kampus negeri yang memerlukan proses pengadaan formal.",
+  },
+  {
+    question: "Bagaimana proses penagihan/invoice untuk instansi?",
+    answer:
+      "Kami menerbitkan invoice resmi dengan pembayaran transfer korporat. Anda bisa membuat proforma invoice sendiri di halaman Invoice Instansi, atau melalui tim kami setelah penawaran disepakati.",
+  },
+  {
+    question: "Apakah sertifikat dan JP diakui untuk kebutuhan akreditasi/kum dosen?",
+    answer:
+      "e-Sertifikat 24 JP yang kami terbitkan adalah satuan jam pelatihan dari penyelenggara kami. Pengakuannya untuk kum dosen atau akreditasi prodi sepenuhnya bergantung pada kebijakan internal masing-masing institusi — kami menyediakan dokumentasi pendukung yang dapat digunakan dalam proses tersebut.",
+  },
+];
 
 /* ── Ekosistem PT Padma Global Nusatama ────────────────────────── */
 const ecosystemCards = [
@@ -175,6 +248,7 @@ const tierCards = [
     points: [
       "Skema tahunan, mencakup banyak program kompetensi",
       "Dapat digabung dengan skema mutuperguruantinggi.id dan labnesia.id",
+      "Kerja sama formal MOU/PKS — tersedia untuk instansi pemerintah & kampus negeri",
       "Co-branding dan pelaporan berkala ke pimpinan institusi",
       "Pendampingan berkelanjutan dan jejaring praktisi",
     ],
@@ -221,65 +295,12 @@ const giveValueCards = [
 ];
 
 /* ── Pilih bidang kariermu ─────────────────────────────────────── */
-const careerCategories = [
-  {
-    key: "mgmt",
-    name: "Management & Governance",
-    desc: "Sistem manajemen, tata kelola, dan kepatuhan organisasi",
-    iconD: icon.check,
-    color: "sky",
-    schemes: [
-      { title: "Quality Management System (ISO 9001) Officer", slug: "iso-9001-officer" },
-      { title: "Food Safety Management Officer", alias: "Petugas Sistem Keamanan Pangan", slug: "food-safety-management" },
-      { title: "Regulatory Affairs Officer", slug: "regulatory-affairs-officer" },
-      { title: "Quality Assurance Officer", slug: "quality-assurance-officer" },
-      { title: "Corporate Legal Officer", slug: "corporate-legal-officer" },
-    ],
-  },
-  {
-    key: "sus",
-    name: "Sustainability & ESG",
-    desc: "Keberlanjutan lingkungan, sosial, dan tata kelola organisasi",
-    iconD: icon.leaf,
-    color: "emerald",
-    schemes: [
-      { title: "Environmental Management System (ISO 14001) Officer", slug: "iso-14001-officer" },
-      { title: "ESG Officer", slug: "esg-officer" },
-      { title: "Sustainability Officer", slug: "sustainability-officer" },
-    ],
-  },
-  {
-    key: "lab",
-    name: "Laboratory & Testing",
-    desc: "Sistem mutu, operasional, dan pengujian laboratorium",
-    iconD: icon.flask,
-    color: "teal",
-    schemes: [
-      { title: "Laboratory Quality System Officer", alias: "Petugas Sistem Mutu Laboratorium ISO/IEC 17025", slug: "iso-17025-quality-system-officer" },
-      { title: "Panelis Terlatih Pengujian Sensori Pangan", slug: "uji-sensori-pangan" },
-      { title: "GLP Laboratory Technician", alias: "Teknisi Laboratorium Berbasis GLP", slug: "glp-laboratory-technician" },
-      { title: "Laboratory HSE Officer", alias: "Petugas K3L Laboratorium", slug: "laboratory-hse-officer-k3l" },
-      { title: "Laboratory Operations Officer", alias: "Pranata Laboratorium", slug: "pranata-laboratorium" },
-      { title: "QC Laboratory Analyst", alias: "Analis QC Laboratorium", slug: "qc-laboratory-analyst" },
-      { title: "Research and Development Officer", slug: "research-development-officer" },
-      { title: "Jaminan Mutu Hasil Pengujian", slug: "jaminan-mutu" },
-      { title: "Ketidakpastian Pengukuran", alias: "Estimasi Measurement Uncertainty", slug: "ketidakpastian-pengukuran" },
-    ],
-  },
-  {
-    key: "eng",
-    name: "Industrial Engineering & Lifting",
-    desc: "Rekayasa teknik dan operasional lifting industri",
-    iconD: icon.gear,
-    color: "amber",
-    schemes: [
-      { title: "Lifting Engineer for Medium Lifting", slug: "lifting-engineer-medium" },
-      { title: "Lifting Engineer for Heavy & Critical Lifting", slug: "lifting-engineer-heavy-critical" },
-      { title: "2D Lifting Designer", slug: "lifting-designer-2d" },
-      { title: "3D Lifting Designer", slug: "lifting-designer-3d" },
-    ],
-  },
-] as const;
+const categoryIconD: Record<CareerCategoryIcon, string> = {
+  check: icon.check,
+  leaf: icon.leaf,
+  flask: icon.flask,
+  gear: icon.gear,
+};
 
 const categoryStyle: Record<string, { iconBg: string; iconText: string; tabBorder: string }> = {
   sky: { iconBg: "bg-sky-100", iconText: "text-sky-700", tabBorder: "border-sky-300 text-sky-700" },
@@ -341,12 +362,11 @@ function waHrefFromPhone(phone: string): string {
 
 export default function HomePage() {
   const programs = getAllPrograms();
-  const nextBatches = upcomingAcrossPrograms(3);
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: homeFaqs.map((f) => ({
+    mainEntity: b2bFaqs.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -363,26 +383,27 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
             <div>
               <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
-                Bangun ekosistem kompetensi kampus Anda.{" "}
-                <span className="text-orange-600">Bukan sekadar pelatihan individu.</span>
+                Solusi Pelatihan &amp; Sertifikasi Kompetensi Laboratorium{" "}
+                <span className="text-orange-600">untuk Perguruan Tinggi dan Industri</span>
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                mutululusan.id membantu perguruan tinggi mempersiapkan mahasiswa, dosen,
-                dan tendik menuju karier profesional — selaras dengan capaian IKU,
-                kebutuhan SKPI, dan target daya saing lulusan institusi Anda.
+                Membantu perguruan tinggi memenuhi capaian IKU 2/3/9, kebutuhan SKPI, dan
+                akreditasi program studi — serta membantu industri &amp; laboratorium
+                memenuhi kepatuhan ISO/IEC 17025 dan kesiapan audit, lewat program
+                pelatihan &amp; jalur sertifikasi kompetensi yang terstruktur.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/ajukan-penawaran" className="btn-primary">
+                  Ajukan Penawaran untuk Institusi
+                </Link>
                 <a
-                  href={waLink("Halo admin, kami ingin menjadwalkan diskusi kemitraan dengan mutululusan.id.")}
+                  href={waLink("Halo admin, kami ingin menjadwalkan konsultasi dengan tim mutululusan.id.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary"
+                  className="btn-outline"
                 >
-                  Jadwalkan Diskusi Kemitraan
+                  Jadwalkan Konsultasi
                 </a>
-                <Link href="/pelatihan" className="btn-outline">
-                  Coba Program Gratis
-                </Link>
               </div>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6">
@@ -408,11 +429,15 @@ export default function HomePage() {
                 Mulai Perjalanan Kariermu Sekarang
               </h2>
               <div className="mt-5 flex items-start justify-between">
-                {programFlow.slice(0, 4).map((step, i, arr) => (
+                {heroJourney.map((step, i, arr) => (
                   <div key={step.label} className="flex items-start">
                     <div className="flex flex-1 flex-col items-center text-center">
                       <div className="flex h-11 w-11 items-center justify-center rounded-full border border-sky-200 bg-sky-50">
-                        <IconGlyph d={step.iconD} className="text-sky-700" />
+                        {"jobReady" in step ? (
+                          <JobReadyIcon className="text-sky-700" />
+                        ) : (
+                          <IconGlyph d={step.iconD} className="text-sky-700" />
+                        )}
                       </div>
                       <span className="mt-2 text-[11px] font-medium leading-tight text-slate-600">
                         {step.label}
@@ -431,8 +456,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bagian dari ekosistem PT Padma Global Nusatama */}
+      <TrustBar badges={trustBadges} />
+
+      {/* Solusi berdasarkan kebutuhan Anda */}
+      <section id="solusi-institusi" className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
+              Solusi berdasarkan kebutuhan Anda
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+              Dua jalur, satu mitra pengembangan kompetensi
+            </h2>
+          </div>
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {solutionPaths.map((s) => (
+              <div key={s.title} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-7">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50">
+                  <IconGlyph d={s.iconD} className="text-sky-700" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-slate-900">{s.title}</h3>
+                <p className="mt-1 text-sm text-slate-600">{s.desc}</p>
+                <ul className="mt-4 flex-1 space-y-1.5">
+                  {s.points.map((p) => (
+                    <li key={p} className="pl-4 text-sm text-slate-600 relative before:absolute before:left-0 before:font-bold before:text-orange-500 before:content-['›']">
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <Link href={s.href} className="btn-outline mt-5">
+                  {s.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Kenapa bermitra dengan kami */}
       <section className="bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+            Kenapa Bermitra dengan Kami
+          </h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {partnerReasons.map((r) => (
+              <div key={r.title} className="rounded-xl border border-slate-200 bg-white p-5">
+                <p className="font-bold text-slate-900">{r.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{r.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bagian dari ekosistem PT Padma Global Nusatama */}
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
@@ -471,7 +550,7 @@ export default function HomePage() {
       </section>
 
       {/* Untuk pimpinan perguruan tinggi */}
-      <section className="bg-white">
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
@@ -511,7 +590,7 @@ export default function HomePage() {
       </section>
 
       {/* Tiga cara bekerja sama */}
-      <section className="bg-slate-50">
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
@@ -559,11 +638,20 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-slate-500">
+            Untuk keperluan pengadaan/procurement, dokumen legalitas penyedia (nama badan
+            hukum <strong className="text-slate-700">PT Padma Global Nusatama</strong>, kontak
+            resmi) dapat kami lampirkan bersama penawaran — ajukan lewat{" "}
+            <Link href="/ajukan-penawaran" className="font-semibold text-sky-700 hover:underline">
+              form Ajukan Penawaran
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
       {/* Coba dulu, gratis */}
-      <section className="bg-white">
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
@@ -606,7 +694,7 @@ export default function HomePage() {
       </section>
 
       {/* Pilih bidang kariermu */}
-      <section className="bg-slate-50">
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
@@ -634,7 +722,7 @@ export default function HomePage() {
               <div key={cat.key}>
                 <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${categoryStyle[cat.color].iconBg}`}>
-                    <IconGlyph d={cat.iconD} className={categoryStyle[cat.color].iconText} />
+                    <IconGlyph d={categoryIconD[cat.iconKey]} className={categoryStyle[cat.color].iconText} />
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900">{cat.name}</h3>
@@ -671,7 +759,7 @@ export default function HomePage() {
       </section>
 
       {/* Program unggulan — career accelerator */}
-      <section className="bg-white">
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
@@ -730,7 +818,7 @@ export default function HomePage() {
       </section>
 
       {/* Untuk siapa platform ini */}
-      <section className="bg-slate-50">
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
             Untuk siapa platform ini?
@@ -759,41 +847,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Hubungi kami */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
-              Hubungi kami
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Diskusikan kebutuhan institusi Anda
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Tim kami siap membantu menjadwalkan diskusi, asesmen kebutuhan, atau audiensi
-              kemitraan
-            </p>
-          </div>
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-            {contactPeople.map((p) => (
-              <a
-                key={p.name}
-                href={waHrefFromPhone(p.phone)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg border border-slate-200 bg-white p-4 text-center transition hover:border-sky-300 hover:shadow-sm"
-              >
-                <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">
-                  {p.name[0]}
-                </span>
-                <h6 className="mt-2 text-xs font-bold text-slate-900">{p.name}</h6>
-                <span className="text-[11px] text-slate-500">{p.phone}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Trust bar */}
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-8 lg:grid-cols-4">
@@ -806,123 +859,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Batch terdekat */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                Batch Terdekat
-              </h2>
-              <p className="mt-2 text-slate-600">
-                Amankan kursi Anda sebelum batch dimulai.
-              </p>
-            </div>
-            <Link
-              href="/jadwal-pelatihan-2026"
-              className="hidden text-sm font-semibold text-sky-700 hover:text-sky-800 sm:block"
-            >
-              Lihat semua jadwal →
-            </Link>
-          </div>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {nextBatches.map(({ program, batch }) => (
-              <article
-                key={batch.id}
-                className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
-                  {typeLabel[program.type]}
-                  {batch.location ? ` · ${batch.location}` : ""}
-                </p>
-                <h3 className="mt-2 font-bold leading-snug text-slate-900">
-                  {program.title}
-                </h3>
-                <p className="mt-1 text-sm text-slate-600">
-                  {formatDateRange(batch.startDate, batch.endDate)} · 09.00–16.00 WIB
-                </p>
-                <div className="mt-4">
-                  <Countdown targetDate={batch.startDate} />
-                </div>
-                <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-                  <p className="font-bold text-sky-700">{priceLabel(program)}</p>
-                  <Link
-                    href={`/checkout/${program.slug}?batch=${batch.id}`}
-                    className="btn-primary px-4 py-2 text-sm"
-                  >
-                    Daftar & Bayar
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Katalog ringkas */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-            Katalog Pelatihan 2026
-          </h2>
-          <p className="mt-2 max-w-2xl text-slate-600">
-            {programs.length} program pelatihan kompetensi — dari sistem mutu
-            dan laboratorium hingga rekayasa teknik industri.
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {programs.map((program) => (
-              <ProgramCard key={program.slug} program={program} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Kenapa kami */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-            Kenapa Belajar di mutululusan.id?
-          </h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                title: "Daftar & bayar dalam 2 menit",
-                desc: "Tanpa formulir berbelit. Pilih batch, isi data, bayar via QRIS/VA — kursi langsung terkonfirmasi.",
-              },
-              {
-                title: "Rekaman & materi selamanya",
-                desc: "Berhalangan hadir? Semua sesi direkam dan materi lengkap dikirim ke email Anda.",
-              },
-              {
-                title: "Jalur sertifikasi kompetensi",
-                desc: "Bekal sertifikasi kompetensi bersama mitra resmi kami, LSP Edukia — karier naik kelas.",
-              },
-              {
-                title: "Dibimbing praktisi",
-                desc: "Fasilitator berpengalaman di laboratorium pengujian, kalibrasi, dan industri.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-xl border border-slate-200 bg-white p-5">
-                <p className="font-bold text-slate-900">{item.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Testimoni (tampil hanya bila ada data asli) */}
       <Testimonials items={getTestimonials()} />
 
-      {/* FAQ singkat */}
+      {/* FAQ untuk institusi */}
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-14">
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Pertanyaan yang Sering Diajukan
+            FAQ untuk Institusi
           </h2>
           <div className="mt-8">
-            <FaqList faqs={homeFaqs} />
+            <FaqList faqs={b2bFaqs} />
           </div>
           <p className="mt-6 text-center text-sm text-slate-600">
             Pertanyaan lain?{" "}
@@ -966,6 +913,24 @@ export default function HomePage() {
               >
                 Minta Jadwal via WhatsApp
               </a>
+            </div>
+
+            <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+              {contactPeople.map((p) => (
+                <a
+                  key={p.name}
+                  href={waHrefFromPhone(p.phone)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg border border-slate-200 bg-white p-4 text-center transition hover:border-sky-300 hover:shadow-sm"
+                >
+                  <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">
+                    {p.name[0]}
+                  </span>
+                  <h6 className="mt-2 text-xs font-bold text-slate-900">{p.name}</h6>
+                  <span className="text-[11px] text-slate-500">{p.phone}</span>
+                </a>
+              ))}
             </div>
             <p className="mt-4 text-sm text-slate-500">{paymentMicrocopy}</p>
           </div>

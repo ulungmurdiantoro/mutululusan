@@ -77,6 +77,36 @@ const faqGroups = [
       },
     ],
   },
+  {
+    title: "Untuk Institusi",
+    faqs: [
+      {
+        question: "Apakah bisa dibuatkan penawaran resmi/proposal untuk pengadaan?",
+        answer:
+          "Bisa. Isi form \"Ajukan Penawaran untuk Institusi\", sebutkan kebutuhan Anda, dan tim kami akan mengirimkan penawaran/proposal tertulis.",
+      },
+      {
+        question: "Apakah tersedia skema harga rombongan/institusi?",
+        answer:
+          "Skema harga institusi disesuaikan dengan jumlah peserta dan kebutuhan spesifik — ajukan kebutuhan Anda lewat form \"Ajukan Penawaran\" dan tim kami akan memberikan penawaran yang sesuai.",
+      },
+      {
+        question: "Apakah bisa kerja sama MOU/PKS jangka panjang?",
+        answer:
+          "Bisa, tersedia skema Kemitraan/Partnership dengan MOU/PKS untuk kerja sama tahunan — termasuk untuk instansi pemerintah dan kampus negeri yang memerlukan proses pengadaan formal.",
+      },
+      {
+        question: "Bagaimana proses penagihan/invoice untuk instansi?",
+        answer:
+          "Kami menerbitkan invoice resmi dengan pembayaran transfer korporat. Anda bisa membuat proforma invoice sendiri di halaman Invoice Instansi, atau melalui tim kami setelah penawaran disepakati.",
+      },
+      {
+        question: "Apakah sertifikat dan JP diakui untuk kebutuhan akreditasi/kum dosen?",
+        answer:
+          "e-Sertifikat 24 JP yang kami terbitkan adalah satuan jam pelatihan dari penyelenggara kami. Pengakuannya untuk kum dosen atau akreditasi prodi sepenuhnya bergantung pada kebijakan internal masing-masing institusi — kami menyediakan dokumentasi pendukung yang dapat digunakan dalam proses tersebut.",
+      },
+    ],
+  },
 ];
 
 export default function FaqPage() {
@@ -132,6 +162,9 @@ export default function FaqPage() {
               </a>
               <Link href="/kontak" className="btn-outline px-5 py-2.5 text-sm">
                 Lihat Semua Kontak
+              </Link>
+              <Link href="/ajukan-penawaran" className="btn-outline px-5 py-2.5 text-sm">
+                Ajukan Penawaran Institusi
               </Link>
             </div>
           </div>

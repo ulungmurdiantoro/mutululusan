@@ -3,6 +3,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { ProgramCard } from "@/components/program-card";
 import { getAllPrograms } from "@/lib/programs";
+import { categoryKeyForSlug } from "@/lib/career-categories";
 import { site, waLink } from "@/lib/site";
 import { CatalogFilter } from "./catalog-filter";
 
@@ -55,6 +56,7 @@ export default function CatalogPage() {
             items={programs.map((program) => ({
               key: program.slug,
               type: program.type,
+              category: categoryKeyForSlug(program.slug),
               card: <ProgramCard program={program} />,
             }))}
           />

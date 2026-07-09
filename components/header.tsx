@@ -5,6 +5,7 @@ import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 
 const navLinks = [
+  { href: "/individu", label: "Untuk Individu" },
   { href: "/pelatihan", label: "Pelatihan" },
   { href: "/jadwal-pelatihan-2026", label: "Jadwal 2026" },
   { href: "/in-house-training", label: "In-House" },
