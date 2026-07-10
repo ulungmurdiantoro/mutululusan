@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogContent } from "@/components/blog-content";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
 import { getAllPosts, getPost, getRelatedPosts } from "@/lib/blog";
 import { getProgram } from "@/lib/programs";
@@ -63,36 +64,14 @@ export default async function BlogPostPage({ params }: PageProps) {
     keywords: post.keywords.join(", "),
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${site.url}/blog` },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: `${site.url}/blog/${post.slug}`,
-      },
-    ],
-  };
-
   return (
     <>
       <JsonLd data={articleJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
 
       <article>
         <header className="border-b border-slate-200 bg-slate-50">
           <div className="mx-auto max-w-3xl px-4 py-10">
-            <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-sky-700">Beranda</Link>
-              <span className="mx-2">/</span>
-              <Link href="/blog" className="hover:text-sky-700">Blog</Link>
-              <span className="mx-2">/</span>
-              <span className="text-slate-900">{post.category}</span>
-            </nav>
+            <Breadcrumb items={[{ label: "Blog", href: "/blog" }, { label: post.title }]} />
             <span className="mt-5 inline-block text-xs font-semibold uppercase tracking-wide text-sky-700">
               {post.category}
             </span>

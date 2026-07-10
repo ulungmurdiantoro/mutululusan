@@ -47,7 +47,7 @@ export default async function AkunPage() {
               href="/admin"
               className="mt-4 inline-block rounded-lg bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-100"
             >
-              Buka Dashboard Admin →
+              Buka Dashboard Admin <span aria-hidden>→</span>
             </Link>
           )}
         </div>
@@ -60,7 +60,7 @@ export default async function AkunPage() {
               : "Belum ada pelatihan yang lunas/terkonfirmasi pada akun ini."}
           </p>
           <Link href="/akun/pelatihan" className="btn-primary mt-4">
-            Buka Dashboard Pelatihan →
+            Buka Dashboard Pelatihan <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { site, waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,21 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function TentangPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Tentang Kami", item: `${site.url}/tentang-kami` },
-    ],
-  };
-
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
-          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+          <Breadcrumb items={[{ label: "Tentang Kami" }]} />
+          <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Tentang mutululusan.id
           </h1>
           <p className="mt-3 text-slate-600">

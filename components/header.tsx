@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { ContactPickerModal } from "./contact-picker";
 
 const navLinks = [
   { href: "/individu", label: "Untuk Individu" },
@@ -19,6 +20,7 @@ function initial(name?: string | null, email?: string | null) {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
   const firstName = user?.name?.split(" ")[0];
@@ -77,6 +79,14 @@ export function Header() {
               Masuk
             </Link>
           )}
+
+          <button
+            type="button"
+            onClick={() => setContactOpen(true)}
+            className="text-sm font-medium text-slate-600 hover:text-sky-700"
+          >
+            Hubungi Kami
+          </button>
 
           <Link href="/pelatihan" className="btn-primary px-4 py-2 text-sm">
             Daftar Pelatihan
@@ -146,6 +156,17 @@ export function Header() {
             </Link>
           )}
 
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setContactOpen(true);
+            }}
+            className="block w-full border-b border-slate-100 py-3 text-left text-sm font-medium text-slate-700"
+          >
+            Hubungi Kami
+          </button>
+
           <Link
             href="/pelatihan"
             className="btn-primary mt-4 w-full"
@@ -155,6 +176,8 @@ export function Header() {
           </Link>
         </nav>
       )}
+
+      <ContactPickerModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </header>
   );
 }

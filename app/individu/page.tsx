@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Countdown } from "@/components/countdown";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
-import { ProgramCard } from "@/components/program-card";
+import { FeaturedPrograms } from "@/components/featured-programs";
 import { formatDateRange } from "@/lib/format";
 import {
   getAllPrograms,
@@ -14,6 +14,8 @@ import {
 import { paymentMicrocopy, site, waLink } from "@/lib/site";
 import { Testimonials } from "@/components/testimonials";
 import { getTestimonials } from "@/lib/testimonials";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 export const revalidate = 86400;
 
@@ -90,7 +92,7 @@ export default async function IndividuPage() {
       {/* Hero */}
       <section className="border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          <div className="max-w-3xl">
+          <ScrollReveal className="max-w-3xl">
             <p className="inline-block rounded-full bg-sky-100 px-4 py-1.5 text-sm font-medium text-sky-700">
               Jadwal pelatihan 2026 telah dibuka
             </p>
@@ -119,10 +121,10 @@ export default async function IndividuPage() {
             <p className="mt-3 text-sm text-slate-500">
               Mewakili institusi atau perusahaan?{" "}
               <Link href="/" className="font-semibold text-sky-700 hover:underline">
-                Lihat solusi untuk institusi →
+                Lihat solusi untuk institusi <span aria-hidden>→</span>
               </Link>
             </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -154,13 +156,13 @@ export default async function IndividuPage() {
               href="/jadwal-pelatihan-2026"
               className="hidden text-sm font-semibold text-sky-700 hover:text-sky-800 sm:block"
             >
-              Lihat semua jadwal →
+              Lihat semua jadwal <span aria-hidden>→</span>
             </Link>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <StaggerGroup className="mt-8 grid gap-5 md:grid-cols-3">
             {nextBatches.map(({ program, batch }) => (
-              <article
+              <StaggerItem
                 key={batch.id}
                 className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
               >
@@ -186,26 +188,24 @@ export default async function IndividuPage() {
                     Daftar & Bayar
                   </Link>
                 </div>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </section>
 
-      {/* Katalog ringkas */}
+      {/* Program unggulan */}
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-            Katalog Pelatihan 2026
+            Program Unggulan
           </h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            {programs.length} program pelatihan kompetensi — dari sistem mutu
-            dan laboratorium hingga rekayasa teknik industri.
+            Pilihan populer dari {programs.length} program pelatihan kompetensi — dari
+            sistem mutu dan laboratorium hingga rekayasa teknik industri.
           </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {programs.map((program) => (
-              <ProgramCard key={program.slug} program={program} />
-            ))}
+          <div className="mt-8">
+            <FeaturedPrograms programs={programs} />
           </div>
         </div>
       </section>
@@ -216,7 +216,7 @@ export default async function IndividuPage() {
           <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
             Kenapa Belajar di mutululusan.id?
           </h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerGroup className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 title: "Daftar & bayar dalam 2 menit",
@@ -235,12 +235,12 @@ export default async function IndividuPage() {
                 desc: "Fasilitator berpengalaman di laboratorium pengujian, kalibrasi, dan industri.",
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-xl border border-slate-200 bg-white p-5">
+              <StaggerItem key={item.title} className="rounded-xl border border-slate-200 bg-white p-5">
                 <p className="font-bold text-slate-900">{item.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </section>
 
@@ -250,28 +250,30 @@ export default async function IndividuPage() {
       {/* FAQ singkat */}
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-14">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Pertanyaan yang Sering Diajukan
-          </h2>
-          <div className="mt-8">
-            <FaqList faqs={individuFaqs} />
-          </div>
-          <p className="mt-6 text-center text-sm text-slate-600">
-            Pertanyaan lain?{" "}
-            <Link href="/faq" className="font-semibold text-sky-700 hover:underline">
-              Lihat FAQ lengkap
-            </Link>{" "}
-            atau{" "}
-            <a
-              href={waLink("Halo admin, saya punya pertanyaan tentang pelatihan.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-sky-700 hover:underline"
-            >
-              tanya admin via WA
-            </a>
-            .
-          </p>
+          <ScrollReveal>
+            <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+              Pertanyaan yang Sering Diajukan
+            </h2>
+            <div className="mt-8">
+              <FaqList faqs={individuFaqs} />
+            </div>
+            <p className="mt-6 text-center text-sm text-slate-600">
+              Pertanyaan lain?{" "}
+              <Link href="/faq" className="font-semibold text-sky-700 hover:underline">
+                Lihat FAQ lengkap
+              </Link>{" "}
+              atau{" "}
+              <a
+                href={waLink("Halo admin, saya punya pertanyaan tentang pelatihan.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-sky-700 hover:underline"
+              >
+                tanya admin via WA
+              </a>
+              .
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { getAllPosts } from "@/lib/blog";
 import { formatDateFull } from "@/lib/format";
 import { site } from "@/lib/site";
@@ -39,11 +40,7 @@ export default function BlogIndexPage() {
 
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
-          <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-sky-700">Beranda</Link>
-            <span className="mx-2">/</span>
-            <span className="text-slate-900">Blog</span>
-          </nav>
+          <Breadcrumb items={[{ label: "Blog" }]} />
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Wawasan Laboratorium, Mutu & Sertifikasi
           </h1>

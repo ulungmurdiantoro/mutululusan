@@ -200,7 +200,7 @@ export default async function AdminProgramPage() {
                       target="_blank"
                       className="ml-auto self-center text-xs font-semibold text-sky-700 hover:underline"
                     >
-                      Lihat halaman →
+                      Lihat halaman <span aria-hidden>→</span>
                     </Link>
                   </div>
                 </form>

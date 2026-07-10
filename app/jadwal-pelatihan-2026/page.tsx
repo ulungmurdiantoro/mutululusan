@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { formatDateRange } from "@/lib/format";
 import { priceLabel, upcomingAcrossPrograms, getAllPrograms } from "@/lib/programs";
-import { site, waLink } from "@/lib/site";
+import { waLink } from "@/lib/site";
 
 export const revalidate = 86400;
 
@@ -35,31 +35,11 @@ export default async function JadwalPage() {
     byMonth.set(month, [...(byMonth.get(month) ?? []), entry]);
   }
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Jadwal Pelatihan 2026",
-        item: `${site.url}/jadwal-pelatihan-2026`,
-      },
-    ],
-  };
-
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
-
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
-          <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-sky-700">Beranda</Link>
-            <span className="mx-2">/</span>
-            <span className="text-slate-900">Jadwal 2026</span>
-          </nav>
+          <Breadcrumb items={[{ label: "Jadwal 2026" }]} />
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Jadwal Pelatihan Laboratorium 2026
           </h1>

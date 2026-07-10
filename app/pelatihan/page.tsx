@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
+import { Suspense } from "react";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { ProgramCard } from "@/components/program-card";
-import { getAllPrograms } from "@/lib/programs";
+import { getAllPrograms, lowestPrice } from "@/lib/programs";
 import { categoryKeyForSlug } from "@/lib/career-categories";
-import { site, waLink } from "@/lib/site";
+import { waLink } from "@/lib/site";
 import { CatalogFilter } from "./catalog-filter";
 
 export const revalidate = 86400;
@@ -19,26 +19,11 @@ export const metadata: Metadata = {
 export default async function CatalogPage() {
   const programs = await getAllPrograms();
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Pelatihan", item: `${site.url}/pelatihan` },
-    ],
-  };
-
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
-
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
-          <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-sky-700">Beranda</Link>
-            <span className="mx-2">/</span>
-            <span className="text-slate-900">Pelatihan</span>
-          </nav>
+          <Breadcrumb items={[{ label: "Pelatihan" }]} />
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Katalog Pelatihan Laboratorium 2026
           </h1>
@@ -52,14 +37,18 @@ export default async function CatalogPage() {
 
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10">
-          <CatalogFilter
-            items={programs.map((program) => ({
-              key: program.slug,
-              type: program.type,
-              category: categoryKeyForSlug(program.slug),
-              card: <ProgramCard program={program} />,
-            }))}
-          />
+          <Suspense fallback={null}>
+            <CatalogFilter
+              items={programs.map((program) => ({
+                key: program.slug,
+                title: program.title,
+                type: program.type,
+                category: categoryKeyForSlug(program.slug),
+                hasFixedPrice: lowestPrice(program) !== null,
+                card: <ProgramCard program={program} />,
+              }))}
+            />
+          </Suspense>
         </div>
       </section>
 

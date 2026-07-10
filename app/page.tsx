@@ -8,6 +8,8 @@ import { Testimonials } from "@/components/testimonials";
 import { getTestimonials } from "@/lib/testimonials";
 import { TrustBar } from "@/components/trust-bar";
 import { careerCategories, type CareerCategoryIcon } from "@/lib/career-categories";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 export const revalidate = 86400;
 
@@ -264,7 +266,7 @@ const giveValueCards = [
     title: "Bootcamp pengenalan 1 hari",
     desc: "Sesi singkat berisi silabus, awareness, dan manfaat program kompetensi — cocok untuk perkenalan awal sebelum institusi memutuskan kemitraan.",
     tag: "Gratis",
-    cta: "Lihat jadwal →",
+    cta: "Lihat jadwal",
     href: "/jadwal-pelatihan-2026",
     iconD: icon.file,
   },
@@ -272,7 +274,7 @@ const giveValueCards = [
     title: "Asesmen kebutuhan kompetensi",
     desc: "Sesi pemetaan singkat untuk memahami kebutuhan kompetensi mahasiswa, dosen, atau tendik di institusi Anda — hasilnya berupa rekomendasi awal program yang relevan.",
     tag: "Gratis untuk institusi",
-    cta: "Jadwalkan asesmen →",
+    cta: "Jadwalkan asesmen",
     href: waLink("Halo admin, kami ingin menjadwalkan asesmen kebutuhan kompetensi untuk institusi kami."),
     iconD: icon.check,
   },
@@ -280,7 +282,7 @@ const giveValueCards = [
     title: "Kuliah praktisi",
     desc: "Kami hadir ke kampus Anda — sesi tatap muka untuk mahasiswa tingkat akhir dan fresh graduate tentang persiapan karier menuju profesional.",
     tag: "Gratis untuk kampus mitra",
-    cta: "Undang ke kampus →",
+    cta: "Undang ke kampus",
     href: waLink("Halo admin, kami ingin mengundang mutululusan.id untuk sesi kuliah praktisi di kampus kami."),
     iconD: icon.mic,
   },
@@ -288,7 +290,7 @@ const giveValueCards = [
     title: "Silabus & panduan program",
     desc: "Unduh outline silabus lengkap, daftar skema kompetensi, dan panduan kemitraan tanpa perlu mendaftar terlebih dahulu.",
     tag: "Unduh gratis",
-    cta: "Unduh silabus →",
+    cta: "Unduh silabus",
     href: waLink("Halo admin, mohon dikirimkan silabus & panduan program mutululusan.id."),
     iconD: icon.download,
   },
@@ -390,7 +392,7 @@ export default async function HomePage() {
       <section className="border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
-            <div>
+            <ScrollReveal>
               <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
                 Solusi Pelatihan &amp; Sertifikasi Kompetensi Laboratorium{" "}
                 <span className="text-orange-600">untuk Perguruan Tinggi dan Industri</span>
@@ -431,9 +433,12 @@ export default async function HomePage() {
               </div>
 
               <p className="mt-4 text-sm text-slate-500">{paymentMicrocopy}</p>
-            </div>
+            </ScrollReveal>
 
-            <div className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
+            <ScrollReveal
+              delay={0.15}
+              className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm"
+            >
               <h2 className="text-center text-xs font-bold uppercase tracking-wide text-orange-600">
                 Mulai Perjalanan Kariermu Sekarang
               </h2>
@@ -460,7 +465,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -508,53 +513,55 @@ export default async function HomePage() {
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
             Kenapa Bermitra dengan Kami
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {partnerReasons.map((r) => (
-              <div key={r.title} className="rounded-xl border border-slate-200 bg-white p-5">
+              <StaggerItem key={r.title} className="rounded-xl border border-slate-200 bg-white p-5">
                 <p className="font-bold text-slate-900">{r.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{r.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </section>
 
       {/* Bagian dari ekosistem PT Padma Global Nusatama */}
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Bagian dari ekosistem kompetensi perguruan tinggi
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Satu ekosistem PT Padma Global Nusatama untuk membangun kualitas institusi,
-              laboratorium, hingga lulusan siap kerja
-            </p>
-          </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
-            {ecosystemCards.map((c) => (
-              <div key={c.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${c.accent}`}>
-                  <IconGlyph d={c.iconD} className="text-white" />
+          <ScrollReveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+                Bagian dari ekosistem kompetensi perguruan tinggi
+              </h2>
+              <p className="mt-2 text-slate-600">
+                Satu ekosistem PT Padma Global Nusatama untuk membangun kualitas institusi,
+                laboratorium, hingga lulusan siap kerja
+              </p>
+            </div>
+            <div className="mt-8 grid gap-5 sm:grid-cols-3">
+              {ecosystemCards.map((c) => (
+                <div key={c.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${c.accent}`}>
+                    <IconGlyph d={c.iconD} className="text-white" />
+                  </div>
+                  <h3 className="mt-4 font-bold text-slate-900">{c.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">{c.desc}</p>
+                  <span className={`mt-3 inline-block rounded-md px-3 py-1 text-xs font-bold text-white ${c.accent}`}>
+                    {c.tag}
+                  </span>
+                  {c.href && (
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 block text-sm font-semibold text-sky-700 hover:underline"
+                    >
+                      Lihat skema selengkapnya <span aria-hidden>→</span>
+                    </a>
+                  )}
                 </div>
-                <h3 className="mt-4 font-bold text-slate-900">{c.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-slate-600">{c.desc}</p>
-                <span className={`mt-3 inline-block rounded-md px-3 py-1 text-xs font-bold text-white ${c.accent}`}>
-                  {c.tag}
-                </span>
-                {c.href && (
-                  <a
-                    href={c.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 block text-sm font-semibold text-sky-700 hover:underline"
-                  >
-                    Lihat skema selengkapnya →
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -573,9 +580,9 @@ export default async function HomePage() {
               kerangka kebijakan dan kebutuhan administratif perguruan tinggi
             </p>
           </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <StaggerGroup className="mt-8 grid gap-5 sm:grid-cols-3">
             {demandCards.map((c) => (
-              <div key={c.tag} className="rounded-2xl border border-slate-200 bg-white p-6">
+              <StaggerItem key={c.tag} className="rounded-2xl border border-slate-200 bg-white p-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50">
                   <IconGlyph d={c.iconD} className="text-sky-700" />
                 </div>
@@ -584,9 +591,9 @@ export default async function HomePage() {
                 </span>
                 <h3 className="mt-2 font-bold leading-snug text-slate-900">{c.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.desc}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
           <div className="mx-auto mt-6 max-w-3xl rounded-r-lg border-l-4 border-orange-400 bg-slate-50 px-5 py-4">
             <p className="text-xs leading-relaxed text-slate-600">
               Catatan: pengakuan satuan kredit semester (SKS), pemenuhan IKU, dan pencatatan
@@ -694,7 +701,9 @@ export default async function HomePage() {
                 <div className="flex flex-1 flex-col p-4">
                   <h4 className="font-bold leading-snug text-slate-900">{g.title}</h4>
                   <p className="mt-1.5 flex-1 text-xs leading-relaxed text-slate-600">{g.desc}</p>
-                  <span className="mt-3 text-xs font-bold text-orange-600">{g.cta}</span>
+                  <span className="mt-3 text-xs font-bold text-orange-600">
+                    {g.cta} <span aria-hidden>→</span>
+                  </span>
                 </div>
               </a>
             ))}
@@ -727,36 +736,50 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-10 space-y-9">
-            {careerCategories.map((cat) => (
-              <div key={cat.key}>
-                <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${categoryStyle[cat.color].iconBg}`}>
-                    <IconGlyph d={categoryIconD[cat.iconKey]} className={categoryStyle[cat.color].iconText} />
+            {careerCategories.map((cat) => {
+              const preview = cat.schemes.slice(0, 2);
+              const remaining = cat.schemes.length - preview.length;
+              return (
+                <div key={cat.key}>
+                  <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${categoryStyle[cat.color].iconBg}`}>
+                      <IconGlyph d={categoryIconD[cat.iconKey]} className={categoryStyle[cat.color].iconText} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900">{cat.name}</h3>
+                      <p className="text-xs text-slate-500">{cat.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">{cat.name}</h3>
-                    <p className="text-xs text-slate-500">{cat.desc}</p>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {preview.map((s) => (
+                      <Link
+                        key={s.slug}
+                        href={`/pelatihan/${s.slug}`}
+                        className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-sky-300 hover:shadow-sm"
+                      >
+                        <div>
+                          <h4 className="text-sm font-bold leading-snug text-slate-900">{s.title}</h4>
+                          {"alias" in s && s.alias && (
+                            <p className="mt-0.5 text-[11px] italic text-slate-400">{s.alias}</p>
+                          )}
+                        </div>
+                        <span className="shrink-0 text-xs font-semibold text-orange-600">
+                          Detail <span aria-hidden>→</span>
+                        </span>
+                      </Link>
+                    ))}
+                    {remaining > 0 && (
+                      <Link
+                        href={`/pelatihan?kategori=${cat.key}`}
+                        className={`flex items-center justify-center rounded-xl border border-dashed p-4 text-center text-sm font-semibold transition hover:opacity-80 ${categoryStyle[cat.color].iconText} border-slate-300`}
+                      >
+                        +{remaining} program lainnya <span aria-hidden className="ml-1">→</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {cat.schemes.map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/pelatihan/${s.slug}`}
-                      className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-sky-300 hover:shadow-sm"
-                    >
-                      <div>
-                        <h4 className="text-sm font-bold leading-snug text-slate-900">{s.title}</h4>
-                        {"alias" in s && s.alias && (
-                          <p className="mt-0.5 text-[11px] italic text-slate-400">{s.alias}</p>
-                        )}
-                      </div>
-                      <span className="shrink-0 text-xs font-semibold text-orange-600">Detail →</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-9 text-center">
@@ -847,7 +870,7 @@ export default async function HomePage() {
                     ))}
                   </ul>
                   <Link href={a.href} className="mt-3 inline-block text-xs font-semibold text-sky-700 hover:underline">
-                    Pelajari lebih lanjut →
+                    Pelajari lebih lanjut <span aria-hidden>→</span>
                   </Link>
                 </div>
               </div>
@@ -874,6 +897,7 @@ export default async function HomePage() {
       {/* FAQ untuk institusi */}
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-14">
+          <ScrollReveal>
           <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
             FAQ untuk Institusi
           </h2>
@@ -896,6 +920,7 @@ export default async function HomePage() {
             </a>
             .
           </p>
+          </ScrollReveal>
         </div>
       </section>
 

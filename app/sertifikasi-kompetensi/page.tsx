@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { getAllPrograms } from "@/lib/programs";
 import { ProgramCard } from "@/components/program-card";
 import { site, waLink } from "@/lib/site";
@@ -40,31 +40,11 @@ export default async function SertifikasiPage() {
   const allPrograms = await getAllPrograms();
   const packagedPrograms = allPrograms.filter((p) => p.type === "offline");
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Sertifikasi Kompetensi",
-        item: `${site.url}/sertifikasi-kompetensi`,
-      },
-    ],
-  };
-
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
-
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
-          <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-sky-700">Beranda</Link>
-            <span className="mx-2">/</span>
-            <span className="text-slate-900">Sertifikasi Kompetensi</span>
-          </nav>
+          <Breadcrumb items={[{ label: "Sertifikasi Kompetensi" }]} />
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Sertifikasi Kompetensi Laboratorium
           </h1>
@@ -78,9 +58,9 @@ export default async function SertifikasiPage() {
             href={site.partner.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline mt-5 px-5 py-2.5 text-sm"
+            className="btn-outline mt-5 min-h-11 px-5 py-3 text-sm"
           >
-            Kunjungi {site.partner.name} ({site.partner.domain}) →
+            Kunjungi {site.partner.name} ({site.partner.domain}) <span aria-hidden>→</span>
           </a>
         </div>
       </section>

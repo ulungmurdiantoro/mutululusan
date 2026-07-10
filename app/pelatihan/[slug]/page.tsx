@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { Countdown } from "@/components/countdown";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
@@ -116,37 +117,17 @@ export default async function ProgramPage({ params }: PageProps) {
     })),
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Pelatihan", item: `${site.url}/pelatihan` },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: program.title,
-        item: `${site.url}/pelatihan/${program.slug}`,
-      },
-    ],
-  };
-
   return (
     <div className="pb-20 md:pb-0">
       <JsonLd data={courseJsonLd} />
       <JsonLd data={faqJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
 
       {/* Above the fold */}
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-10">
-          <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-sky-700">Beranda</Link>
-            <span className="mx-2">/</span>
-            <Link href="/pelatihan" className="hover:text-sky-700">Pelatihan</Link>
-            <span className="mx-2">/</span>
-            <span className="text-slate-900">{program.title}</span>
-          </nav>
+          <Breadcrumb
+            items={[{ label: "Pelatihan", href: "/pelatihan" }, { label: program.title }]}
+          />
 
           <div className="mt-5 grid gap-10 lg:grid-cols-[1fr_360px]">
             <div>
@@ -417,7 +398,7 @@ export default async function ProgramPage({ params }: PageProps) {
                 href="/sertifikasi-kompetensi"
                 className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:underline"
               >
-                Pelajari jalur sertifikasi kompetensi →
+                Pelajari jalur sertifikasi kompetensi <span aria-hidden>→</span>
               </Link>
             </section>
 

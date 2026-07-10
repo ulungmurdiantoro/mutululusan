@@ -68,7 +68,7 @@ export function BlogContent({ blocks }: { blocks: BlogBlock[] }) {
                   href={block.href}
                   className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:underline"
                 >
-                  {block.label} →
+                  {block.label} <span aria-hidden>→</span>
                 </Link>
               </div>
             );

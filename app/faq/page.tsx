@@ -156,14 +156,14 @@ export default function FaqPage() {
                 href={waLink("Halo admin, saya punya pertanyaan yang belum terjawab di FAQ.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-wa px-5 py-2.5 text-sm"
+                className="btn-wa min-h-11 px-5 py-3 text-sm"
               >
                 Chat Admin via WhatsApp
               </a>
-              <Link href="/kontak" className="btn-outline px-5 py-2.5 text-sm">
+              <Link href="/kontak" className="btn-outline min-h-11 px-5 py-3 text-sm">
                 Lihat Semua Kontak
               </Link>
-              <Link href="/ajukan-penawaran" className="btn-outline px-5 py-2.5 text-sm">
+              <Link href="/ajukan-penawaran" className="btn-outline min-h-11 px-5 py-3 text-sm">
                 Ajukan Penawaran Institusi
               </Link>
             </div>

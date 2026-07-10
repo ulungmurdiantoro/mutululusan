@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Program } from "@/lib/programs";
-import { nearestBatch, priceLabel, typeLabel } from "@/lib/programs";
+import { lowestPrice, nearestBatch, priceLabel, typeLabel } from "@/lib/programs";
 import { formatDateRange } from "@/lib/format";
+import styles from "@/styles/hover-card.module.css";
 
 const typeBadgeColor: Record<Program["type"], string> = {
   online: "bg-sky-50 text-sky-700",
@@ -11,9 +12,12 @@ const typeBadgeColor: Record<Program["type"], string> = {
 
 export function ProgramCard({ program }: { program: Program }) {
   const batch = nearestBatch(program);
+  const hasFixedPrice = lowestPrice(program) !== null;
 
   return (
-    <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 hover:shadow-md">
+    <article
+      className={`flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 ${styles.card}`}
+    >
       <div className="flex items-center gap-2">
         <span
           className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${typeBadgeColor[program.type]}`}
@@ -43,10 +47,16 @@ export function ProgramCard({ program }: { program: Program }) {
       )}
 
       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-        <p className="text-lg font-bold text-sky-700">{priceLabel(program)}</p>
+        {hasFixedPrice ? (
+          <p className="text-lg font-bold text-sky-700">{priceLabel(program)}</p>
+        ) : (
+          <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-800">
+            {priceLabel(program)}
+          </span>
+        )}
         <Link
           href={`/pelatihan/${program.slug}`}
-          className="btn-outline px-4 py-2 text-sm"
+          className="btn-outline min-h-11 px-4 py-2.5 text-sm"
         >
           Lihat & Daftar
         </Link>

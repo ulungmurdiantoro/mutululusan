@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
-import { site, waLink } from "@/lib/site";
+import { Breadcrumb } from "@/components/breadcrumb";
+import { waLink } from "@/lib/site";
 import { PenawaranForm } from "./penawaran-form";
 
 export const metadata: Metadata = {
@@ -12,29 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function AjukanPenawaranPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Ajukan Penawaran",
-        item: `${site.url}/ajukan-penawaran`,
-      },
-    ],
-  };
-
   return (
     <div className="bg-slate-50">
-      <JsonLd data={breadcrumbJsonLd} />
       <div className="mx-auto max-w-2xl px-4 py-12">
-        <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-sky-700">
-            ← Beranda
-          </Link>
-        </nav>
+        <Breadcrumb items={[{ label: "Ajukan Penawaran" }]} />
 
         <h1 className="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">
           Ajukan Penawaran untuk Institusi

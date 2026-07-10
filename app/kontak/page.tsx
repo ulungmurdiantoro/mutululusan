@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "@/components/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { site, waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,22 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function KontakPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Kontak", item: `${site.url}/kontak` },
-    ],
-  };
-
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
-
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
-          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Hubungi Kami</h1>
+          <Breadcrumb items={[{ label: "Kontak" }]} />
+          <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Hubungi Kami</h1>
           <p className="mt-3 text-slate-600">
             Tim kami siap membantu pertanyaan seputar program, pendaftaran, dan
             pembayaran — Senin–Jumat, 08.00–17.00 WIB.
@@ -48,7 +38,9 @@ export default function KontakPage() {
                 Jalur tercepat untuk pendaftaran, konsultasi program, dan bantuan
                 pembayaran.
               </p>
-              <p className="mt-3 text-sm font-semibold text-green-600">Chat sekarang →</p>
+              <p className="mt-3 text-sm font-semibold text-green-600">
+                Chat sekarang <span aria-hidden>→</span>
+              </p>
             </a>
 
             <a
@@ -70,7 +62,9 @@ export default function KontakPage() {
               <p className="mt-1 text-sm text-slate-600">
                 Sudah transfer manual? Kirim bukti pembayaran Anda di sini.
               </p>
-              <p className="mt-3 text-sm font-semibold text-sky-700">Konfirmasi →</p>
+              <p className="mt-3 text-sm font-semibold text-sky-700">
+                Konfirmasi <span aria-hidden>→</span>
+              </p>
             </Link>
 
             <Link
@@ -82,7 +76,9 @@ export default function KontakPage() {
                 Butuh invoice resmi atau pelatihan khusus untuk tim? Kami siap
                 membantu.
               </p>
-              <p className="mt-3 text-sm font-semibold text-sky-700">Pelajari →</p>
+              <p className="mt-3 text-sm font-semibold text-sky-700">
+                Pelajari <span aria-hidden>→</span>
+              </p>
             </Link>
           </div>
         </div>

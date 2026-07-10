@@ -35,7 +35,7 @@ function AssetLink({ href, label }: { href: string | null | undefined; label: st
       rel="noopener noreferrer"
       className="block text-sm font-semibold text-sky-700 hover:underline"
     >
-      {label} →
+      {label} <span aria-hidden>→</span>
     </a>
   );
 }

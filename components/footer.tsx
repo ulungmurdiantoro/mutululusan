@@ -32,7 +32,7 @@ export async function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Konsultasi via WhatsApp →
+            Konsultasi via WhatsApp <span aria-hidden>→</span>
           </a>
         </div>
 
