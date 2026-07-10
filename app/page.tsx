@@ -191,7 +191,7 @@ const ecosystemCards = [
     desc: "Persiapan karier menuju profesional bagi mahasiswa, dosen, dan tendik.",
     href: null,
     external: false,
-    logo: "/logo/ekosistem/MUTULULUSAN-LOGO-3.gif",
+    logo: "/logo/ekosistem/MUTULULUSAN-LOGO-3.png",
     accent: "bg-orange-500",
   },
 ];
