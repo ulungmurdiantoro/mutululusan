@@ -94,13 +94,10 @@ export default async function IndividuPage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
         <GradientMeshBackground />
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <NetworkVisualization />
+        </div>
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          <div
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 opacity-80 md:block"
-            aria-hidden="true"
-          >
-            <NetworkVisualization />
-          </div>
           <ScrollReveal className="relative z-10 max-w-3xl">
             <p className="inline-block rounded-full bg-sky-100 px-4 py-1.5 text-sm font-medium text-sky-700">
               Jadwal pelatihan 2026 telah dibuka
