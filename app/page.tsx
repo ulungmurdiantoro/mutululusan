@@ -10,6 +10,8 @@ import { TrustBar } from "@/components/trust-bar";
 import { careerCategories, type CareerCategoryIcon } from "@/lib/career-categories";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import { GradientMeshBackground } from "@/components/motion/GradientMeshBackground";
+import { NetworkVisualization } from "@/components/motion/NetworkVisualization";
 
 export const revalidate = 86400;
 
@@ -389,8 +391,12 @@ export default async function HomePage() {
       <JsonLd data={breadcrumbJsonLd} />
 
       {/* Hero */}
-      <section className="border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
+        <GradientMeshBackground />
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <NetworkVisualization />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
             <ScrollReveal>
               <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
