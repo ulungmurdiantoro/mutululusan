@@ -173,7 +173,7 @@ const ecosystemCards = [
     desc: "Penjaminan mutu, akreditasi, dan tata kelola institusi pendidikan tinggi.",
     href: "https://mutuperguruantinggi.id",
     external: true,
-    iconD: icon.file,
+    logo: "/logo/ekosistem/LOGO-MUTU-PT-EDITED.png",
     accent: "bg-sky-700",
   },
   {
@@ -182,7 +182,7 @@ const ecosystemCards = [
     desc: "Standardisasi dan kompetensi laboratorium berbasis ISO/IEC 17025.",
     href: "https://labnesia.id",
     external: true,
-    iconD: icon.flask,
+    logo: "/logo/ekosistem/LOGO-LABNESIA-005.gif",
     accent: "bg-emerald-700",
   },
   {
@@ -191,7 +191,7 @@ const ecosystemCards = [
     desc: "Persiapan karier menuju profesional bagi mahasiswa, dosen, dan tendik.",
     href: null,
     external: false,
-    iconD: icon.people,
+    logo: "/logo/ekosistem/MUTULULUSAN-LOGO-3.gif",
     accent: "bg-orange-500",
   },
 ];
@@ -546,8 +546,9 @@ export default async function HomePage() {
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {ecosystemCards.map((c) => (
                 <div key={c.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${c.accent}`}>
-                    <IconGlyph d={c.iconD} className="text-white" />
+                  <div className="flex h-12 items-center rounded-xl bg-slate-50 px-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={c.logo} alt={c.tag} className="h-9 w-auto object-contain" />
                   </div>
                   <h3 className="mt-4 font-bold text-slate-900">{c.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-slate-600">{c.desc}</p>
