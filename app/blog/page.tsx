@@ -5,6 +5,8 @@ import { Breadcrumb } from "@/components/breadcrumb";
 import { getAllPosts } from "@/lib/blog";
 import { formatDateFull } from "@/lib/format";
 import { site } from "@/lib/site";
+import { GradientMeshBackground } from "@/components/motion/GradientMeshBackground";
+import { NetworkVisualization } from "@/components/motion/NetworkVisualization";
 
 export const revalidate = 86400;
 
@@ -38,8 +40,12 @@ export default function BlogIndexPage() {
     <>
       <JsonLd data={blogJsonLd} />
 
-      <section className="border-b border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-12">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-slate-50">
+        <GradientMeshBackground />
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <NetworkVisualization />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-12">
           <Breadcrumb items={[{ label: "Blog" }]} />
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
             Wawasan Laboratorium, Mutu & Sertifikasi
