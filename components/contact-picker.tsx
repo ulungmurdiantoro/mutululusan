@@ -46,7 +46,7 @@ export function ContactPickerModal({
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose();
       }}
-      className="w-full max-w-sm rounded-2xl border border-slate-200 p-0 backdrop:bg-slate-900/40"
+      className="m-auto w-full max-w-sm rounded-2xl border border-slate-200 p-0 backdrop:bg-slate-900/40"
     >
       <div className="p-6">
         <div className="flex items-center justify-between">
