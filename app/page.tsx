@@ -1,376 +1,266 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
-import { getAllPrograms } from "@/lib/programs";
-import { paymentMicrocopy, site, waLink } from "@/lib/site";
-import { Testimonials } from "@/components/testimonials";
-import { getTestimonials } from "@/lib/testimonials";
-import { TrustBar } from "@/components/trust-bar";
-import { careerCategories, type CareerCategoryIcon } from "@/lib/career-categories";
+import { site } from "@/lib/site";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import { GradientMeshBackground } from "@/components/motion/GradientMeshBackground";
-import { NetworkVisualization } from "@/components/motion/NetworkVisualization";
-
-export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Pelatihan & Sertifikasi Kompetensi Laboratorium untuk Institusi | mutululusan.id",
+  title: "Online On-the-Job Training — Siap Kerja, Sebelum Bekerja | mutululusan.id",
   description:
-    "Solusi pelatihan & sertifikasi kompetensi laboratorium untuk perguruan tinggi dan industri: dukung IKU 2/3/9, SKPI, dan kepatuhan ISO/IEC 17025. Ajukan penawaran kemitraan.",
+    "Career Development Platform berbasis Online On-the-Job Training untuk mengembangkan kompetensi pada berbagai peran di bidang mutu, kepatuhan, laboratorium, dan keberlanjutan.",
   alternates: { canonical: "/" },
 };
 
-const trustItems = [
-  { label: "e-Sertifikat 24 JP", detail: "diakui untuk pengembangan profesi" },
-  { label: "Rekaman & Materi", detail: "akses ulang kapan saja" },
-  { label: "16 Program 2026", detail: "online & offline" },
-  { label: "QRIS · VA · e-Wallet · Kartu", detail: "pembayaran aman & instan" },
+/* ── Problems: mengapa lulusan tetap sulit dapat kerja ─────────────── */
+const problems = [
+  {
+    title: "Belum pernah mengerjakan pekerjaannya",
+    desc: "Lulusan ditolak bukan karena nilai kurang baik — tapi karena belum pernah benar-benar mengerjakan tugas dari peran yang mereka lamar. Pengetahuan ada. Pengalaman kerja belum.",
+    icon: (
+      <path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+    ),
+  },
+  {
+    title: "Sertifikat membuktikan hadir, bukan bisa bekerja",
+    desc: "Sertifikat pelatihan bisa didapat hanya dengan menonton video. Tidak ada tugas nyata, tidak ada mentor yang menilai hasil kerja Anda — padahal itu yang dicari perusahaan.",
+    icon: (
+      <>
+        <rect x="4" y="3" width="16" height="18" rx="2" />
+        <path d="M8 8h8M8 12h8M8 16h4" />
+      </>
+    ),
+  },
+  {
+    title: "Training biasa berhenti di teori",
+    desc: "Tonton materi → kuis → sertifikat → selesai. Tidak ada yang meniru kondisi kerja sungguhan, sehingga peserta tetap tidak siap saat masuk dunia kerja sebenarnya.",
+    icon: <polygon points="6,4 20,12 6,20" />,
+  },
 ];
 
-/* ── Ikon (path data dipakai ulang lintas seksi) ───────────────── */
-const icon = {
-  book: "M4 19.5A2.5 2.5 0 016.5 17H20 M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z",
-  flask: "M9 3h6M10 3v6.5L4.5 19a1.5 1.5 0 001.3 2.2h12.4a1.5 1.5 0 001.3-2.2L14 9.5V3",
-  people:
-    "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2 M9 7a4 4 0 108 0 4 4 0 00-8 0z M23 21v-2a4 4 0 00-3-3.87 M16 3.13a4 4 0 010 7.75",
-  chart: "M3 3v18h18 M7 14l4-4 4 4 5-6",
-  file: "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6M9 13h6M9 17h6M9 9h1",
-  coin: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
-  target: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4",
-  check: "M9 11l3 3L22 4 M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11",
-  briefcase: "M20 7h-3V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2H4a1 1 0 00-1 1v10a2 2 0 002 2h14a2 2 0 002-2V8a1 1 0 00-1-1z M9 7V5h6v2",
-  cert: "M12 15a4 4 0 100-8 4 4 0 000 8z M8.5 14 7 22l5-3 5 3-1.5-8",
-  mic: "M22 10v6M2 10l10-5 10 5-10 5-10-5z M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5",
-  download: "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4 M7 10l5 5 5-5M12 15V3",
-  leaf: "M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 11 13 12 11",
-  gear: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
-  mentor:
-    "M12 12a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z",
-  chat: "M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z",
-};
+/* ── Alur metode Online OJT ─────────────────────────────────────────── */
+const ojtFlow = [
+  {
+    label: "Studi Kasus",
+    desc: "Dari kondisi kerja nyata di industri",
+    icon: (
+      <>
+        <circle cx="11" cy="11" r="7" />
+        <path d="M21 21l-4.3-4.3" />
+      </>
+    ),
+  },
+  {
+    label: "Applied Project",
+    desc: "Mengerjakan dokumen kerja sungguhan",
+    icon: <path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />,
+  },
+  {
+    label: "Mentoring",
+    desc: "Dibimbing seperti oleh senior di kantor",
+    icon: <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87" />,
+  },
+  {
+    label: "Review",
+    desc: "Hasil kerja dinilai, bukan kehadiran",
+    icon: <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />,
+  },
+  {
+    label: "Portfolio & Assessment",
+    desc: "Bukti akhir kompetensi Anda",
+    icon: <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6" />,
+  },
+];
 
-function IconGlyph({ d, className = "text-sky-700" }: { d: string; className?: string }) {
+/* ── Cara kerja metode (method rows) ───────────────────────────────── */
+const methodRows = [
+  {
+    title: "Minggu pertama = hari pertama kerja",
+    desc: "Onboarding ke peran, bukan “modul 1”. Anda langsung memegang konteks pekerjaan nyata.",
+    icon: (
+      <>
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 10h18" />
+      </>
+    ),
+  },
+  {
+    title: "Mentor berperan sebagai supervisor",
+    desc: "Memberi tugas, mengawasi, dan me-review hasil kerja Anda — seperti senior di kantor.",
+    icon: <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" />,
+  },
+  {
+    title: "Tugas mingguan = dokumen kerja sungguhan",
+    desc: "SOP, checklist, laporan — bukan kuis pilihan ganda.",
+    icon: (
+      <>
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+        <path d="M9 13h6M9 17h6" />
+      </>
+    ),
+  },
+  {
+    title: "Simulasi satu hari kerja penuh",
+    desc: "Merasakan pekerjaan aktual dari peran yang Anda tuju — dari pagi sampai tutup hari.",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" />
+      </>
+    ),
+  },
+];
+
+/* ── Career tracks per klaster ──────────────────────────────────────── */
+const trackClusters = [
+  {
+    label: "Management & Governance",
+    tracks: [
+      { title: "Program QA Officer", desc: "Menjaga sistem mutu berjalan sesuai standar" },
+      { title: "Program QMS (ISO 9001) Officer", desc: "Membangun & mengelola sistem ISO 9001" },
+      { title: "Program Regulatory Affairs Officer", desc: "Mengurus izin & kepatuhan regulasi produk" },
+      { title: "Program Food Safety Management Officer", desc: "Mengelola sistem keamanan pangan" },
+      { title: "Program Corporate Legal Officer", desc: "Mengelola aspek legal & kepatuhan perusahaan" },
+    ],
+  },
+  {
+    label: "Sustainability & ESG",
+    tracks: [
+      { title: "Program ESG Officer", desc: "Mengelola pelaporan & kinerja ESG" },
+      { title: "Program Sustainability Officer", desc: "Menjalankan agenda keberlanjutan organisasi" },
+      { title: "Program EMS (ISO 14001) Officer", desc: "Mengelola sistem manajemen lingkungan" },
+    ],
+  },
+  {
+    label: "Laboratory & Testing",
+    tracks: [
+      { title: "Program QC Laboratory Analyst", desc: "Melakukan analisis mutu di laboratorium" },
+      { title: "Program Laboratory Quality System Officer", desc: "Mengelola sistem mutu laboratorium" },
+      { title: "Program GLP Laboratory Technician", desc: "Bekerja sesuai Good Laboratory Practice" },
+      { title: "Program Laboratory HSE Officer", desc: "Mengelola K3 & keselamatan laboratorium" },
+      { title: "Program Laboratory Operations Officer", desc: "Mengelola operasional harian laboratorium" },
+      { title: "Program R&D Officer", desc: "Mengembangkan produk & metode baru" },
+      { title: "Program Panelis Sensori Pangan", desc: "Menjadi panelis uji sensori terstandar" },
+    ],
+  },
+];
+
+/* ── Perjalanan peserta ─────────────────────────────────────────────── */
+const journeySteps = [
+  {
+    n: "1",
+    title: "Kenali Online OJT",
+    desc: "Pahami mengapa belajar dengan mengerjakan pekerjaan nyata berbeda dari semua training yang pernah Anda ikuti.",
+  },
+  {
+    n: "2",
+    title: "Pilih Career Track",
+    desc: "Tentukan peran yang ingin Anda jalankan — QA Officer, ESG Officer, QC Laboratory Analyst, atau peran lain di dunia mutu, kepatuhan & keberlanjutan.",
+  },
+  {
+    n: "3",
+    title: "Mulai: Applied Mini Project",
+    desc: "7 hari pertama Anda merasakan bekerja seperti profesional — dan pulang membawa satu dokumen kerja pertama yang direview mentor.",
+    chips: ["7 hari", "Rp175.000"],
+  },
+  {
+    n: "4",
+    title: "Jalani: Program Online OJT",
+    desc: "30 hari pengalaman kerja nyata — studi kasus, applied project, mentoring, dan review — sampai Anda benar-benar bisa mengerjakan pekerjaan dari peran yang Anda tuju.",
+    chips: ["30 hari", "Rp1.750.000", "Beasiswa via seleksi tersedia"],
+    byline: "Professional Development Program · diselenggarakan oleh PT Padma Nusa Akademi",
+    core: true,
+  },
+  {
+    n: "5",
+    title: "Portfolio & Recommendation",
+    desc: "Portfolio dokumen kerja dan surat rekomendasi mentor — yang Anda bawa ke wawancara kerja.",
+  },
+  {
+    n: "6",
+    title: "Sertifikasi Kompetensi (Opsional)",
+    desc: "Uji kompetensi resmi melalui LSP (Lembaga Sertifikasi Person) yang independen.",
+    quote: "Kami tidak menilai peserta kami sendiri. Itulah mengapa hasilnya dipercaya.",
+  },
+  {
+    n: "✓",
+    title: "Career Ready",
+    desc: "Melamar dengan bukti, bukan sekadar ijazah.",
+  },
+];
+
+/* ── Testimoni contoh (statis, sesuai draf desain) ──────────────────── */
+const testimonials = [
+  {
+    quote:
+      "Saya masuk tanpa tahu apa itu ISO 9001. Saya keluar dengan SOP yang benar-benar saya buat sendiri — dan itu yang saya tunjukkan saat interview.",
+    name: "Peserta Program QA Officer",
+    role: "Fresh Graduate",
+    initial: "A",
+  },
+  {
+    quote:
+      "Rasanya seperti sudah bekerja. Ada tugas, ada deadline, ada mentor yang me-review. Saat wawancara, saya bercerita tentang pekerjaan — bukan tentang mata kuliah.",
+    name: "Peserta Program QC Lab Analyst",
+    role: "Career Switcher",
+    initial: "R",
+  },
+  {
+    quote:
+      "Surat rekomendasi dari mentor jadi pembeda di lamaran saya. HR langsung bertanya tentang project yang saya kerjakan.",
+    name: "Peserta Program Regulatory Affairs",
+    role: "Mahasiswa Tingkat Akhir",
+    initial: "D",
+  },
+];
+
+const faqs = [
+  {
+    question: "Apa itu Online OJT di Mutululusan?",
+    answer:
+      "Metode belajar yang meniru pengalaman kerja nyata — studi kasus, applied project, mentoring, dan review — secara online, sebelum Anda diterima kerja. Anda diperlakukan seperti staf baru yang sedang onboarding, bukan seperti mahasiswa yang menonton video.",
+  },
+  {
+    question: "Apa bedanya dengan bootcamp atau webinar biasa?",
+    answer:
+      "Bootcamp dan webinar menjual materi dan durasi. Mutululusan memberi Anda pengalaman kerja nyata yang menghasilkan bukti kompetensi: dokumen kerja, portfolio, dan penilaian mentor yang bisa dibawa ke dunia kerja.",
+  },
+  {
+    question: "Apa itu Program Online OJT (misalnya Program QA Officer)?",
+    answer:
+      "Program inti Mutululusan selama 30 hari — pengalaman kerja nyata berbasis Online OJT untuk satu peran kerja, yang menghasilkan portfolio, penilaian mentor, dan surat rekomendasi. Secara formal tercatat sebagai Professional Development Program, diselenggarakan oleh PT Padma Nusa Akademi.",
+  },
+  {
+    question: "Saya belum punya pengalaman kerja sama sekali. Cocok?",
+    answer:
+      "Justru untuk itu Online OJT dirancang — mengganti pengalaman kerja yang belum Anda miliki dengan bukti kerja nyata yang bisa Anda tunjukkan ke perusahaan.",
+  },
+  {
+    question: "Mulai dari mana?",
+    answer:
+      "Applied Mini Project — 7 hari pertama Anda merasakan metode Online OJT dan pulang membawa satu dokumen profesional. Setelah itu, lanjutkan ke Program Online OJT pilihan Anda.",
+  },
+  {
+    question: "Apakah sertifikasinya resmi?",
+    answer:
+      "Sertifikasi kompetensi dilakukan oleh LSP (Lembaga Sertifikasi Person) yang independen. Kami tidak menilai peserta kami sendiri sehingga proses sertifikasi dilakukan secara objektif dan dapat dipercaya. Sertifikasi bersifat opsional setelah program selesai.",
+  },
+];
+
+function CheckIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
-      <path d={d} />
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="mt-0.5 shrink-0 text-sky-600" aria-hidden>
+      <path d="M20 6L9 17l-5-5" />
     </svg>
   );
 }
 
-/** Ikon "Job ready" — persis mutululusan_website.html (rect tas + tali). */
-function JobReadyIcon({ className = "text-sky-700" }: { className?: string }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
-      <rect x="3" y="7" width="18" height="13" rx="2" />
-      <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" />
-    </svg>
-  );
-}
-
-/* ── "Mulai Perjalanan Kariermu Sekarang" — persis mutululusan_website.html ── */
-const heroJourney = [
-  { label: "Belajar", iconD: icon.book },
-  { label: "Workshop", iconD: icon.mentor },
-  { label: "Project", iconD: icon.check },
-  { label: "Mentoring", iconD: icon.chat },
-  { label: "Job ready", jobReady: true },
-] as const;
-
-/* ── Trust bar (fakta terverifikasi, bukan logo/angka fiktif) ─────── */
-const trustBadges = [
-  { label: "PT Padma Global Nusatama", detail: "badan hukum resmi penyelenggara" },
-  { label: "Mitra resmi LSP Edukia", detail: "jalur sertifikasi kompetensi" },
-  { label: "21 Program Kompetensi", detail: "management, sustainability, lab, engineering" },
-  { label: "Online & Offline", detail: "in-house training menyesuaikan kebutuhan institusi" },
-];
-
-/* ── Solusi berdasarkan kebutuhan (dua jalur) ──────────────────── */
-const solutionPaths = [
-  {
-    title: "Untuk Perguruan Tinggi",
-    desc: "Bangun kompetensi mahasiswa, dosen, dan tendik yang selaras dengan target institusi.",
-    points: [
-      "Pemenuhan IKU 2, IKU 3, dan IKU 9",
-      "Bukti pendukung SKPI mahasiswa",
-      "Sertifikasi kompetensi dosen & tendik",
-      "Dukungan dokumentasi untuk akreditasi program studi",
-    ],
-    cta: "Lihat Program untuk Kampus",
-    href: "/pelatihan",
-    iconD: icon.book,
-  },
-  {
-    title: "Untuk Industri & Laboratorium",
-    desc: "Pastikan tim Anda kompeten dan laboratorium siap menghadapi audit eksternal.",
-    points: [
-      "Kepatuhan ISO/IEC 17025",
-      "Sertifikasi personel laboratorium",
-      "Kesiapan audit & asesmen eksternal",
-      "Upskilling tim QA/QC secara terjadwal",
-    ],
-    cta: "Lihat Program untuk Perusahaan",
-    href: "/in-house-training",
-    iconD: icon.flask,
-  },
-];
-
-/* ── Kenapa bermitra dengan kami (B2B) ─────────────────────────── */
-const partnerReasons = [
-  {
-    title: "Mitra resmi LSP Edukia",
-    desc: "Jalur uji & sertifikasi kompetensi diselenggarakan mitra resmi kami sesuai skema ISO/IEC 17024.",
-  },
-  {
-    title: "Selaras dengan IKU & ISO 17025",
-    desc: "Program dirancang mengacu pada indikator kinerja institusi dan standar mutu laboratorium.",
-  },
-  {
-    title: "Fleksibel: online, offline, in-house",
-    desc: "Jadwal dan mode pelatihan menyesuaikan kebutuhan institusi atau perusahaan Anda.",
-  },
-  {
-    title: "Pendampingan end-to-end",
-    desc: "Dari pengajuan kebutuhan, pelaksanaan, hingga penerbitan sertifikat — tim kami mendampingi.",
-  },
-];
-
-/* ── FAQ untuk institusi (B2B) ─────────────────────────────────── */
-const b2bFaqs = [
-  {
-    question: "Apakah bisa dibuatkan penawaran resmi/proposal untuk pengadaan?",
-    answer:
-      "Bisa. Isi form \"Ajukan Penawaran untuk Institusi\", sebutkan kebutuhan Anda, dan tim kami akan mengirimkan penawaran/proposal tertulis.",
-  },
-  {
-    question: "Apakah tersedia skema harga rombongan/institusi?",
-    answer:
-      "Skema harga institusi disesuaikan dengan jumlah peserta dan kebutuhan spesifik — ajukan kebutuhan Anda lewat form \"Ajukan Penawaran\" dan tim kami akan memberikan penawaran yang sesuai.",
-  },
-  {
-    question: "Apakah bisa kerja sama MOU/PKS jangka panjang?",
-    answer:
-      "Bisa, tersedia skema Kemitraan/Partnership dengan MOU/PKS untuk kerja sama tahunan — termasuk untuk instansi pemerintah dan kampus negeri yang memerlukan proses pengadaan formal.",
-  },
-  {
-    question: "Bagaimana proses penagihan/invoice untuk instansi?",
-    answer:
-      "Kami menerbitkan invoice resmi dengan pembayaran transfer korporat. Anda bisa membuat proforma invoice sendiri di halaman Invoice Instansi, atau melalui tim kami setelah penawaran disepakati.",
-  },
-  {
-    question: "Apakah sertifikat dan JP diakui untuk kebutuhan akreditasi/kum dosen?",
-    answer:
-      "e-Sertifikat 24 JP yang kami terbitkan adalah satuan jam pelatihan dari penyelenggara kami. Pengakuannya untuk kum dosen atau akreditasi prodi sepenuhnya bergantung pada kebijakan internal masing-masing institusi — kami menyediakan dokumentasi pendukung yang dapat digunakan dalam proses tersebut.",
-  },
-];
-
-/* ── Ekosistem PT Padma Global Nusatama ────────────────────────── */
-const ecosystemCards = [
-  {
-    tag: "mutuperguruantinggi.id",
-    title: "Tata kelola perguruan tinggi",
-    desc: "Penjaminan mutu, akreditasi, dan tata kelola institusi pendidikan tinggi.",
-    href: "https://mutuperguruantinggi.id",
-    external: true,
-    logo: "/logo/ekosistem/LOGO-MUTU-PT-EDITED.png",
-    accent: "bg-sky-700",
-  },
-  {
-    tag: "labnesia.id",
-    title: "Tata kelola laboratorium",
-    desc: "Standardisasi dan kompetensi laboratorium berbasis ISO/IEC 17025.",
-    href: "https://labnesia.id",
-    external: true,
-    logo: "/logo/ekosistem/LOGO-LABNESIA-005.gif",
-    accent: "bg-emerald-700",
-  },
-  {
-    tag: "mutululusan.id — Anda di sini",
-    title: "Mahasiswa dan lulusan",
-    desc: "Persiapan karier menuju profesional bagi mahasiswa, dosen, dan tendik.",
-    href: null,
-    external: false,
-    logo: "/logo/ekosistem/MUTULULUSAN-LOGO-3.png",
-    accent: "bg-orange-500",
-  },
-];
-
-/* ── Untuk institusi (IKU / SKPI) ──────────────────────────────── */
-const demandCards = [
-  {
-    tag: "IKU 2 & IKU 3",
-    title: "Mendukung capaian Indikator Kinerja Utama",
-    desc: "Persiapan karier yang terstruktur dapat mendukung capaian lulusan bekerja lebih cepat dan layak (IKU 2). Program mentoring dan studi kasus juga berpotensi diajukan sebagai pengalaman luar program studi yang diakui satuan kredit semester (IKU 3), sesuai kebijakan masing-masing perguruan tinggi.",
-    iconD: icon.chart,
-  },
-  {
-    tag: "SKPI",
-    title: "Bukti pendukung Surat Keterangan Pendamping Ijazah",
-    desc: "e-Sertifikat pelatihan dan kegiatan kompetensi yang diikuti mahasiswa dapat dicatat sebagai bagian dari rekam jejak Surat Keterangan Pendamping Ijazah (SKPI) — dokumen resmi pendamping ijazah yang wajib diterbitkan perguruan tinggi sesuai ketentuan yang berlaku.",
-    iconD: icon.file,
-  },
-  {
-    tag: "IKU 9",
-    title: "Peluang pendapatan non-akademik institusi",
-    desc: "Indikator Kinerja Utama mengakui jasa konsultasi dan pelatihan/sertifikasi profesi sebagai sumber pendapatan non-akademik (IKU 9). Skema kemitraan membuka peluang kampus turut menyelenggarakan dan memperoleh manfaat dari program kompetensi ini.",
-    iconD: icon.coin,
-  },
-];
-
-/* ── Skema kerja sama ──────────────────────────────────────────── */
-const tierCards = [
-  {
-    title: "Individual / Satuan",
-    sub: "Untuk mahasiswa, fresh graduate, atau profesional yang ingin mendaftar mandiri",
-    points: [
-      "Pendaftaran terbuka per peserta",
-      "Pilih satu atau beberapa skema kompetensi",
-      "Jadwal mengikuti batch terjadwal",
-      "e-Sertifikat dan materi pelatihan",
-    ],
-    for: "perorangan yang ingin mulai dari satu program",
-    iconD: icon.people,
-    featured: false,
-  },
-  {
-    title: "In-House / Private",
-    sub: "Untuk satu fakultas, prodi, atau kelompok kerja dengan kebutuhan spesifik",
-    points: [
-      "Jadwal dan lokasi menyesuaikan kebutuhan",
-      "Materi dapat disesuaikan dengan konteks institusi",
-      "Kuota peserta tertutup, satu grup",
-      "Laporan hasil pelatihan untuk internal",
-    ],
-    for: "satu unit/fakultas dengan kebutuhan tertentu",
-    iconD: icon.file,
-    featured: false,
-  },
-  {
-    title: "Kemitraan / Partnership",
-    sub: "Kerja sama jangka panjang antar institusi yang mencakup seluruh ekosistem",
-    points: [
-      "Skema tahunan, mencakup banyak program kompetensi",
-      "Dapat digabung dengan skema mutuperguruantinggi.id dan labnesia.id",
-      "Kerja sama formal MOU/PKS — tersedia untuk instansi pemerintah & kampus negeri",
-      "Co-branding dan pelaporan berkala ke pimpinan institusi",
-      "Pendampingan berkelanjutan dan jejaring praktisi",
-    ],
-    for: "perguruan tinggi yang ingin membangun ekosistem kompetensi menyeluruh",
-    iconD: icon.people,
-    featured: true,
-  },
-];
-
-/* ── Coba gratis ────────────────────────────────────────────────── */
-const giveValueCards = [
-  {
-    title: "Bootcamp pengenalan 1 hari",
-    desc: "Sesi singkat berisi silabus, awareness, dan manfaat program kompetensi — cocok untuk perkenalan awal sebelum institusi memutuskan kemitraan.",
-    tag: "Gratis",
-    cta: "Lihat jadwal",
-    href: "/jadwal-pelatihan-2026",
-    iconD: icon.file,
-  },
-  {
-    title: "Asesmen kebutuhan kompetensi",
-    desc: "Sesi pemetaan singkat untuk memahami kebutuhan kompetensi mahasiswa, dosen, atau tendik di institusi Anda — hasilnya berupa rekomendasi awal program yang relevan.",
-    tag: "Gratis untuk institusi",
-    cta: "Jadwalkan asesmen",
-    href: waLink("Halo admin, kami ingin menjadwalkan asesmen kebutuhan kompetensi untuk institusi kami."),
-    iconD: icon.check,
-  },
-  {
-    title: "Kuliah praktisi",
-    desc: "Kami hadir ke kampus Anda — sesi tatap muka untuk mahasiswa tingkat akhir dan fresh graduate tentang persiapan karier menuju profesional.",
-    tag: "Gratis untuk kampus mitra",
-    cta: "Undang ke kampus",
-    href: waLink("Halo admin, kami ingin mengundang mutululusan.id untuk sesi kuliah praktisi di kampus kami."),
-    iconD: icon.mic,
-  },
-  {
-    title: "Silabus & panduan program",
-    desc: "Unduh outline silabus lengkap, daftar skema kompetensi, dan panduan kemitraan tanpa perlu mendaftar terlebih dahulu.",
-    tag: "Unduh gratis",
-    cta: "Unduh silabus",
-    href: waLink("Halo admin, mohon dikirimkan silabus & panduan program mutululusan.id."),
-    iconD: icon.download,
-  },
-];
-
-/* ── Pilih bidang kariermu ─────────────────────────────────────── */
-const categoryIconD: Record<CareerCategoryIcon, string> = {
-  check: icon.check,
-  leaf: icon.leaf,
-  flask: icon.flask,
-  gear: icon.gear,
-};
-
-const categoryStyle: Record<string, { iconBg: string; iconText: string; tabBorder: string }> = {
-  sky: { iconBg: "bg-sky-100", iconText: "text-sky-700", tabBorder: "border-sky-300 text-sky-700" },
-  emerald: { iconBg: "bg-emerald-100", iconText: "text-emerald-700", tabBorder: "border-emerald-300 text-emerald-700" },
-  teal: { iconBg: "bg-teal-100", iconText: "text-teal-700", tabBorder: "border-teal-300 text-teal-700" },
-  amber: { iconBg: "bg-amber-100", iconText: "text-amber-800", tabBorder: "border-amber-300 text-amber-800" },
-};
-
-/* ── Alur program ──────────────────────────────────────────────── */
-const programFlow = [
-  { label: "Training", desc: "Pembelajaran terstruktur dasar hingga mahir", iconD: icon.book },
-  { label: "Workshop", desc: "Praktik langsung bersama praktisi", iconD: icon.people },
-  { label: "Mini project", desc: "Studi kasus nyata berbasis industri", iconD: icon.check },
-  { label: "Mentoring", desc: "Bimbingan 1-on-1 dari mentor ahli", iconD: icon.mentor },
-  { label: "Persiapan uji kompetensi", desc: "Pemenuhan persyaratan administrasi skema LSP", iconD: icon.check },
-];
-
-/* ── Untuk siapa platform ini ──────────────────────────────────── */
-const audienceCards = [
-  {
-    title: "Mahasiswa",
-    href: "/pelatihan",
-    points: ["Persiapan sebelum lulus", "Bootcamp dan workshop", "Pelatihan kompetensi", "Career coaching", "Portfolio dan project"],
-    bg: "bg-sky-700",
-  },
-  {
-    title: "Fresh graduate",
-    href: "/pelatihan",
-    points: ["Upgrade CV", "Mock interview", "Kompetensi industri", "Career roadmap", "Persiapan uji kompetensi"],
-    bg: "bg-orange-500",
-  },
-  {
-    title: "Dosen dan tendik",
-    href: "/pelatihan",
-    points: ["Persiapan karier menuju profesional", "Pelatihan pendukung Tridarma", "Pengembangan kompetensi", "Karier lebih cepat", "Jejaring profesional"],
-    bg: "bg-amber-500",
-  },
-  {
-    title: "Industri dan perusahaan",
-    href: "/in-house-training",
-    points: ["Recruit SDM kompeten", "Corporate training", "Pengembangan kompetensi tim", "Talent pool", "Employer branding"],
-    bg: "bg-teal-700",
-  },
-];
-
-/* ── Kontak ────────────────────────────────────────────────────── */
-const contactPeople = [
-  { name: "Rossi", phone: "+62 812-8656-3234" },
-  { name: "Althaaf", phone: "+62 889-5213-007" },
-  { name: "Endang", phone: "+62 821-7222-1567" },
-  { name: "Berryl", phone: "+62 851-8500-0367" },
-  { name: "Kintan", phone: "+62 811-399-523" },
-];
-
-function waHrefFromPhone(phone: string): string {
-  const digits = phone.replace(/\D/g, "").replace(/^0/, "62");
-  return waLink("Halo, saya ingin bertanya tentang program mutululusan.id.").replace(site.whatsapp, digits);
-}
-
-export default async function HomePage() {
-  const programs = await getAllPrograms();
-
+export default function HomePage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: b2bFaqs.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -380,9 +270,7 @@ export default async function HomePage() {
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Beranda", item: site.url },
-    ],
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "Beranda", item: site.url }],
   };
 
   return (
@@ -393,588 +281,507 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-slate-200 bg-linear-to-br from-white via-sky-50 to-white">
         <GradientMeshBackground />
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <NetworkVisualization />
-        </div>
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">
             <ScrollReveal>
-              <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
-                Solusi Pelatihan &amp; Sertifikasi Kompetensi Laboratorium{" "}
-                <span className="text-orange-600">untuk Perguruan Tinggi dan Industri</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-orange-600">
+                Karier di Dunia Mutu, ESG &amp; Laboratorium
+              </span>
+              <h1 className="mt-4 text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
+                Online On-the-Job Training.{" "}
+                <mark className="rounded bg-orange-200 px-1 text-slate-900">Siap kerja</mark>, sebelum bekerja.
               </h1>
-              <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                Membantu perguruan tinggi memenuhi capaian IKU 2/3/9, kebutuhan SKPI, dan
-                akreditasi program studi — serta membantu industri &amp; laboratorium
-                memenuhi kepatuhan ISO/IEC 17025 dan kesiapan audit, lewat program
-                pelatihan &amp; jalur sertifikasi kompetensi yang terstruktur.
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
+                Kampus mengajarkan teori. Perusahaan butuh orang yang sudah pernah mengerjakan
+                pekerjaan sungguhan. Mutululusan menghadirkan pengalaman itu — perjalanan
+                pengembangan karier yang menghasilkan bukti nyata.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/ajukan-penawaran" className="btn-primary">
-                  Ajukan Penawaran untuk Institusi
-                </Link>
-                <a
-                  href={waLink("Halo admin, kami ingin menjadwalkan konsultasi dengan tim mutululusan.id.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-outline"
-                >
-                  Jadwalkan Konsultasi
+                <a href="#tracks" className="btn-primary">
+                  Explore Career Tracks
+                </a>
+                <a href="#ojt" className="btn-outline">
+                  Pelajari Online OJT
                 </a>
               </div>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6">
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <IconGlyph d={icon.book} className="shrink-0 text-sky-600" />
-                  Materi disusun bersama praktisi industri
-                </div>
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <IconGlyph d={icon.target} className="shrink-0 text-sky-600" />
-                  Selaras dengan kerangka IKU terbaru
-                </div>
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <IconGlyph d={icon.briefcase} className="shrink-0 text-sky-600" />
-                  Persiapan karier menuju profesional
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm text-slate-500">{paymentMicrocopy}</p>
+              <p className="mt-4 text-sm text-slate-500">
+                Mulai dari 7 hari · Dibimbing mentor praktisi industri
+              </p>
             </ScrollReveal>
 
-            <ScrollReveal
-              delay={0.15}
-              className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm"
-            >
-              <h2 className="text-center text-xs font-bold uppercase tracking-wide text-orange-600">
-                Mulai Perjalanan Kariermu Sekarang
-              </h2>
-              <div className="mt-5 flex items-start justify-between">
-                {heroJourney.map((step, i, arr) => (
-                  <div key={step.label} className="flex items-start">
-                    <div className="flex flex-1 flex-col items-center text-center">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full border border-sky-200 bg-sky-50">
-                        {"jobReady" in step ? (
-                          <JobReadyIcon className="text-sky-700" />
-                        ) : (
-                          <IconGlyph d={step.iconD} className="text-sky-700" />
-                        )}
-                      </div>
-                      <span className="mt-2 text-[11px] font-medium leading-tight text-slate-600">
-                        {step.label}
-                      </span>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <span className="mt-3 px-0.5 text-orange-500" aria-hidden>
-                        ›
-                      </span>
-                    )}
-                  </div>
-                ))}
+            <ScrollReveal delay={0.15}>
+              <div className="relative min-h-[380px] sm:min-h-[440px]">
+                <div className="absolute left-[110px] top-[60px] w-[260px] rotate-[6deg] rounded-xl border border-slate-200 bg-white p-6 opacity-55 shadow-xl sm:w-[300px]">
+                  <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-3/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-[70%] rounded bg-slate-100" />
+                  <div className="h-2 w-4/5 rounded bg-slate-100" />
+                </div>
+                <div className="absolute left-[36px] top-[34px] w-[260px] -rotate-[4deg] rounded-xl border border-slate-200 bg-white p-6 opacity-80 shadow-xl sm:w-[300px]">
+                  <div className="mb-2 h-2 w-[70%] rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-3/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                  <div className="h-2 w-[70%] rounded bg-slate-100" />
+                </div>
+                <div className="absolute left-[16px] top-0 w-[260px] rotate-[1.5deg] rounded-xl border border-slate-200 bg-white p-6 shadow-2xl sm:left-[70px] sm:w-[300px]">
+                  <span className="mb-3 inline-block rounded border border-sky-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-sky-700">
+                    Dokumen Kerja
+                  </span>
+                  <div className="mb-3 text-sm font-bold text-slate-900">SOP Pengendalian Mutu — QA Officer</div>
+                  <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-3/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-[70%] rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                  <div className="mb-2 h-2 w-3/5 rounded bg-slate-100" />
+                  <div className="h-2 w-11/12 rounded bg-slate-100" />
+                  <span className="absolute bottom-5 right-4 -rotate-[9deg] rounded-lg border-2 border-sky-600 bg-sky-50/80 px-3 py-1 text-[11px] font-extrabold tracking-wide text-sky-700">
+                    DIREVIEW MENTOR ✓
+                  </span>
+                </div>
+                <div className="absolute -left-3 bottom-16 hidden max-w-[210px] -rotate-2 rounded-lg bg-orange-200 px-3 py-2 text-xs font-semibold text-slate-900 shadow-lg sm:block">
+                  ✍️ “Struktur sudah sesuai standar industri — siap masuk portfolio.”
+                </div>
               </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      <TrustBar badges={trustBadges} />
-
-      {/* Solusi berdasarkan kebutuhan Anda */}
-      <section id="solusi-institusi" className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
-              Solusi berdasarkan kebutuhan Anda
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Dua jalur, satu mitra pengembangan kompetensi
-            </h2>
+      {/* Authority chain */}
+      <section className="border-b border-slate-200 bg-white">
+        <ScrollReveal>
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 py-6 text-center text-sm text-slate-600">
+            <span>
+              Belajar di <b className="font-semibold text-slate-900">Mutululusan</b>
+            </span>
+            <span className="text-orange-500">→</span>
+            <span>
+              Dibimbing <b className="font-semibold text-slate-900">praktisi industri</b>
+            </span>
+            <span className="text-orange-500">→</span>
+            <span>
+              Diselenggarakan <b className="font-semibold text-slate-900">PT Padma Nusa Akademi</b>
+            </span>
+            <span className="text-orange-500">→</span>
+            <span className="flex flex-wrap items-center justify-center gap-2">
+              Divalidasi <b className="font-semibold text-slate-900">sertifikasi LSP independen</b>
+              <span className="inline-flex items-center gap-1 rounded-full border border-sky-600 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-800">
+                ✓ Uji kompetensi terpisah
+              </span>
+            </span>
           </div>
-          <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            {solutionPaths.map((s) => (
-              <div key={s.title} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-7">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50">
-                  <IconGlyph d={s.iconD} className="text-sky-700" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">{s.title}</h3>
-                <p className="mt-1 text-sm text-slate-600">{s.desc}</p>
-                <ul className="mt-4 flex-1 space-y-1.5">
-                  {s.points.map((p) => (
-                    <li key={p} className="pl-4 text-sm text-slate-600 relative before:absolute before:left-0 before:font-bold before:text-orange-500 before:content-['›']">
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-                <Link href={s.href} className="btn-outline mt-5">
-                  {s.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
 
-      {/* Kenapa bermitra dengan kami */}
+      {/* Problems */}
       <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Kenapa Bermitra dengan Kami
-          </h2>
-          <StaggerGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {partnerReasons.map((r) => (
-              <StaggerItem key={r.title} className="rounded-xl border border-slate-200 bg-white p-5">
-                <p className="font-bold text-slate-900">{r.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{r.desc}</p>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
-        </div>
-      </section>
-
-      {/* Bagian dari ekosistem PT Padma Global Nusatama */}
-      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                Bagian dari ekosistem kompetensi perguruan tinggi
+              <p className="text-xs font-bold uppercase tracking-wide text-orange-600">Masalahnya Bukan Kecerdasan</p>
+              <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+                Mengapa banyak lulusan tetap sulit mendapat pekerjaan?
               </h2>
-              <p className="mt-2 text-slate-600">
-                Satu ekosistem PT Padma Global Nusatama untuk membangun kualitas institusi,
-                laboratorium, hingga lulusan siap kerja
-              </p>
-            </div>
-            <div className="mt-8 grid gap-5 sm:grid-cols-3">
-              {ecosystemCards.map((c) => (
-                <div key={c.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                  <div className="flex h-12 items-center rounded-xl bg-slate-50 px-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.logo} alt={c.tag} className="h-9 w-auto object-contain" />
-                  </div>
-                  <h3 className="mt-4 font-bold text-slate-900">{c.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">{c.desc}</p>
-                  <span className={`mt-3 inline-block rounded-md px-3 py-1 text-xs font-bold text-white ${c.accent}`}>
-                    {c.tag}
-                  </span>
-                  {c.href && (
-                    <a
-                      href={c.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 block text-sm font-semibold text-sky-700 hover:underline"
-                    >
-                      Lihat skema selengkapnya <span aria-hidden>→</span>
-                    </a>
-                  )}
-                </div>
-              ))}
             </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Untuk pimpinan perguruan tinggi */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
-              Untuk pimpinan perguruan tinggi
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Mengapa ini strategis bagi institusi Anda
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Bukan sekadar pelatihan tambahan — program ini dirancang agar selaras dengan
-              kerangka kebijakan dan kebutuhan administratif perguruan tinggi
-            </p>
-          </div>
-          <StaggerGroup className="mt-8 grid gap-5 sm:grid-cols-3">
-            {demandCards.map((c) => (
-              <StaggerItem key={c.tag} className="rounded-2xl border border-slate-200 bg-white p-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50">
-                  <IconGlyph d={c.iconD} className="text-sky-700" />
+          <StaggerGroup className="mt-10 grid gap-5 sm:grid-cols-3">
+            {problems.map((p) => (
+              <StaggerItem key={p.title} className="rounded-2xl border border-slate-200 bg-white p-7">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-sky-700" aria-hidden>
+                    {p.icon}
+                  </svg>
                 </div>
-                <span className="mt-3 inline-block rounded-md bg-sky-50 px-2.5 py-1 text-[11px] font-bold text-sky-700">
-                  {c.tag}
-                </span>
-                <h3 className="mt-2 font-bold leading-snug text-slate-900">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.desc}</p>
+                <h3 className="mt-4 text-lg font-bold text-slate-900">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{p.desc}</p>
               </StaggerItem>
             ))}
           </StaggerGroup>
-          <div className="mx-auto mt-6 max-w-3xl rounded-r-lg border-l-4 border-orange-400 bg-slate-50 px-5 py-4">
-            <p className="text-xs leading-relaxed text-slate-600">
-              Catatan: pengakuan satuan kredit semester (SKS), pemenuhan IKU, dan pencatatan
-              dalam SKPI sepenuhnya merupakan kewenangan dan kebijakan masing-masing perguruan
-              tinggi sesuai ketentuan internal yang berlaku. mutululusan.id menyediakan program
-              dan dokumentasi pendukung yang dapat digunakan institusi dalam proses tersebut.
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* Tiga cara bekerja sama */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
-              Pilihan skema layanan
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Tiga cara bekerja sama dengan kami
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Dari kebutuhan individu hingga kemitraan jangka panjang antar institusi
-            </p>
-          </div>
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {tierCards.map((t) => (
-              <div
-                key={t.title}
-                className={`relative flex flex-col rounded-2xl border bg-white p-6 ${
-                  t.featured ? "border-2 border-orange-400" : "border-slate-200"
-                }`}
-              >
-                {t.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-orange-500 px-3.5 py-1 text-[11px] font-bold text-white">
-                    Direkomendasikan untuk institusi
-                  </span>
-                )}
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${
-                    t.featured ? "bg-orange-50" : "bg-sky-50"
-                  }`}
-                >
-                  <IconGlyph d={t.iconD} className={t.featured ? "text-orange-600" : "text-sky-700"} />
-                </div>
-                <h3 className="mt-4 font-bold text-slate-900">{t.title}</h3>
-                <p className="mt-1 text-sm text-slate-500">{t.sub}</p>
-                <ul className="mt-4 flex-1 space-y-1.5">
-                  {t.points.map((p) => (
-                    <li key={p} className="pl-4 text-sm text-slate-600 relative before:absolute before:left-0 before:font-bold before:text-orange-500 before:content-['›']">
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500">
-                  Cocok untuk: <strong className="text-slate-900">{t.for}</strong>
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-slate-500">
-            Untuk keperluan pengadaan/procurement, dokumen legalitas penyedia (nama badan
-            hukum <strong className="text-slate-700">PT Padma Global Nusatama</strong>, kontak
-            resmi) dapat kami lampirkan bersama penawaran — ajukan lewat{" "}
-            <Link href="/ajukan-penawaran" className="font-semibold text-sky-700 hover:underline">
-              form Ajukan Penawaran
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
-
-      {/* Coba dulu, gratis */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
-              Coba dulu, gratis
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Rasakan manfaatnya sebelum memutuskan kemitraan
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Kami percaya institusi yang sudah merasakan nilai nyata akan tahu sendiri
-              langkah selanjutnya — beberapa hal berikut tersedia tanpa biaya
-            </p>
-          </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {giveValueCards.map((g) => (
-              <a
-                key={g.title}
-                href={g.href}
-                target={g.href.startsWith("http") ? "_blank" : undefined}
-                rel={g.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="flex flex-col rounded-xl border border-slate-200 bg-white transition hover:border-orange-300 hover:shadow-md"
-              >
-                <div className="relative border-b border-slate-100 p-5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-50">
-                    <IconGlyph d={g.iconD} className="text-sky-700" />
-                  </div>
-                  <span className="absolute right-3 top-3 rounded bg-orange-50 px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-orange-700">
-                    {g.tag}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-4">
-                  <h4 className="font-bold leading-snug text-slate-900">{g.title}</h4>
-                  <p className="mt-1.5 flex-1 text-xs leading-relaxed text-slate-600">{g.desc}</p>
-                  <span className="mt-3 text-xs font-bold text-orange-600">
-                    {g.cta} <span aria-hidden>→</span>
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pilih bidang kariermu */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Pilih bidang kariermu
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Jalur kompetensi yang relevan dengan kebutuhan industri terkini, dikelompokkan
-              dalam empat bidang utama
-            </p>
-          </div>
-
-          <div className="mt-6 flex flex-wrap justify-center gap-2.5">
-            {careerCategories.map((c) => (
-              <span
-                key={c.key}
-                className={`rounded-lg border px-4 py-2 text-xs font-semibold ${categoryStyle[c.color].tabBorder}`}
-              >
-                {c.name}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-10 space-y-9">
-            {careerCategories.map((cat) => {
-              const preview = cat.schemes.slice(0, 2);
-              const remaining = cat.schemes.length - preview.length;
-              return (
-                <div key={cat.key}>
-                  <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${categoryStyle[cat.color].iconBg}`}>
-                      <IconGlyph d={categoryIconD[cat.iconKey]} className={categoryStyle[cat.color].iconText} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900">{cat.name}</h3>
-                      <p className="text-xs text-slate-500">{cat.desc}</p>
-                    </div>
-                  </div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {preview.map((s) => (
-                      <Link
-                        key={s.slug}
-                        href={`/pelatihan/${s.slug}`}
-                        className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-sky-300 hover:shadow-sm"
-                      >
-                        <div>
-                          <h4 className="text-sm font-bold leading-snug text-slate-900">{s.title}</h4>
-                          {"alias" in s && s.alias && (
-                            <p className="mt-0.5 text-[11px] italic text-slate-400">{s.alias}</p>
-                          )}
-                        </div>
-                        <span className="shrink-0 text-xs font-semibold text-orange-600">
-                          Detail <span aria-hidden>→</span>
-                        </span>
-                      </Link>
-                    ))}
-                    {remaining > 0 && (
-                      <Link
-                        href={`/pelatihan?kategori=${cat.key}`}
-                        className={`flex items-center justify-center rounded-xl border border-dashed p-4 text-center text-sm font-semibold transition hover:opacity-80 ${categoryStyle[cat.color].iconText} border-slate-300`}
-                      >
-                        +{remaining} program lainnya <span aria-hidden className="ml-1">→</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-9 text-center">
-            <Link href="/pelatihan" className="btn-outline">
-              Lihat Semua Career Path
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Program unggulan — career accelerator */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Program unggulan — career accelerator
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Program komprehensif untuk mempercepat kompetensi dan persiapan karier menuju
-              profesional
-            </p>
-          </div>
-
-          <div className="mx-auto mt-8 max-w-3xl rounded-r-lg border-l-4 border-orange-400 bg-slate-50 px-5 py-4">
-            <h5 className="flex items-center gap-2 text-sm font-bold text-slate-900">
-              <IconGlyph d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" className="text-orange-500" />
-              Informasi penting
-            </h5>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Program pelatihan ini dapat digunakan sebagai salah satu bentuk pemenuhan
-              persyaratan administrasi untuk mengikuti uji kompetensi pada skema terkait di
-              mitra resmi kami, LSP Edukia, sesuai dengan persyaratan dan ketentuan yang
-              berlaku. Keikutsertaan dalam pelatihan ini tidak menjamin kemudahan proses uji
-              atau menjamin kelulusan sertifikasi kompetensi.
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Pendaftaran uji kompetensi dilakukan secara mandiri oleh peserta langsung kepada
-              LSP Edukia, dan jadwal resmi uji kompetensi dipublikasikan melalui media LSP
-              Edukia secara terpisah. mutululusan.id dan LSP Edukia merupakan dua entitas yang
-              independen dengan peran berbeda: mutululusan.id menyelenggarakan pelatihan untuk
-              meningkatkan kompetensi peserta, sedangkan keputusan sertifikasi sepenuhnya
-              menjadi kewenangan LSP Edukia berdasarkan hasil asesmen yang objektif dan
-              independen.
-            </p>
-          </div>
-
-          <div className="mt-8 flex items-stretch gap-0 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-6">
-            {programFlow.map((step, i) => (
-              <div key={step.label} className="flex items-stretch">
-                <div className="min-w-[120px] flex-1 px-2.5 text-center">
-                  <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-sky-200 bg-sky-50">
-                    <IconGlyph d={step.iconD} className="text-sky-700" />
-                  </div>
-                  <h5 className="mt-2.5 text-sm font-bold text-slate-900">{step.label}</h5>
-                  <p className="mt-1 text-xs leading-tight text-slate-500">{step.desc}</p>
-                </div>
-                <span className="flex items-center px-1 text-lg text-orange-500" aria-hidden>
-                  ›
-                </span>
-              </div>
-            ))}
-            <div className="flex min-w-[130px] flex-col items-center justify-center rounded-xl border border-orange-200 bg-orange-50 p-3.5">
-              <h5 className="text-sm font-bold text-slate-900">Job ready</h5>
-              <p className="text-[11px] text-orange-700">Siap kerja dan berdaya saing</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Untuk siapa platform ini */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            Untuk siapa platform ini?
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {audienceCards.map((a) => (
-              <div key={a.title} className="overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:shadow-md">
-                <div className="border-b border-slate-100 px-4 py-3.5">
-                  <h5 className="font-bold text-slate-900">{a.title}</h5>
-                </div>
-                <div className="p-4">
-                  <ul className="space-y-1">
-                    {a.points.map((p) => (
-                      <li key={p} className="pl-3 text-xs text-slate-600 relative before:absolute before:left-0 before:text-orange-500 before:content-['·']">
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={a.href} className="mt-3 inline-block text-xs font-semibold text-sky-700 hover:underline">
-                    Pelajari lebih lanjut <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust bar */}
-      <section className="border-y border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-8 lg:grid-cols-4">
-          {trustItems.map((item) => (
-            <div key={item.label}>
-              <p className="font-bold text-slate-900">{item.label}</p>
-              <p className="text-sm text-slate-500">{item.detail}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimoni (tampil hanya bila ada data asli) */}
-      <Testimonials items={getTestimonials()} />
-
-      {/* FAQ untuk institusi */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-14">
+      {/* Manifesto */}
+      <section className="bg-sky-900">
+        <div className="mx-auto max-w-6xl px-4 py-24 text-center">
           <ScrollReveal>
-          <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
-            FAQ untuk Institusi
-          </h2>
-          <div className="mt-8">
-            <FaqList faqs={b2bFaqs} />
-          </div>
-          <p className="mt-6 text-center text-sm text-slate-600">
-            Pertanyaan lain?{" "}
-            <Link href="/faq" className="font-semibold text-sky-700 hover:underline">
-              Lihat FAQ lengkap
-            </Link>{" "}
-            atau{" "}
-            <a
-              href={waLink("Halo admin, saya punya pertanyaan tentang pelatihan.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-sky-700 hover:underline"
-            >
-              tanya admin via WA
-            </a>
-            .
-          </p>
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-300">Keyakinan Kami</span>
+            <div className="mx-auto mt-7 grid max-w-2xl gap-7">
+              <p className="text-lg font-semibold leading-relaxed text-sky-100 sm:text-xl">
+                Tidak ada orang yang menjadi siap kerja karena menonton video.
+                <br />
+                Tidak ada perusahaan yang mempekerjakan selembar sertifikat.
+              </p>
+              <p className="text-lg font-semibold leading-relaxed text-sky-100 sm:text-xl">
+                Kompetensi lahir dari <b className="font-extrabold text-white">mengerjakan</b>.
+                <br />
+                Kepercayaan lahir dari <b className="font-extrabold text-white">bukti</b>.
+              </p>
+              <p className="text-lg font-semibold leading-relaxed text-sky-100 sm:text-xl">
+                Kami percaya setiap orang berhak atas satu hal yang selama ini hanya dimiliki mereka
+                yang sudah bekerja:
+                <br />
+                <b className="font-extrabold text-white">kesempatan untuk membuktikan dirinya.</b>
+              </p>
+              <p className="text-xl font-extrabold leading-relaxed text-white sm:text-2xl">
+                Karena itu kami tidak menjual materi.
+                <br />
+                Kami memberi Anda{" "}
+                <mark className="rounded bg-orange-300 px-1 text-slate-900">pengalaman kerja pertama</mark> Anda —
+                <br />
+                sebelum Anda diterima kerja.
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA penutup */}
+      {/* OJT big reveal */}
+      <section className="bg-slate-900" id="ojt">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <ScrollReveal>
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-300">Metode Kami</span>
+            <h2 className="mt-2 max-w-[22ch] text-2xl font-bold text-white sm:text-3xl">
+              Online On-the-Job Training (OJT) — metode belajar terbaik untuk menjadi siap kerja.
+            </h2>
+            <div className="mt-7 grid max-w-3xl gap-4 text-base text-slate-300">
+              <p>
+                Di dunia kerja, cara tercepat untuk benar-benar kompeten adalah{" "}
+                <strong className="text-white">On-the-Job Training</strong> — belajar langsung
+                mengerjakan pekerjaan nyata dengan bimbingan senior.
+              </p>
+              <p>
+                Masalahnya: pengalaman ini biasanya baru didapat <strong className="text-white">setelah</strong>{" "}
+                seseorang diterima bekerja.
+              </p>
+              <p>
+                Karena itu Mutululusan.id menghadirkan program berbasis{" "}
+                <mark className="rounded bg-orange-300 px-1 text-slate-900">
+                  <strong>Online OJT</strong>
+                </mark>{" "}
+                — sehingga mahasiswa, fresh graduate, dan career switcher bisa merasakan pengalaman
+                kerja nyata <strong className="text-white">sebelum</strong> melamar kerja, dan
+                membangun bukti kompetensi yang bisa ditunjukkan ke dunia kerja.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="relative mt-16 grid gap-8 sm:grid-cols-5 sm:gap-2">
+            <div
+              className="pointer-events-none absolute left-[10%] right-[10%] top-[27px] hidden h-px bg-linear-to-r from-transparent via-orange-400/50 to-transparent sm:block"
+              aria-hidden
+            />
+            {ojtFlow.map((step) => (
+              <div key={step.label} className="relative grid grid-cols-[54px_1fr] items-center gap-4 text-left sm:flex sm:flex-col sm:items-center sm:gap-0 sm:text-center sm:px-2">
+                <div className="relative z-10 flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full border border-orange-300/40 bg-slate-800 text-orange-300 sm:mb-3.5">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                    {step.icon}
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white">{step.label}</h4>
+                  <p className="mt-1 text-xs text-slate-400">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Method rows */}
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
-          <div className="rounded-2xl border border-sky-100 bg-sky-50 px-6 py-12 text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Siap Naik Kelas di Karier Laboratorium Anda?
+          <ScrollReveal>
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Cara Kerjanya</span>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+              Belajar seperti bekerja. Bukan sekadar mengikuti kelas.
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-              Lihat kalender lengkap {programs.length} program pelatihan 2026 dan amankan kursi
-              Anda hari ini.
+            <p className="mt-3 max-w-2xl text-slate-600">
+              Peserta tidak “mengikuti kelas”. Peserta onboarding ke sebuah peran kerja — lengkap
+              dengan tugas, supervisor, dan pekerjaan nyata yang harus diselesaikan.
             </p>
-            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/jadwal-pelatihan-2026" className="btn-primary">
-                Lihat Jadwal 2026
-              </Link>
-              <a
-                href={waLink("Halo admin, tolong kirimkan jadwal lengkap pelatihan 2026.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-wa"
-              >
-                Minta Jadwal via WhatsApp
-              </a>
-            </div>
-
-            <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-              {contactPeople.map((p) => (
-                <a
-                  key={p.name}
-                  href={waHrefFromPhone(p.phone)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg border border-slate-200 bg-white p-4 text-center transition hover:border-sky-300 hover:shadow-sm"
-                >
-                  <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">
-                    {p.name[0]}
-                  </span>
-                  <h6 className="mt-2 text-xs font-bold text-slate-900">{p.name}</h6>
-                  <span className="text-[11px] text-slate-500">{p.phone}</span>
-                </a>
-              ))}
-            </div>
-            <p className="mt-4 text-sm text-slate-500">{paymentMicrocopy}</p>
+          </ScrollReveal>
+          <div className="mt-9 border-t border-slate-200">
+            {methodRows.map((row) => (
+              <div key={row.title} className="flex flex-col gap-4 border-b border-slate-200 py-6 sm:flex-row sm:items-center sm:gap-6">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-sky-700" aria-hidden>
+                    {row.icon}
+                  </svg>
+                </div>
+                <h4 className="font-bold text-slate-900 sm:w-56 sm:shrink-0">{row.title}</h4>
+                <p className="text-sm text-slate-600 sm:flex-1">{row.desc}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Career tracks */}
+      <section className="border-y border-slate-200 bg-slate-50" id="tracks">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <ScrollReveal>
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Career Tracks</span>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">Pilih peran yang ingin Anda kuasai.</h2>
+            <p className="mt-3 max-w-2xl text-slate-600">
+              Anda tidak sedang memilih “kursus ISO” atau “kursus QA”. Anda sedang memilih{" "}
+              <b className="text-slate-900">peran yang ingin Anda jalankan</b> — setiap Career
+              Track memiliki satu Program Online OJT yang dirancang secara utuh.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 space-y-9">
+            {trackClusters.map((cluster) => (
+              <div key={cluster.label}>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="text-xs font-bold uppercase tracking-wide text-slate-500">{cluster.label}</span>
+                  <span className="h-px flex-1 bg-slate-200" />
+                </div>
+                <StaggerGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {cluster.tracks.map((t) => (
+                    <StaggerItem key={t.title}>
+                      <a
+                        href="#journey"
+                        className="group flex h-full items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-md"
+                      >
+                        <div>
+                          <h4 className="text-sm font-semibold text-slate-900">{t.title}</h4>
+                          <p className="mt-1 text-xs text-slate-500">{t.desc}</p>
+                        </div>
+                        <span className="shrink-0 text-sky-600 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden>
+                          →
+                        </span>
+                      </a>
+                    </StaggerItem>
+                  ))}
+                </StaggerGroup>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Proof sections */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <div className="grid items-center gap-10 py-8 md:grid-cols-2">
+            <ScrollReveal>
+              <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Pekerjaan Nyata</span>
+              <h3 className="mt-2 text-2xl font-bold text-slate-900">Pekerjaan sungguhan, bukan tugas kuliah.</h3>
+              <p className="mt-3 max-w-md text-slate-600">
+                Setiap program berpuncak pada dokumen kerja nyata yang benar-benar dipakai di
+                industri — menyusun SOP yang benar-benar bisa diterapkan, laporan audit yang
+                benar-benar bisa dipresentasikan.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1} className="flex min-h-[220px] items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-8">
+              <div className="w-full max-w-[320px] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
+                <span className="mb-3 inline-block rounded border border-sky-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-sky-700">
+                  Applied Project
+                </span>
+                <div className="mb-3 text-sm font-bold text-slate-900">Audit Checklist — Internal Audit ISO 9001</div>
+                <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                <div className="mb-2 h-2 w-[70%] rounded bg-slate-100" />
+                <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                <div className="h-2 w-3/5 rounded bg-slate-100" />
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid items-center gap-10 border-t border-slate-200 py-8 md:grid-cols-2">
+            <ScrollReveal className="order-2 flex min-h-[220px] items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-8 md:order-1">
+              <div className="w-full max-w-[320px] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
+                <span className="mb-3 inline-block rounded border border-sky-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-sky-700">
+                  Portfolio
+                </span>
+                <div className="mb-3 text-sm font-bold text-slate-900">Kumpulan Bukti Kerja Anda</div>
+                <ul className="grid gap-2.5">
+                  <li className="flex items-start gap-2.5 text-sm text-slate-700">
+                    <CheckIcon /> SOP &amp; Manual
+                  </li>
+                  <li className="flex items-start gap-2.5 text-sm text-slate-700">
+                    <CheckIcon /> Risk Register
+                  </li>
+                  <li className="flex items-start gap-2.5 text-sm text-slate-700">
+                    <CheckIcon /> ESG Matrix / Validation Report
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1} className="order-1 md:order-2">
+              <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Portfolio</span>
+              <h3 className="mt-2 text-2xl font-bold text-slate-900">Bukan daftar sertifikat. Bukti kerja nyata.</h3>
+              <p className="mt-3 max-w-md text-slate-600">
+                Dokumen yang bisa langsung Anda tunjukkan saat wawancara: bukan lagi “saya pernah
+                belajar”, tapi <b className="text-slate-900">“ini yang sudah saya kerjakan.”</b>
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid items-center gap-10 border-t border-slate-200 py-8 md:grid-cols-2">
+            <ScrollReveal>
+              <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Surat Rekomendasi</span>
+              <h3 className="mt-2 text-2xl font-bold text-slate-900">Dinilai. Direkomendasikan.</h3>
+              <p className="mt-3 max-w-md text-slate-600">
+                Mentor yang mengawasi pekerjaan Anda memberi penilaian nyata dalam bentuk surat
+                rekomendasi yang bisa dilampirkan saat melamar kerja. Bukan template otomatis —
+                penilaian dari orang yang benar-benar melihat cara Anda bekerja.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1} className="flex min-h-[220px] items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-8">
+              <div className="w-full max-w-[320px] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
+                <span className="mb-3 inline-block rounded border border-sky-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-sky-700">
+                  Recommendation
+                </span>
+                <div className="mb-3 text-sm font-bold text-slate-900">Surat Rekomendasi Mentor</div>
+                <div className="mb-2 h-2 w-11/12 rounded bg-slate-100" />
+                <div className="mb-2 h-2 w-4/5 rounded bg-slate-100" />
+                <div className="mb-2 h-2 w-3/5 rounded bg-slate-100" />
+                <div className="mb-3 h-2 w-[70%] rounded bg-slate-100" />
+                <span className="inline-block rotate-[-9deg] rounded-lg border-2 border-sky-600 bg-sky-50/80 px-3 py-1 text-[11px] font-extrabold tracking-wide text-sky-700">
+                  DIREKOMENDASIKAN
+                </span>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Journey */}
+      <section className="border-y border-slate-200 bg-slate-50" id="journey">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <ScrollReveal className="mx-auto max-w-2xl text-center">
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Perjalanan Anda</span>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">Satu perjalanan menuju siap kerja.</h2>
+            <p className="mt-3 text-slate-600">
+              Anda tidak sedang membeli pelatihan. Anda sedang memasuki perjalanan pengembangan
+              karier — dari mencoba metode Online OJT selama 7 hari, sampai memegang bukti
+              kompetensi yang diakui dunia kerja.
+            </p>
+          </ScrollReveal>
+
+          <div className="relative mx-auto mt-14 max-w-3xl">
+            <div className="absolute bottom-4 left-6 top-4 w-px bg-slate-200" aria-hidden />
+            {journeySteps.map((step) => (
+              <ScrollReveal key={step.n} className="relative flex gap-5 py-5">
+                <div
+                  className={`z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border font-bold ${
+                    step.core
+                      ? "border-sky-600 bg-sky-600 text-white"
+                      : "border-slate-200 bg-white text-sky-700"
+                  }`}
+                >
+                  {step.n}
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">{step.title}</h4>
+                  <p className="mt-1 max-w-lg text-sm text-slate-600">{step.desc}</p>
+                  {step.chips && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {step.chips.map((c) => (
+                        <span
+                          key={c}
+                          className={`inline-block rounded-full border px-3 py-1 text-xs font-semibold ${
+                            c.startsWith("Rp")
+                              ? "border-sky-600 bg-sky-50 text-sky-800"
+                              : "border-slate-200 bg-white text-slate-700"
+                          }`}
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {step.byline && <p className="mt-2 text-xs text-slate-500">{step.byline}</p>}
+                  {step.quote && (
+                    <p className="mt-3 border-l-2 border-sky-300 pl-4 text-sm italic text-slate-600">{step.quote}</p>
+                  )}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <a href="#faq" className="btn-primary">
+              Mulai Perjalanan Anda
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <ScrollReveal className="mx-auto max-w-2xl text-center">
+            <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Cerita Peserta</span>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+              Dari “belum tahu mulai dari mana” jadi siap ditawarkan pekerjaan.
+            </h2>
+          </ScrollReveal>
+          <StaggerGroup className="mt-10 grid gap-5 sm:grid-cols-3">
+            {testimonials.map((t) => (
+              <StaggerItem key={t.name} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6">
+                <p className="text-sm text-slate-700">“{t.quote}”</p>
+                <div className="mt-auto flex items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-100 font-bold text-sky-700">
+                    {t.initial}
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{t.name}</p>
+                    <p className="text-xs text-slate-500">{t.role}</p>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-slate-200 bg-slate-50" id="faq">
+        <div className="mx-auto max-w-3xl px-4 py-14">
+          <ScrollReveal>
+            <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">
+              Pertanyaan yang sering diajukan
+            </h2>
+            <div className="mt-8">
+              <FaqList faqs={faqs} />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <ScrollReveal>
+            <div className="rounded-2xl bg-sky-600 px-6 py-16 text-center text-white sm:px-10">
+              <h2 className="mx-auto max-w-[24ch] text-2xl font-bold sm:text-3xl">
+                Pengalaman kerja pertama Anda dimulai di sini.
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-sky-50">
+                Perjalanan menuju siap kerja dimulai dari satu langkah kecil — 7 hari pertama Anda
+                bekerja seperti profesional.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a
+                  href="#journey"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-bold text-sky-700 shadow-sm transition hover:bg-orange-100"
+                >
+                  Mulai Perjalanan Karier
+                </a>
+                <a
+                  href="#tracks"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/60 px-6 py-3 font-semibold text-white transition hover:border-white"
+                >
+                  Lihat Career Tracks
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

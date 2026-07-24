@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutululusan.id — Online On-the-Job Training. Siap Kerja, Sebelum Bekerja.</title>
+<meta name="description" content="Career Development Platform berbasis Online On-the-Job Training untuk mengembangkan kompetensi pada berbagai peran di bidang mutu, kepatuhan, laboratorium, dan keberlanjutan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7;
+  --ink:#14161A;
+  --muted:#5C6168;
+  --line:#E7E3DA;
+  --accent:#0D7A5F;
+  --accent-dark:#0A5F4A;
+  --accent-deep:#07423A;
+  --accent-soft:#E6F2EE;
+  --marker:#FFE982;
+  --white:#FFFFFF;
+  --radius:14px;
+  --maxw:1120px;
+  --display:'Bricolage Grotesque',sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;letter-spacing:-0.015em}
+h2{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:700}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.muted{color:var(--muted)}
+.mark{background:linear-gradient(transparent 58%,var(--marker) 58%);padding:0 2px}
+section{padding:96px 0}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- Nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;align-items:center;font-size:.9rem;font-weight:500}
+.nav-links a:not(.btn){color:var(--muted)}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;font-size:.92rem;transition:transform .15s ease,background .15s ease;cursor:pointer;border:none;font-family:var(--body)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06),0 8px 20px -8px rgba(13,122,95,.5)}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-lg{padding:15px 28px;font-size:1rem}
+.hamburger{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink)}
+
+/* ---------- Hero ---------- */
+.hero{padding:84px 0 88px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5vw,3.7rem);font-weight:800;margin:16px 0 20px}
+.hero p.lead{font-size:1.12rem;color:var(--muted);max-width:34rem;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.cta-note{font-size:.82rem;color:var(--muted);margin-top:14px}
+
+/* document stack — signature element */
+.doc-stack{position:relative;min-height:440px}
+.doc{position:absolute;background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:0 24px 48px -20px rgba(20,22,26,.18);padding:26px 24px;width:300px}
+.doc-back{transform:rotate(6deg);top:60px;left:110px;opacity:.55}
+.doc-mid{transform:rotate(-4deg);top:34px;left:36px;opacity:.8}
+.doc-front{transform:rotate(1.5deg);top:0;left:70px;animation:docIn .9s ease both .2s}
+@keyframes docIn{from{opacity:0;transform:rotate(1.5deg) translateY(26px) scale(.97)}to{opacity:1;transform:rotate(1.5deg) translateY(0) scale(1)}}
+@media (prefers-reduced-motion:reduce){.doc-front{animation:none}}
+.doc-tag{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 8px;display:inline-block;margin-bottom:12px}
+.doc-title{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:14px}
+.doc-line{height:8px;border-radius:4px;background:#EFEDE6;margin-bottom:9px}
+.doc-line.w80{width:80%}.doc-line.w60{width:60%}.doc-line.w90{width:90%}.doc-line.w70{width:70%}
+.doc-stamp{position:absolute;right:18px;bottom:20px;transform:rotate(-9deg);border:2.5px solid var(--accent);color:var(--accent);border-radius:8px;padding:5px 12px;font-family:var(--display);font-weight:800;font-size:.78rem;letter-spacing:.08em;background:rgba(230,242,238,.75)}
+.doc-note{position:absolute;left:-14px;bottom:64px;background:var(--marker);border-radius:8px;padding:8px 12px;font-size:.72rem;font-weight:600;box-shadow:0 8px 18px -8px rgba(20,22,26,.3);transform:rotate(-2deg)}
+
+/* ---------- Authority chain ---------- */
+.authority{padding:0 0 8px}
+.authority-inner{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+.authority-inner b{color:var(--ink);font-weight:600}
+.authority-inner .chain{color:var(--accent);font-weight:700}
+.kan{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--accent);color:var(--accent-dark);border-radius:99px;padding:3px 12px;font-size:.76rem;font-weight:600;background:var(--accent-soft)}
+
+/* ---------- Problems ---------- */
+.problems{background:var(--white);border-bottom:1px solid var(--line)}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.prob-card{border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;background:var(--paper)}
+.prob-card .ico{width:44px;height:44px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--accent)}
+.prob-card h3{font-size:1.12rem;margin-bottom:10px}
+.prob-card p{font-size:.94rem;color:var(--muted)}
+
+/* ---------- Manifesto ---------- */
+.manifesto{background:var(--accent-deep);color:#EAF3EF;text-align:center;padding:120px 0}
+.manifesto .eyebrow{color:var(--marker)}
+.manifesto-lines{max-width:44rem;margin:0 auto;display:grid;gap:26px}
+.manifesto-lines p{font-family:var(--display);font-weight:600;font-size:clamp(1.25rem,2.6vw,1.7rem);line-height:1.45;color:#DCEBE4}
+.manifesto-lines p b{color:#fff;font-weight:800}
+.manifesto-lines .closing{font-size:clamp(1.4rem,3vw,2rem);color:#fff;font-weight:800}
+.manifesto-lines .closing .mark{color:var(--ink)}
+
+/* ---------- OJT reveal ---------- */
+.ojt{background:var(--ink);color:#F4F3EF}
+.ojt .eyebrow{color:var(--marker)}
+.ojt h2{color:#fff;max-width:22ch}
+.ojt-copy{max-width:46rem;margin-top:26px;display:grid;gap:18px;font-size:1.05rem;color:#C9CCD1}
+.ojt-copy strong{color:#fff}
+.ojt-copy .mark{color:var(--ink)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:64px;position:relative}
+.flow::before{content:"";position:absolute;top:27px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,233,130,.5),transparent)}
+.flow-node{text-align:center;position:relative;padding:0 8px}
+.flow-dot{width:54px;height:54px;border-radius:50%;background:#1F232A;border:1.5px solid rgba(255,233,130,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--marker);position:relative;z-index:1}
+.flow-node h4{font-size:.94rem;color:#fff;margin-bottom:5px}
+.flow-node p{font-size:.8rem;color:#9BA0A8}
+
+/* ---------- Method rows ---------- */
+.method-list{margin-top:44px;display:grid}
+.method-row{display:grid;grid-template-columns:56px 240px 1fr;gap:22px;align-items:center;padding:22px 4px;border-bottom:1px solid var(--line)}
+.method-row:first-child{border-top:1px solid var(--line)}
+.method-row .ico{width:44px;height:44px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.method-row h4{font-size:1.02rem}
+.method-row p{font-size:.94rem;color:var(--muted)}
+
+/* ---------- Tracks ---------- */
+.tracks{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cluster{margin-top:44px}
+.cluster+.cluster{margin-top:36px}
+.cluster-label{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.cluster-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.track-card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:var(--paper);transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.track-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(13,122,95,.28)}
+.track-card h4{font-size:.98rem;font-weight:600;font-family:var(--body)}
+.track-card .arrow{color:var(--accent);flex-shrink:0;opacity:0;transition:opacity .15s ease}
+.track-card:hover .arrow{opacity:1}
+.track-card small{display:block;font-size:.76rem;color:var(--muted);font-weight:400;margin-top:2px}
+
+/* ---------- Proof sections ---------- */
+.proof-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:64px 0}
+.proof-row+.proof-row{border-top:1px solid var(--line)}
+.proof-row h3{font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:14px}
+.proof-row p{color:var(--muted);max-width:32rem}
+.proof-visual{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:30px;min-height:230px;display:flex;align-items:center;justify-content:center;position:relative}
+.proof-visual .mini-doc{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;width:78%;box-shadow:0 14px 30px -16px rgba(20,22,26,.2)}
+ul.checks{list-style:none;margin-top:10px;display:grid;gap:10px}
+ul.checks li{display:flex;gap:11px;align-items:flex-start;font-size:.95rem}
+ul.checks li svg{flex-shrink:0;margin-top:3px;color:var(--accent)}
+
+/* ---------- Journey ---------- */
+.journey{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.journey-head{text-align:center;max-width:42rem;margin:0 auto}
+.journey-head p{color:var(--muted);margin-top:14px}
+.steps{max-width:44rem;margin:56px auto 0;position:relative}
+.steps::before{content:"";position:absolute;left:27px;top:14px;bottom:14px;width:2px;background:var(--line)}
+.step{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:20px 0;position:relative}
+.step-dot{width:56px;height:56px;border-radius:50%;background:var(--paper);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;color:var(--accent);z-index:1;font-size:1.05rem}
+.step.core .step-dot{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step-body h4{font-size:1.08rem;margin-bottom:4px}
+.step-body p{font-size:.93rem;color:var(--muted);max-width:34rem}
+.step-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-block;font-size:.76rem;font-weight:600;border:1px solid var(--line);border-radius:99px;padding:4px 12px;background:var(--paper);color:var(--ink)}
+.chip.price{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-soft)}
+.step-byline{font-size:.76rem;color:var(--muted);margin-top:8px}
+.trust-quote{border-left:3px solid var(--accent);padding:6px 0 6px 16px;margin-top:12px;font-size:.9rem;color:var(--ink);font-style:italic}
+.journey-cta{text-align:center;margin-top:48px}
+
+/* ---------- Testimonials ---------- */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.testi{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);padding:28px 26px;display:flex;flex-direction:column;gap:16px}
+.testi p{font-size:.95rem}
+.testi .who{display:flex;gap:12px;align-items:center;margin-top:auto}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--display)}
+.who b{font-size:.9rem;display:block}
+.who small{font-size:.78rem;color:var(--muted)}
+
+/* ---------- FAQ ---------- */
+.faq-wrap{background:var(--white);border-top:1px solid var(--line)}
+.faq-list{max-width:44rem;margin:44px auto 0}
+details{border-bottom:1px solid var(--line)}
+details:first-child{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:22px 4px;font-weight:600;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary .plus{color:var(--accent);font-family:var(--display);font-size:1.3rem;transition:transform .2s ease;flex-shrink:0}
+details[open] .plus{transform:rotate(45deg)}
+details p{padding:0 4px 22px;color:var(--muted);font-size:.95rem;max-width:40rem}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:var(--accent);color:#fff;text-align:center;border-radius:24px;padding:72px 40px;margin:0 24px}
+.cta-band h2{color:#fff;max-width:24ch;margin:0 auto 14px}
+.cta-band p{color:rgba(255,255,255,.85);max-width:36rem;margin:0 auto 32px}
+.cta-band .btn-primary{background:#fff;color:var(--accent);box-shadow:none}
+.cta-band .btn-primary:hover{background:var(--marker);color:var(--ink)}
+.cta-band .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+.cta-band .btn-ghost:hover{border-color:#fff}
+
+/* ---------- Footer ---------- */
+footer{padding:64px 0 40px;font-size:.88rem;color:var(--muted)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--line)}
+footer h5{font-family:var(--body);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:14px}
+footer ul{list-style:none;display:grid;gap:9px}
+footer li small{display:block;color:var(--muted);font-size:.78rem;margin-top:1px}
+footer a:hover{color:var(--ink)}
+footer li b{color:var(--ink);font-weight:600}
+.foot-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ---------- Mobile ---------- */
+.sticky-cta{display:none}
+@media (max-width:920px){
+  section{padding:68px 0}
+  .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:20px 24px;gap:18px;align-items:flex-start}
+  .nav-links.open{display:flex}
+  .hamburger{display:block}
+  .hero{padding:48px 0 64px}
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .doc-stack{min-height:380px;order:-1;transform:scale(.92);transform-origin:top center}
+  .authority-inner{flex-direction:column;gap:8px;text-align:center;padding:22px 16px}
+  .prob-grid,.testi-grid{grid-template-columns:1fr}
+  .manifesto{padding:84px 0}
+  .flow{grid-template-columns:1fr;gap:26px}
+  .flow::before{display:none}
+  .flow-node{display:grid;grid-template-columns:54px 1fr;text-align:left;gap:16px;align-items:center}
+  .flow-dot{margin:0}
+  .method-row{grid-template-columns:44px 1fr;grid-template-rows:auto auto}
+  .method-row p{grid-column:2}
+  .track-grid{grid-template-columns:1fr}
+  .proof-row{grid-template-columns:1fr;gap:28px;padding:44px 0}
+  .steps::before{left:23px}
+  .step{grid-template-columns:48px 1fr;gap:16px}
+  .step-dot{width:48px;height:48px;font-size:.95rem}
+  .foot-grid{grid-template-columns:1fr}
+  .cta-band{margin:0 16px;padding:52px 26px}
+  .sticky-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(251,250,247,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:12px 16px;gap:10px}
+  .sticky-cta .btn{flex:1;text-align:center;padding:13px 10px;font-size:.88rem}
+  body{padding-bottom:72px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo">mutu<span>lulusan</span>.id</a>
+    <button class="hamburger" aria-label="Buka menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="navlinks">
+      <a href="#ojt">Online OJT</a>
+      <a href="#tracks">Career Tracks</a>
+      <a href="#journey">Perjalanan</a>
+      <a href="#faq">FAQ</a>
+      <a href="#journey" class="btn btn-primary">Mulai Perjalanan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Karier di Dunia Mutu, ESG &amp; Laboratorium</span>
+      <h1>Online On-the-Job Training. <span class="mark">Siap kerja</span>, sebelum bekerja.</h1>
+      <p class="lead">Kampus mengajarkan teori. Perusahaan butuh orang yang sudah pernah mengerjakan pekerjaan sungguhan. Mutululusan menghadirkan pengalaman itu — perjalanan pengembangan karier yang menghasilkan bukti nyata.</p>
+      <div class="hero-ctas">
+        <a href="#tracks" class="btn btn-primary btn-lg">Explore Career Tracks</a>
+        <a href="#ojt" class="btn btn-ghost btn-lg">Pelajari Online OJT</a>
+      </div>
+      <p class="cta-note">Mulai dari 7 hari · Dibimbing mentor praktisi industri</p>
+    </div>
+    <div class="doc-stack" aria-hidden="true">
+      <div class="doc doc-back"><div class="doc-line w80"></div><div class="doc-line w60"></div><div class="doc-line w90"></div><div class="doc-line w70"></div><div class="doc-line w80"></div></div>
+      <div class="doc doc-mid"><div class="doc-line w70"></div><div class="doc-line w90"></div><div class="doc-line w60"></div><div class="doc-line w80"></div><div class="doc-line w70"></div></div>
+      <div class="doc doc-front">
+        <span class="doc-tag">Dokumen Kerja</span>
+        <div class="doc-title">SOP Pengendalian Mutu — QA Officer</div>
+        <div class="doc-line w90"></div><div class="doc-line w80"></div><div class="doc-line w60"></div>
+        <div class="doc-line w90"></div><div class="doc-line w70"></div><div class="doc-line w80"></div>
+        <div class="doc-line w60"></div><div class="doc-line w90"></div>
+        <div class="doc-stamp">DIREVIEW MENTOR ✓</div>
+      </div>
+      <div class="doc-note">✍️ “Struktur sudah sesuai standar industri — siap masuk portfolio.”</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ AUTHORITY CHAIN ============ -->
+<div class="authority">
+  <div class="container">
+    <div class="authority-inner reveal">
+      <span>Belajar di <b>Mutululusan</b></span><span class="chain">→</span>
+      <span>Dibimbing <b>praktisi industri</b></span><span class="chain">→</span>
+      <span>Diselenggarakan <b>Padma Nusa Akademi</b></span><span class="chain">→</span>
+      <span>Divalidasi <b>sertifikasi LSP independen</b> <span class="kan">✓ Uji kompetensi terpisah</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROBLEMS ============ -->
+<section class="problems">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Masalahnya Bukan Kecerdasan</span>
+      <h2>Mengapa banyak lulusan tetap sulit mendapat pekerjaan?</h2>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg></div>
+        <h3>Belum pernah mengerjakan pekerjaannya</h3>
+        <p>Lulusan ditolak bukan karena nilai kurang baik — tapi karena belum pernah benar-benar mengerjakan tugas dari peran yang mereka lamar. Pengetahuan ada. Pengalaman kerja belum.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></div>
+        <h3>Sertifikat membuktikan hadir, bukan bisa bekerja</h3>
+        <p>Sertifikat pelatihan bisa didapat hanya dengan menonton video. Tidak ada tugas nyata, tidak ada mentor yang menilai hasil kerja Anda — padahal itu yang dicari perusahaan.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+        <h3>Training biasa berhenti di teori</h3>
+        <p>Tonton materi → kuis → sertifikat → selesai. Tidak ada yang meniru kondisi kerja sungguhan, sehingga peserta tetap tidak siap saat masuk dunia kerja sebenarnya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto">
+  <div class="container">
+    <span class="eyebrow reveal">Keyakinan Kami</span>
+    <div class="manifesto-lines">
+      <p class="reveal">Tidak ada orang yang menjadi siap kerja karena menonton video.<br>Tidak ada perusahaan yang mempekerjakan selembar sertifikat.</p>
+      <p class="reveal">Kompetensi lahir dari <b>mengerjakan</b>.<br>Kepercayaan lahir dari <b>bukti</b>.</p>
+      <p class="reveal">Kami percaya setiap orang berhak atas satu hal yang selama ini hanya dimiliki mereka yang sudah bekerja:<br><b>kesempatan untuk membuktikan dirinya.</b></p>
+      <p class="closing reveal">Karena itu kami tidak menjual materi.<br>Kami memberi Anda <span class="mark">pengalaman kerja pertama</span> Anda —<br>sebelum Anda diterima kerja.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OJT BIG REVEAL ============ -->
+<section class="ojt" id="ojt">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Metode Kami</span>
+      <h2>Online On-the-Job Training (OJT) — metode belajar terbaik untuk menjadi siap kerja.</h2>
+    </div>
+    <div class="ojt-copy reveal">
+      <p>Di dunia kerja, cara tercepat untuk benar-benar kompeten adalah <strong>On-the-Job Training</strong> — belajar langsung mengerjakan pekerjaan nyata dengan bimbingan senior.</p>
+      <p>Masalahnya: pengalaman ini biasanya baru didapat <strong>setelah</strong> seseorang diterima bekerja.</p>
+      <p>Karena itu Mutululusan.id menghadirkan program berbasis <span class="mark"><strong>Online OJT</strong></span> — sehingga mahasiswa, fresh graduate, dan career switcher bisa merasakan pengalaman kerja nyata <strong>sebelum</strong> melamar kerja, dan membangun bukti kompetensi yang bisa ditunjukkan ke dunia kerja.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-node reveal">
+        <div class="flow-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <div><h4>Studi Kasus</h4><p>Dari kondisi kerja nyata di industri</p></div>
+      </div>
+      <div class="flow-node reveal">
+        <div class="flow-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div><h4>Applied Project</h4><p>Mengerjakan dokumen kerja sungguhan</p></div>
+      </div>
+      <div class="flow-node reveal">
+        <div class="flow-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87"/></svg></div>
+        <div><h4>Mentoring</h4><p>Dibimbing seperti oleh senior di kantor</p></div>
+      </div>
+      <div class="flow-node reveal">
+        <div class="flow-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <div><h4>Review</h4><p>Hasil kerja dinilai, bukan kehadiran</p></div>
+      </div>
+      <div class="flow-node reveal">
+        <div class="flow-dot"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6"/></svg></div>
+        <div><h4>Portfolio &amp; Assessment</h4><p>Bukti akhir kompetensi Anda</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Cara Kerjanya</span>
+      <h2>Belajar seperti bekerja. Bukan sekadar mengikuti kelas.</h2>
+      <p class="muted" style="margin-top:14px;max-width:36rem">Peserta tidak “mengikuti kelas”. Peserta onboarding ke sebuah peran kerja — lengkap dengan tugas, supervisor, dan pekerjaan nyata yang harus diselesaikan.</p>
+    </div>
+    <div class="method-list">
+      <div class="method-row reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></div>
+        <h4>Minggu pertama = hari pertama kerja</h4>
+        <p>Onboarding ke peran, bukan “modul 1”. Anda langsung memegang konteks pekerjaan nyata.</p>
+      </div>
+      <div class="method-row reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg></div>
+        <h4>Mentor berperan sebagai supervisor</h4>
+        <p>Memberi tugas, mengawasi, dan me-review hasil kerja Anda — seperti senior di kantor.</p>
+      </div>
+      <div class="method-row reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M9 13h6M9 17h6"/></svg></div>
+        <h4>Tugas mingguan = dokumen kerja sungguhan</h4>
+        <p>SOP, checklist, laporan — bukan kuis pilihan ganda.</p>
+      </div>
+      <div class="method-row reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h4>Simulasi satu hari kerja penuh</h4>
+        <p>Merasakan pekerjaan aktual dari peran yang Anda tuju — dari pagi sampai tutup hari.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREER TRACKS ============ -->
+<section class="tracks" id="tracks">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Career Tracks</span>
+      <h2>Pilih peran yang ingin Anda kuasai.</h2>
+      <p class="muted" style="margin-top:14px;max-width:36rem">Anda tidak sedang memilih “kursus ISO” atau “kursus QA”. Anda sedang memilih <b>peran yang ingin Anda jalankan</b> — setiap Career Track memiliki satu Program Online OJT yang dirancang secara utuh.</p>
+    </div>
+
+    <div class="cluster reveal">
+      <div class="cluster-label">Management &amp; Governance</div>
+      <div class="track-grid">
+        <a href="#journey" class="track-card"><div><h4>Program QA Officer</h4><small>Menjaga sistem mutu berjalan sesuai standar</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program QMS (ISO 9001) Officer</h4><small>Membangun &amp; mengelola sistem ISO 9001</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Regulatory Affairs Officer</h4><small>Mengurus izin &amp; kepatuhan regulasi produk</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Food Safety Management Officer</h4><small>Mengelola sistem keamanan pangan</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Corporate Legal Officer</h4><small>Mengelola aspek legal &amp; kepatuhan perusahaan</small></div><span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="cluster reveal">
+      <div class="cluster-label">Sustainability &amp; ESG</div>
+      <div class="track-grid">
+        <a href="#journey" class="track-card"><div><h4>Program ESG Officer</h4><small>Mengelola pelaporan &amp; kinerja ESG</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Sustainability Officer</h4><small>Menjalankan agenda keberlanjutan organisasi</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program EMS (ISO 14001) Officer</h4><small>Mengelola sistem manajemen lingkungan</small></div><span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="cluster reveal">
+      <div class="cluster-label">Laboratory &amp; Testing</div>
+      <div class="track-grid">
+        <a href="#journey" class="track-card"><div><h4>Program QC Laboratory Analyst</h4><small>Melakukan analisis mutu di laboratorium</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Laboratory Quality System Officer</h4><small>Mengelola sistem mutu laboratorium</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program GLP Laboratory Technician</h4><small>Bekerja sesuai Good Laboratory Practice</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Laboratory HSE Officer</h4><small>Mengelola K3 &amp; keselamatan laboratorium</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Laboratory Operations Officer</h4><small>Mengelola operasional harian laboratorium</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program R&amp;D Officer</h4><small>Mengembangkan produk &amp; metode baru</small></div><span class="arrow">→</span></a>
+        <a href="#journey" class="track-card"><div><h4>Program Panelis Sensori Pangan</h4><small>Menjadi panelis uji sensori terstandar</small></div><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF SECTIONS ============ -->
+<section>
+  <div class="container">
+    <div class="proof-row">
+      <div class="reveal">
+        <span class="eyebrow">Pekerjaan Nyata</span>
+        <h3>Pekerjaan sungguhan, bukan tugas kuliah.</h3>
+        <p>Setiap program berpuncak pada dokumen kerja nyata yang benar-benar dipakai di industri — menyusun SOP yang benar-benar bisa diterapkan, laporan audit yang benar-benar bisa dipresentasikan.</p>
+      </div>
+      <div class="proof-visual reveal">
+        <div class="mini-doc">
+          <span class="doc-tag">Applied Project</span>
+          <div class="doc-title" style="font-size:.92rem">Audit Checklist — Internal Audit ISO 9001</div>
+          <div class="doc-line w90"></div><div class="doc-line w70"></div><div class="doc-line w80"></div><div class="doc-line w60"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-row">
+      <div class="proof-visual reveal">
+        <div class="mini-doc">
+          <span class="doc-tag">Portfolio</span>
+          <div class="doc-title" style="font-size:.92rem">Kumpulan Bukti Kerja Anda</div>
+          <ul class="checks">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> SOP &amp; Manual</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Risk Register</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> ESG Matrix / Validation Report</li>
+          </ul>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Portfolio</span>
+        <h3>Bukan daftar sertifikat. Bukti kerja nyata.</h3>
+        <p>Dokumen yang bisa langsung Anda tunjukkan saat wawancara: bukan lagi “saya pernah belajar”, tapi <b>“ini yang sudah saya kerjakan.”</b></p>
+      </div>
+    </div>
+
+    <div class="proof-row">
+      <div class="reveal">
+        <span class="eyebrow">Surat Rekomendasi</span>
+        <h3>Dinilai. Direkomendasikan.</h3>
+        <p>Mentor yang mengawasi pekerjaan Anda memberi penilaian nyata dalam bentuk surat rekomendasi yang bisa dilampirkan saat melamar kerja. Bukan template otomatis — penilaian dari orang yang benar-benar melihat cara Anda bekerja.</p>
+      </div>
+      <div class="proof-visual reveal">
+        <div class="mini-doc" style="position:relative">
+          <span class="doc-tag">Recommendation</span>
+          <div class="doc-title" style="font-size:.92rem">Surat Rekomendasi Mentor</div>
+          <div class="doc-line w90"></div><div class="doc-line w80"></div><div class="doc-line w60"></div><div class="doc-line w70"></div>
+          <div class="doc-stamp" style="position:static;display:inline-block;margin-top:12px">DIREKOMENDASIKAN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY ============ -->
+<section class="journey" id="journey">
+  <div class="container">
+    <div class="journey-head reveal">
+      <span class="eyebrow">Perjalanan Anda</span>
+      <h2>Satu perjalanan menuju siap kerja.</h2>
+      <p>Anda tidak sedang membeli pelatihan. Anda sedang memasuki perjalanan pengembangan karier — dari mencoba metode Online OJT selama 7 hari, sampai memegang bukti kompetensi yang diakui dunia kerja.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <h4>Kenali Online OJT</h4>
+          <p>Pahami mengapa belajar dengan mengerjakan pekerjaan nyata berbeda dari semua training yang pernah Anda ikuti.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <h4>Pilih Career Track</h4>
+          <p>Tentukan peran yang ingin Anda jalankan — QA Officer, ESG Officer, QC Laboratory Analyst, atau peran lain di dunia mutu, kepatuhan &amp; keberlanjutan.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <h4>Mulai: Applied Mini Project</h4>
+          <p>7 hari pertama Anda merasakan bekerja seperti profesional — dan pulang membawa satu dokumen kerja pertama yang direview mentor.</p>
+          <div class="step-meta"><span class="chip">7 hari</span><span class="chip price">Rp175.000</span></div>
+        </div>
+      </div>
+      <div class="step core reveal">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <h4>Jalani: Program Online OJT</h4>
+          <p>30 hari pengalaman kerja nyata — studi kasus, applied project, mentoring, dan review — sampai Anda benar-benar bisa mengerjakan pekerjaan dari peran yang Anda tuju.</p>
+          <div class="step-meta"><span class="chip">30 hari</span><span class="chip price">Rp1.750.000</span><span class="chip">Beasiswa via seleksi tersedia</span></div>
+          <div class="step-byline">Professional Development Program · diselenggarakan oleh PT Padma Nusa Akademi</div>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <h4>Portfolio &amp; Recommendation</h4>
+          <p>Portfolio dokumen kerja dan surat rekomendasi mentor — yang Anda bawa ke wawancara kerja.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <h4>Sertifikasi Kompetensi <span class="muted" style="font-weight:400;font-size:.85rem">(Opsional)</span></h4>
+          <p>Uji kompetensi resmi melalui LSP (Lembaga Sertifikasi Person) yang independen.</p>
+          <div class="trust-quote">Kami tidak menilai peserta kami sendiri. Itulah mengapa hasilnya dipercaya.</div>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">✓</div>
+        <div class="step-body">
+          <h4>Career Ready</h4>
+          <p>Melamar dengan bukti, bukan sekadar ijazah.</p>
+        </div>
+      </div>
+    </div>
+    <div class="journey-cta reveal">
+      <a href="#" class="btn btn-primary btn-lg">Mulai Perjalanan Anda</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONI ============ -->
+<section>
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:44rem;margin:0 auto">
+      <span class="eyebrow">Cerita Peserta</span>
+      <h2>Dari “belum tahu mulai dari mana” jadi siap ditawarkan pekerjaan.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <p>“Saya masuk tanpa tahu apa itu ISO 9001. Saya keluar dengan SOP yang benar-benar saya buat sendiri — dan itu yang saya tunjukkan saat interview.”</p>
+        <div class="who"><div class="avatar">A</div><div><b>Peserta Program QA Officer</b><small>Fresh Graduate</small></div></div>
+      </div>
+      <div class="testi reveal">
+        <p>“Rasanya seperti sudah bekerja. Ada tugas, ada deadline, ada mentor yang me-review. Saat wawancara, saya bercerita tentang pekerjaan — bukan tentang mata kuliah.”</p>
+        <div class="who"><div class="avatar">R</div><div><b>Peserta Program QC Lab Analyst</b><small>Career Switcher</small></div></div>
+      </div>
+      <div class="testi reveal">
+        <p>“Surat rekomendasi dari mentor jadi pembeda di lamaran saya. HR langsung bertanya tentang project yang saya kerjakan.”</p>
+        <div class="who"><div class="avatar">D</div><div><b>Peserta Program Regulatory Affairs</b><small>Mahasiswa Tingkat Akhir</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-wrap" id="faq">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow">FAQ</span>
+      <h2>Pertanyaan yang sering diajukan</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details open>
+        <summary>Apa itu Online OJT di Mutululusan? <span class="plus">+</span></summary>
+        <p>Metode belajar yang meniru pengalaman kerja nyata — studi kasus, applied project, mentoring, dan review — secara online, sebelum Anda diterima kerja. Anda diperlakukan seperti staf baru yang sedang onboarding, bukan seperti mahasiswa yang menonton video.</p>
+      </details>
+      <details>
+        <summary>Apa bedanya dengan bootcamp atau webinar biasa? <span class="plus">+</span></summary>
+        <p>Bootcamp dan webinar menjual materi dan durasi. Mutululusan memberi Anda pengalaman kerja nyata yang menghasilkan bukti kompetensi: dokumen kerja, portfolio, dan penilaian mentor yang bisa dibawa ke dunia kerja.</p>
+      </details>
+      <details>
+        <summary>Apa itu Program Online OJT (misalnya Program QA Officer)? <span class="plus">+</span></summary>
+        <p>Program inti Mutululusan selama 30 hari — pengalaman kerja nyata berbasis Online OJT untuk satu peran kerja, yang menghasilkan portfolio, penilaian mentor, dan surat rekomendasi. Secara formal tercatat sebagai Professional Development Program, diselenggarakan oleh PT Padma Nusa Akademi.</p>
+      </details>
+      <details>
+        <summary>Saya belum punya pengalaman kerja sama sekali. Cocok? <span class="plus">+</span></summary>
+        <p>Justru untuk itu Online OJT dirancang — mengganti pengalaman kerja yang belum Anda miliki dengan bukti kerja nyata yang bisa Anda tunjukkan ke perusahaan.</p>
+      </details>
+      <details>
+        <summary>Mulai dari mana? <span class="plus">+</span></summary>
+        <p>Applied Mini Project — 7 hari pertama Anda merasakan metode Online OJT dan pulang membawa satu dokumen profesional. Setelah itu, lanjutkan ke Program Online OJT pilihan Anda.</p>
+      </details>
+      <details>
+        <summary>Apakah sertifikasinya resmi? <span class="plus">+</span></summary>
+        <p>Sertifikasi kompetensi dilakukan oleh LSP (Lembaga Sertifikasi Person) yang independen. Kami tidak menilai peserta kami sendiri sehingga proses sertifikasi dilakukan secara objektif dan dapat dipercaya. Sertifikasi bersifat opsional setelah program selesai.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section style="padding-top:64px">
+  <div class="cta-band reveal">
+    <h2>Pengalaman kerja pertama Anda dimulai di sini.</h2>
+    <p>Perjalanan menuju siap kerja dimulai dari satu langkah kecil — 7 hari pertama Anda bekerja seperti profesional.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="#journey" class="btn btn-primary btn-lg">Mulai Perjalanan Karier</a>
+      <a href="#tracks" class="btn btn-ghost btn-lg">Lihat Career Tracks</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo" style="display:inline-block;margin-bottom:14px">mutu<span>lulusan</span>.id</a>
+        <p style="max-width:26rem">Career Development Platform berbasis Online On-the-Job Training untuk mengembangkan kompetensi pada berbagai peran di bidang mutu, kepatuhan, laboratorium, dan keberlanjutan.</p>
+      </div>
+      <div>
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#ojt">Online OJT</a></li>
+          <li><a href="#tracks">Career Tracks</a></li>
+          <li><a href="#journey">Perjalanan &amp; Biaya</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Di Balik Mutululusan</h5>
+        <ul>
+          <li><b>PT Padma Nusa Akademi</b><small>Penyelenggara resmi seluruh program</small></li>
+          <li><b>LSP Independen</b><small>Uji kompetensi dilakukan terpisah dari penyelenggara program</small></li>
+          <li><b>Praktisi industri</b><small>Mentor &amp; reviewer di setiap program</small></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mutululusan.id. Seluruh hak cipta dilindungi.</span>
+      <span>Semarang, Jawa Tengah, Indonesia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA -->
+<div class="sticky-cta">
+  <a href="#journey" class="btn btn-primary">Mulai Perjalanan</a>
+  <a href="#tracks" class="btn btn-ghost">Career Tracks</a>
+</div>
+
+<script>
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+document.querySelectorAll('#navlinks a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open'));
+});
+</script>
+</body>
+</html>
