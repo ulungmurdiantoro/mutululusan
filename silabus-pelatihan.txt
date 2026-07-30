@@ -1,0 +1,283 @@
+SILABUS SELURUH PROGRAM PELATIHAN — mutululusan.id
+====================================================
+
+
+1. Laboratory Quality System Officer ISO/IEC 17025
+----------------------------------------------------
+
+Klausul 4-5 - Imparsialitas & Struktur Organisasi
+- Ketidakberpihakan: analisis risiko ketidakberpihakan
+- Kebijakan dan prosedur kerahasiaan
+- Status legal & struktur organisasi laboratorium
+- Wewenang, tanggung jawab & peran personel
+
+Klausul 6 - Pengelolaan Sumber Daya
+- Kompetensi personel & kondisi lingkungan
+- Ketertelusuran metrologi
+- Pengelolaan produk & jasa eksternal
+
+Klausul 7 - Persyaratan Proses
+- Kaji ulang permintaan, tender & kontrak
+- Seleksi, verifikasi & validasi metode
+- Pengambilan sampel & penanganan barang uji
+- Keabsahan hasil & pelaporan
+- Analisis keluhan & ketidaksesuaian
+
+Klausul 8 - Sistem Manajemen Laboratorium
+- Opsi sistem manajemen (A & B)
+- Pengendalian dokumen & rekaman
+- Tindakan risiko & peluang
+- Audit internal & kaji ulang manajemen
+
+
+2. Laboratory HSE Officer
+----------------------------------------------------
+
+Hari 1 - Dasar K3 Laboratorium & Manajemen Risiko
+- Regulasi K3 laboratorium di Indonesia
+- HIRADC: identifikasi bahaya, penilaian & pengendalian risiko
+- Hirarki pengendalian & alat pelindung diri (APD)
+- Pengelolaan bahan kimia: GHS, SDS, penyimpanan & kompatibilitas
+
+Hari 2 - Operasional K3L & Kesiapsiagaan
+- Pengelolaan limbah B3 laboratorium
+- Perencanaan & simulasi tanggap darurat
+- Inspeksi K3 & investigasi insiden
+- Membangun budaya K3 & program perbaikan berkelanjutan
+
+
+3. GLP Laboratory Technician
+----------------------------------------------------
+
+Hari 1 - Prinsip & Organisasi GLP
+- Konsep dan ruang lingkup Good Laboratory Practice
+- Peran & tanggung jawab personel laboratorium
+- Fasilitas, peralatan, dan bahan: kualifikasi & pemeliharaan
+- Penanganan sampel: penerimaan, identifikasi, penyimpanan, disposisi
+
+Hari 2 - Integritas Data & Dokumentasi
+- Prinsip ALCOA / ALCOA+ dalam pencatatan data
+- Good Documentation Practice: logbook, formulir, koreksi data
+- Penyimpangan, OOS, dan tindakan perbaikan
+- Pengarsipan & ketertelusuran rekaman
+
+
+4. Jaminan Mutu Hasil Pengujian
+----------------------------------------------------
+
+Hari 1 - Konsep & Perangkat Jaminan Mutu
+- Persyaratan pemastian keabsahan hasil pengujian
+- Bahan acuan & bahan kontrol: pemilihan dan penggunaan
+- Kontrol mutu internal: blanko, duplikat, spike, CRM
+
+Hari 2 - Pemantauan & Evaluasi
+- Control chart: pembuatan, batas kendali, interpretasi
+- Uji profisiensi & uji banding antar laboratorium
+- Evaluasi tren data dan tindakan atas hasil di luar kriteria
+
+
+5. QC Laboratory Analyst
+----------------------------------------------------
+
+Hari 1 - Fondasi Kerja Analis QC
+- Peran QC dalam sistem mutu industri
+- Alur pengujian: sampling, preparasi, analisis, pelaporan
+- Dasar verifikasi & validasi metode analisis
+- Kalibrasi & pengecekan antara peralatan
+
+Hari 2 - Kontrol Mutu & Pelaporan
+- QC internal dalam rutinitas pengujian
+- Penanganan out-of-specification (OOS) & out-of-trend (OOT)
+- Dokumentasi & integritas data pengujian
+- Studi kasus lintas industri & diskusi
+
+
+6. Laboratory Operations Officer (Pranata Laboratorium)
+----------------------------------------------------
+
+Hari 1 - Manajemen Operasional Laboratorium
+- Peran & kompetensi pranata laboratorium
+- Perencanaan kegiatan dan layanan laboratorium
+- Pengelolaan peralatan: inventarisasi, perawatan, kalibrasi
+- Pengelolaan bahan & bahan berbahaya
+
+Hari 2 - Administrasi, Mutu & Keselamatan
+- Administrasi laboratorium & sistem pencatatan
+- Standar layanan dan kepuasan pengguna laboratorium
+- K3 dalam operasional harian laboratorium
+- Evaluasi kinerja & pengembangan laboratorium
+
+
+7. Research and Development Officer
+----------------------------------------------------
+
+Hari 1 - Kerangka Kerja R&D
+- Peran R&D dalam strategi perusahaan
+- Siklus pengembangan produk: ide hingga peluncuran
+- Dasar perancangan eksperimen (DoE)
+- Pengembangan & optimasi metode
+
+Hari 2 - Eksekusi & Dokumentasi Riset
+- Analisis & interpretasi data riset
+- Dokumentasi riset dan kekayaan intelektual dasar
+- Scale-up & transfer teknologi ke produksi
+- Studi kasus pengembangan produk
+
+
+8. Quality Assurance Officer
+----------------------------------------------------
+
+Hari 1 - Sistem Pemastian Mutu
+- QA vs QC: peran dalam sistem mutu perusahaan
+- Prinsip manajemen mutu & pendekatan proses
+- Pengendalian dokumen & rekaman
+- Manajemen perubahan (change control)
+
+Hari 2 - Pengendalian & Perbaikan
+- Manajemen penyimpangan & investigasi akar masalah
+- CAPA: tindakan korektif & preventif yang efektif
+- Audit mutu internal
+- Indikator kinerja mutu & pelaporan manajemen
+
+
+9. Quality Management System (ISO 9001) Officer
+----------------------------------------------------
+
+Hari 1 - Memahami ISO 9001:2015
+- Prinsip manajemen mutu & struktur High Level Structure
+- Konteks organisasi & pihak berkepentingan
+- Kepemimpinan, kebijakan & sasaran mutu
+- Perencanaan: risiko & peluang
+
+Hari 2 - Penerapan & Evaluasi
+- Dukungan: sumber daya, kompetensi, informasi terdokumentasi
+- Operasi & pengendalian proses
+- Evaluasi kinerja, audit internal & tinjauan manajemen
+- Ketidaksesuaian & perbaikan berkelanjutan
+
+
+10. Regulatory Affairs Officer
+----------------------------------------------------
+
+Hari 1 - Peta Regulasi & Registrasi Produk
+- Peran regulatory affairs dalam siklus hidup produk
+- Kerangka regulasi BPOM & kementerian terkait
+- Klasifikasi produk & jalur registrasi/notifikasi
+- Penyusunan dokumen teknis (dossier)
+
+Hari 2 - Kepatuhan & Pasca-Pemasaran
+- Labeling, iklan & klaim produk
+- Variasi, perpanjangan & manajemen perubahan registrasi
+- Kewajiban pasca-pemasaran & penanganan temuan
+- Studi kasus registrasi produk
+
+
+11. Environmental Management System (ISO 14001) Officer
+----------------------------------------------------
+
+Hari 1 - Memahami ISO 14001:2015
+- Isu lingkungan & konteks organisasi
+- Aspek & dampak lingkungan: identifikasi dan evaluasi
+- Kewajiban kepatuhan & evaluasi pemenuhan
+- Kebijakan & sasaran lingkungan
+
+Hari 2 - Penerapan & Evaluasi
+- Pengendalian operasional & pengelolaan limbah
+- Kesiapsiagaan & tanggap darurat lingkungan
+- Pemantauan, pengukuran & evaluasi kinerja lingkungan
+- Audit internal & tinjauan manajemen
+
+
+12. Sustainability Officer
+----------------------------------------------------
+
+Hari 1 - Kerangka Keberlanjutan
+- Konsep keberlanjutan & tren global-nasional
+- SDGs dan relevansinya bagi organisasi
+- Pemetaan isu material & pemangku kepentingan
+- Dasar pengukuran jejak karbon organisasi
+
+Hari 2 - Program & Pelaporan
+- Program efisiensi energi, air & pengelolaan limbah
+- Integrasi keberlanjutan dengan sistem manajemen yang ada
+- Dasar pelaporan keberlanjutan
+- Menyusun roadmap keberlanjutan organisasi
+
+
+13. ESG Officer
+----------------------------------------------------
+
+Hari 1 - Memahami Kerangka ESG
+- Evolusi ESG & dorongan pasar-regulasi
+- Pilar E, S, G dan indikator kuncinya
+- Lanskap standar pengungkapan & regulasi di Indonesia
+- Manajemen risiko ESG
+
+Hari 2 - Implementasi ESG
+- Rating ESG & cara kerjanya
+- Pengumpulan & pengelolaan data ESG
+- Menyusun inisiatif ESG prioritas
+- Komunikasi & pelaporan ESG
+
+
+14. Food Safety Management Officer
+----------------------------------------------------
+
+Hari 1 - Fondasi Keamanan Pangan
+- Bahaya keamanan pangan: biologis, kimia, fisik, alergen
+- Program prasyarat: GMP & SSOP
+- Regulasi keamanan pangan di Indonesia
+- Budaya keamanan pangan
+
+Hari 2 - HACCP & Sistem Manajemen
+- 12 langkah & 7 prinsip HACCP
+- Latihan menyusun analisis bahaya & CCP
+- Pengantar ISO 22000 / FSSC 22000
+- Verifikasi, validasi & perbaikan sistem
+
+
+15. Ketidakpastian Pengukuran
+----------------------------------------------------
+
+Hari 1 - Konsep Dasar
+- Terminologi: kesalahan, presisi, akurasi, ketidakpastian
+- Persyaratan pelaporan ketidakpastian pengukuran
+- Identifikasi sumber ketidakpastian (diagram tulang ikan)
+
+Hari 2 - Evaluasi & Perhitungan
+- Evaluasi tipe A: statistik pengukuran berulang
+- Evaluasi tipe B: sertifikat, spesifikasi, resolusi
+- Menyusun budget ketidakpastian
+
+Hari 3 - Penggabungan & Pelaporan
+- Ketidakpastian gabungan & faktor cakupan
+- Latihan kasus laboratorium pengujian dan kalibrasi
+- Pelaporan ketidakpastian pada sertifikat hasil
+
+
+16. Panelis Terlatih Pengujian Sensori Pangan
+----------------------------------------------------
+
+Hari 1 - Dasar Sensori & Uji Diskriminatif
+- Prinsip evaluasi sensori & fisiologi indra
+- Persyaratan panelis & pengendalian bias
+- Praktik uji ambang rangsangan
+- Praktik uji diskriminatif: segitiga & duo-trio
+
+Hari 2 - Uji Deskriptif, Afektif & Analisis Data
+- Praktik uji deskriptif & pembentukan atribut
+- Praktik uji afektif (hedonik)
+- Analisis data hasil uji sensori
+- Asesmen & sertifikasi kompetensi panelis oleh LSP Edukia
+
+
+====================================================
+Program berikut belum punya silabus lengkap - halaman
+sudah tersedia, materi masih disusun ("Kurikulum sedang
+disusun"):
+
+17. Corporate Legal Officer
+18. Lifting Engineer for Medium Lifting
+19. Lifting Engineer for Heavy & Critical Lifting
+20. 2D Lifting Designer
+21. 3D Lifting Designer

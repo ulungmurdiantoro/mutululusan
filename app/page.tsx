@@ -570,7 +570,7 @@ export default function HomePage() {
           <div className="grid items-center gap-10 py-8 md:grid-cols-2">
             <ScrollReveal>
               <span className="text-xs font-bold uppercase tracking-wide text-orange-600">Pekerjaan Nyata</span>
-              <h3 className="mt-2 text-2xl font-bold text-slate-900">Pekerjaan sungguhan, bukan tugas kuliah.</h3>
+              <h3 className="mt-2 text-2xl font-bold text-slate-900">Pekerjaan sungguhan, Bukan Penugasan Biasa.</h3>
               <p className="mt-3 max-w-md text-slate-600">
                 Setiap program berpuncak pada dokumen kerja nyata yang benar-benar dipakai di
                 industri — menyusun SOP yang benar-benar bisa diterapkan, laporan audit yang
